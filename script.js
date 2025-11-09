@@ -9,7 +9,7 @@ const submitBtn = document.getElementById('submitBtn');
 const btnText = document.getElementById('btnText');
 const messageDiv = document.getElementById('message');
 
-// Simple form submission
+// Form submission handler
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
     
@@ -28,7 +28,7 @@ form.addEventListener('submit', async (e) => {
         return;
     }
     
-    // Show loading
+    // Show loading state
     setLoading(true);
     
     try {
@@ -37,37 +37,49 @@ form.addEventListener('submit', async (e) => {
             headers: {
                 'Content-Type': 'application/json',
                 'apikey': SUPABASE_ANON_KEY,
-                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                'Prefer': 'return=minimal'
             },
             body: JSON.stringify({ email })
         });
         
         if (response.ok) {
-            showMessage('Thank you! We\'ll notify you soon.', 'success');
+            showMessage('Thank you! We\'ll notify you when we launch.', 'success');
             emailInput.value = '';
+            
+            // Track successful signup (you could add analytics here)
+            console.log('Email successfully added to waitlist:', email);
         } else {
             // Handle different error types
             if (response.status === 409) {
-                showMessage('Email already registered', 'error');
+                showMessage('This email is already registered for notifications.', 'error');
             } else {
+                const errorData = await response.json().catch(() => ({}));
+                console.error('Submission error:', errorData);
                 showMessage('Something went wrong. Please try again.', 'error');
             }
         }
     } catch (error) {
-        console.error('Error:', error);
-        showMessage('Network error. Please try again.', 'error');
+        console.error('Network error:', error);
+        showMessage('Network error. Please check your connection and try again.', 'error');
     } finally {
         setLoading(false);
     }
 });
 
-// Simple loading state
+// Loading state management
 function setLoading(isLoading) {
     submitBtn.disabled = isLoading;
     btnText.textContent = isLoading ? 'Please wait...' : 'Notify Me';
+    
+    if (isLoading) {
+        submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
+    } else {
+        submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
+    }
 }
 
-// Simple message display
+// Message display function
 function showMessage(text, type) {
     messageDiv.textContent = text;
     messageDiv.className = type === 'success' ? 'success-message' : 'error-message';
@@ -79,7 +91,50 @@ function showMessage(text, type) {
     }, 5000);
 }
 
+// Add smooth scroll behavior for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+
 // Simple initialization
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Railquick website loaded');
+    
+    // Add animation to elements when they come into view
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-fade-in');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+    
+    // Observe feature cards
+    document.querySelectorAll('.grid > div').forEach(card => {
+        observer.observe(card);
+    });
 });
+
+// Add fade-in animation
+const style = document.createElement('style');
+style.textContent = `
+    .animate-fade-in {
+        animation: fadeIn 0.5s ease-in-out;
+    }
+`;
+document.head.appendChild(style);
