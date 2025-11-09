@@ -44,7 +44,7 @@ form.addEventListener('submit', async (e) => {
         });
         
         if (response.ok) {
-            showMessage('Thank you! We\'ll notify you when we launch.', 'success');
+            showMessage('Thank you! We\'ll notify you when we launch in Delhi.', 'success');
             emailInput.value = '';
             
             // Track successful signup (you could add analytics here)
