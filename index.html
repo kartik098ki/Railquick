@@ -8,92 +8,338 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <!-- Header -->
     <header class="header">
-        <div class="logo-container">
+        <a href="#" id="logoLink" class="logo-container">
             <div class="brand-element"></div>
             <span class="logo-text">railquick</span>
-        </div>
+        </a>
+        <nav class="nav-menu">
+            <a href="#" id="homeLink" class="nav-link active">Home</a>
+            <a href="#" id="founderLink" class="nav-link">Contact Founder</a>
+            <a href="#" id="hiringLink" class="nav-link">We're Hiring</a>
+        </nav>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <i class="fas fa-bars"></i>
+        </button>
     </header>
 
     <!-- Main Content -->
     <main class="main-content">
-        <div class="content-container">
-            <!-- India's First Badge -->
-            <div class="badge">
-                <svg class="badge-icon" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.538 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.783.57-1.838-.197-1.538-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-                </svg>
-                <span>India's First</span>
-                <svg class="badge-icon" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.538 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.783.57-1.838-.197-1.538-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-                </svg>
+        <!-- Home Section -->
+        <section id="homeSection" class="content-section active">
+            <!-- Hero Section -->
+            <div class="hero-section">
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <i class="fas fa-star"></i>
+                        <span>India's First</span>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    
+                    <h1 class="hero-title">
+                        Train On-Seat
+                        <span class="title-bold">Essential Delivery</span>
+                    </h1>
+                    
+                    <p class="hero-description">
+                        Travel essentials, medicines, and daily needs delivered 
+                        directly to your train seat.
+                    </p>
+                    
+                    <div class="hero-actions">
+                        <button class="app-btn" id="downloadAppBtn">
+                            <i class="fas fa-download"></i>
+                            Download Our App
+                        </button>
+                    </div>
+                </div>
             </div>
             
-            <h1 class="main-title">
-                Train On-Seat
-                <br />
-                <span class="title-bold">Essential Delivery</span>
-            </h1>
+            <!-- Service Banner -->
+            <div class="service-banner">
+                <div class="banner-content">
+                    <div class="banner-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="banner-text">
+                        <h3>Testing Soon in Delhi</h3>
+                        <p>Hazrat Nizamuddin, New Delhi, Delhi Junction, and Anand Vihar Terminal</p>
+                    </div>
+                    <div class="banner-badge">
+                        <span>Coming Soon</span>
+                    </div>
+                </div>
+            </div>
             
-            <p class="description">
-                Travel essentials, medicines, and daily needs delivered 
-                directly to your train seat.
-            </p>
+            <!-- Product Categories -->
+            <div class="product-categories">
+                <h2 class="section-title">What We Deliver</h2>
+                <div class="categories-container">
+                    <div class="category-card">
+                        <div class="category-icon">
+                            <i class="fas fa-pills"></i>
+                        </div>
+                        <h3>Medicines</h3>
+                        <p>Essential medicines and basic medical supplies</p>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <h3>Food & Snacks</h3>
+                        <p>Fresh meals, snacks, and beverages</p>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">
+                            <i class="fas fa-tshirt"></i>
+                        </div>
+                        <h3>Travel Essentials</h3>
+                        <p>Blankets, pillows, and travel accessories</p>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">
+                            <i class="fas fa-laptop"></i>
+                        </div>
+                        <h3>Electronics</h3>
+                        <p>Chargers, earphones, and other gadgets</p>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">
+                            <i class="fas fa-toilet-paper"></i>
+                        </div>
+                        <h3>Toiletries</h3>
+                        <p>Personal hygiene products and essentials</p>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">
+                            <i class="fas fa-gift"></i>
+                        </div>
+                        <h3>Famous City Items</h3>
+                        <p>Local specialties, souvenirs, and famous products from cities along your route</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Don't See Section -->
+            <div class="dont-see-section">
+                <div class="dont-see-content">
+                    <h2 class="section-title">Don't See What You Need?</h2>
+                    <p>Tell us what you're looking for and we'll try our best to add it to our delivery list!</p>
+                    
+                    <form id="dontSeeForm" class="dont-see-form">
+                        <div class="input-container">
+                            <input 
+                                type="text" 
+                                id="dontSeeInput" 
+                                name="need" 
+                                class="dont-see-input" 
+                                placeholder="Type what you need..."
+                                required
+                            />
+                            <button type="submit" class="dont-see-submit-btn">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </form>
+                    
+                    <div id="dontSeeMessage"></div>
+                </div>
+            </div>
+        </section>
 
-            <!-- Email Form -->
-            <form id="emailForm" class="email-form">
-                <div class="form-container">
-                    <input 
-                        type="email" 
-                        id="email"
-                        placeholder="Enter your email"
-                        class="email-input"
-                        required
-                    />
-                    <button 
-                        type="submit" 
-                        id="submitBtn"
-                        class="notify-button"
-                    >
-                        <span id="btnText">Notify Me</span>
-                    </button>
-                </div>
-            </form>
-            
-            <div id="message"></div>
-            
-            <p class="launch-text">
-                Launching soon in Delhi railway stations
-            </p>
-            
-            <!-- Contact Founder Section -->
-            <div class="contact-section">
-                <h3 class="contact-title">Contact Founder</h3>
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <svg class="contact-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                        </svg>
-                        <a href="mailto:contact.railquick@gmail.com" class="contact-link">contact.railquick@gmail.com</a>
+        <!-- Founder Section -->
+        <section id="founderSection" class="content-section">
+            <div class="content-container">
+                <h2 class="section-title">Contact Founder</h2>
+                
+                <div class="founder-profile">
+                    <div class="founder-image">
+                        <img src="https://picsum.photos/seed/founder123/300/300.jpg" alt="Founder" />
                     </div>
-                    <div class="contact-item">
-                        <svg class="contact-icon" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                        </svg>
-                        <a href="https://www.linkedin.com/in/kartikguleria1/" target="_blank" class="contact-link">LinkedIn Profile</a>
+                    
+                    <div class="founder-details">
+                        <h3 class="founder-name">Kartik Guleria</h3>
+                        <p class="founder-title">Founder & CEO</p>
+                        
+                        <div class="founder-bio">
+                            <p>Kartik is a passionate entrepreneur with a vision to revolutionize train travel in India. With a background in technology and a deep understanding of challenges faced by train passengers, he founded RailQuick to solve everyday problems of millions of travelers.</p>
+                            
+                            <p>His journey began with a simple observation: train passengers often struggle to access essential items during their journey. This insight led to the creation of RailQuick, India's first on-seat essential delivery service for trains.</p>
+                        </div>
+                        
+                        <div class="founder-contact">
+                            <h4>Get in Touch</h4>
+                            <div class="contact-info">
+                                <div class="contact-item">
+                                    <svg class="contact-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                    </svg>
+                                    <a href="mailto:contact.railquick@gmail.com" class="contact-link">contact.railquick@gmail.com</a>
+                                </div>
+                                <div class="contact-item">
+                                    <svg class="contact-icon" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                                    </svg>
+                                    <a href="https://www.linkedin.com/in/kartikguleria1/" target="_blank" class="contact-link">LinkedIn Profile</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="https://picsum.photos/seed/harshit123/300/300.jpg" alt="Operation Head" />
+                    </div>
+                    
+                    <div class="member-details">
+                        <h3 class="member-name">Harshit Sinha</h3>
+                        <p class="member-title">Operation Head</p>
+                        
+                        <div class="member-bio">
+                            <p>Harshit brings extensive experience in operations management to RailQuick. With a background in logistics and supply chain optimization, he ensures seamless delivery operations across railway stations. His focus on efficiency and customer satisfaction is key to RailQuick's success.</p>
+                        </div>
+                        
+                        <div class="member-contact">
+                            <h4>Get in Touch</h4>
+                            <div class="contact-info">
+                                <div class="contact-item">
+                                    <svg class="contact-icon" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                                    </svg>
+                                    <a href="https://www.linkedin.com/in/harshit-sinha-3833172a1/" target="_blank" class="contact-link">LinkedIn Profile</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
+
+        <!-- Hiring Section -->
+        <section id="hiringSection" class="content-section">
+            <div class="content-container">
+                <h2 class="section-title">Join Our Team</h2>
+                
+                <div class="hiring-message">
+                    <p>Hey,</p>
+                    <p>We're not some big company — we're building one, from the ground up. RailQuick started because of a problem every traveler has faced, and we decided to fix it. No fancy talk — just pure hustle, ideas, and long nights turning dreams into reality.</p>
+                    <p>We've given our time, skills, and everything we've got to make this happen. Now, we need a crew — hungry minds who want to build, learn, fail fast, and grow faster.</p>
+                    <p>If you're someone who believes in action over talk, who's ready to give real time and energy — welcome. We're not hiring employees. We're building a family.</p>
+                    <p>Let's go make something crazy together.</p>
+                </div>
+                
+                <form id="hiringForm" class="hiring-form">
+                    <div class="form-group">
+                        <label for="applicantName" class="form-label">Name *</label>
+                        <input type="text" id="applicantName" name="name" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="applicantEmail" class="form-label">Email ID *</label>
+                        <input type="email" id="applicantEmail" name="email" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="applicantPhone" class="form-label">Contact Number</label>
+                        <input type="tel" id="applicantPhone" name="phone" class="form-input">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="applicantReason" class="form-label">Why do you want to join us? *</label>
+                        <textarea id="applicantReason" name="reason" class="form-textarea" rows="4" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="applicantLinkedIn" class="form-label">LinkedIn Profile *</label>
+                        <input type="url" id="applicantLinkedIn" name="linkedin" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="applicantJourney" class="form-label">Previous Work/Journey</label>
+                        <textarea id="applicantJourney" name="journey" class="form-textarea" rows="4"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-application-btn">Submit Application</button>
+                </form>
+                
+                <div id="hiringMessage"></div>
+            </div>
+        </section>
     </main>
 
     <!-- Footer -->
     <footer class="footer">
-        <p>© 2025 Railquick. Revolutionizing train travel.</p>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <div class="brand-element"></div>
+                <span class="logo-text">railquick</span>
+            </div>
+            <div class="footer-links">
+                <a href="#" id="footerHomeLink" class="footer-link">Home</a>
+                <a href="#" id="footerFounderLink" class="footer-link">Contact Founder</a>
+                <a href="#" id="footerHiringLink" class="footer-link">We're Hiring</a>
+            </div>
+            <div class="footer-social">
+                <a href="https://www.linkedin.com/in/kartikguleria1/" target="_blank" class="social-link">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="mailto:contact.railquick@gmail.com" class="social-link">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <p>© 2025 Railquick. Revolutionizing train travel.</p>
+        </div>
     </footer>
+
+    <!-- Modal -->
+    <div id="appModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-icon">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <h3>Get Ready for RailQuick!</h3>
+                <button class="close-modal" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-description">
+                    <p>Our revolutionary on-demand delivery service for train passengers is launching soon!</p>
+                    <p>We're currently testing our service in Delhi railway stations to ensure you get the best experience when we go live.</p>
+                    <div class="feature-highlights">
+                        <div class="feature-item">
+                            <i class="fas fa-bolt"></i>
+                            <span>Lightning Fast Delivery</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-map-marked-alt"></i>
+                            <span>Real-time Tracking</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Secure Payments</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="email-signup">
+                    <input type="email" id="emailInput" placeholder="Enter your email address" class="email-input">
+                    <button id="notifyBtn" class="notify-btn">Notify Me</button>
+                </div>
+                <div id="emailMessage"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn" id="closeModalBtn">Got it</button>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
