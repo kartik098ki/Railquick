@@ -84,7 +84,7 @@ body {
 
 /* Mobile Navigation Links in Header - Fixed overlapping */
 .mobile-nav-links {
-    display: flex;
+    display: none;
     align-items: center;
     gap: 1rem;
 }
@@ -103,16 +103,6 @@ body {
 .mobile-nav-link:hover {
     color: #9333ea;
     background-color: #ede9fe;
-}
-
-/* Mobile Menu Button */
-.mobile-menu-btn {
-    display: none;
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    color: #111827;
-    cursor: pointer;
 }
 
 /* Main Content */
@@ -1016,23 +1006,31 @@ body {
 
 /* Mobile Specific Styles */
 @media (max-width: 767px) {
-    .mobile-nav-links {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-        width: 100%;
-        margin-top: 0.5rem;
-    }
-    
-    .mobile-menu-btn {
-        display: none;
-    }
-    
+    /* --- REVISED MOBILE HEADER --- */
     .header {
-        padding: 1rem 1rem;
-        flex-wrap: wrap;
-        gap: 0.5rem;
+        padding: 1rem;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.75rem;
     }
+
+    .logo-container {
+        order: 1;
+    }
+
+    .mobile-nav-links {
+        order: 2;
+        display: flex;
+        justify-content: center;
+        gap: 0.75rem;
+        width: 100%;
+    }
+
+    .mobile-nav-link {
+        font-size: 0.8rem;
+        padding: 0.25rem 0.5rem;
+    }
+    /* --- END OF MOBILE HEADER REVISION --- */
     
     .logo-text {
         font-size: 1.25rem;
@@ -1106,51 +1104,72 @@ body {
         padding: 0.25rem 0.75rem;
     }
     
+    /* --- REVISED MOBILE FOOTER --- */
     .footer-content {
-        gap: 2rem;
+        gap: 1.5rem;
+    }
+
+    .footer-top {
+        gap: 1.5rem;
     }
     
     .footer-links {
-        gap: 1.5rem;
+        flex-direction: column;
+        gap: 0.75rem;
     }
     
     .footer-link {
         font-size: 0.9rem;
     }
+    /* --- END OF MOBILE FOOTER REVISION --- */
 }
 
 /* Responsive Design for Modal */
 @media (max-width: 640px) {
+    /* --- REVISED MOBILE MODAL --- */
     .modal-content {
         width: 95%;
-        max-width: none;
-        max-height: 90vh;
+        max-width: 400px; /* Constrain max width for better readability */
+        max-height: 85vh; /* Slightly reduced max height */
         overflow-y: auto;
+        margin: 1rem; /* Add margin to prevent edge touching */
+    }
+    
+    .modal-header {
+        padding: 1.5rem 1.5rem 1rem;
+        text-align: center;
+    }
+    
+    .modal-body {
+        padding: 1rem 1.5rem 1.5rem;
+    }
+
+    .modal-description p {
+        font-size: 1rem; /* Ensure readable font size */
+        line-height: 1.5;
     }
     
     .feature-highlights {
         flex-direction: column;
-        gap: 0.75rem;
+        gap: 1rem;
+        padding: 1rem;
     }
     
     .feature-item {
         width: 100%;
         flex-direction: row;
-        justify-content: center;
-        gap: 0.75rem;
+        justify-content: flex-start;
+        gap: 1rem;
     }
     
-    .modal-header {
-        padding: 1.25rem 1rem 0.5rem;
-    }
-    
-    .modal-body {
-        padding: 1rem 1rem;
+    .feature-item span {
+        font-size: 0.8rem; /* Slightly larger for readability */
     }
     
     .modal-footer {
-        padding: 0.5rem 1rem;
+        padding: 1rem 1.5rem;
     }
+    /* --- END OF MOBILE MODAL REVISION --- */
 }
 
 /* Modal content styles (kept for completeness) */
