@@ -925,27 +925,114 @@ body {
     border: 1px solid rgba(147, 51, 234, 0.1);
 }
 
+/* Hide the modal header (pink section with icon) */
+.modal-header {
+    display: none;
+}
+
+/* Hide the feature highlights section */
+.feature-highlights {
+    display: none;
+}
+
+/* Adjust modal body padding since header is removed */
+.modal-body {
+    padding: 2rem 1.5rem 1.5rem;
+    text-align: center;
+}
+
+.modal-description {
+    margin-bottom: 1.5rem;
+}
+
+.modal-description p {
+    margin-bottom: 1rem;
+    color: #4b5563;
+    text-align: center;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.email-signup {
+    display: flex;
+    margin-bottom: 0.75rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    margin-top: 1rem;
+}
+
+.email-input {
+    flex: 1;
+    padding: 0.75rem 0.875rem;
+    border: none;
+    font-size: 0.875rem;
+    background-color: white;
+}
+
+.email-input:focus {
+    outline: none;
+}
+
+.notify-btn {
+    padding: 0.75rem 1.25rem;
+    border: none;
+    background: linear-gradient(90deg, #9333ea, #a855f7);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.notify-btn:hover {
+    background: linear-gradient(90deg, #8b2fc9, #9d4bf3);
+    transform: translateY(-2px);
+    box-shadow: 0 3px 6px rgba(147, 51, 234, 0.2);
+}
+
+.modal-footer {
+    padding: 0.75rem 1.25rem;
+    border-top: 1px solid #e5e7eb;
+    text-align: center;
+}
+
+.modal-btn {
+    background: linear-gradient(90deg, #9333ea, #a855f7);
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 3px 8px rgba(147, 51, 234, 0.2);
+    font-size: 0.875rem;
+}
+
+.modal-btn:hover {
+    background: linear-gradient(90deg, #8b2fc9, #9d4bf3);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(147, 51, 234, 0.25);
+}
+
 /* Media query for larger screens (laptop/desktop) */
 @media (min-width: 768px) {
     .modal-content {
         max-width: 32rem;
     }
 
-    .modal-header {
-        padding: 2rem 2rem 1rem;
-    }
-
     .modal-body {
-        padding: 0 2rem 1.5rem;
+        padding: 2.5rem 2rem 2rem;
     }
 
     .modal-description p {
         font-size: 1.1rem;
         line-height: 1.6;
-    }
-    
-    .modal-header h3 {
-        font-size: 1.75rem;
     }
 
     .email-input, .notify-btn {
@@ -1168,43 +1255,13 @@ body {
         animation: modalSlideUp 0.4s ease-out;
     }
     
-    .modal-header {
-        padding: 1.5rem 1.5rem 1rem;
-        position: relative;
-        text-align: center;
-        background: linear-gradient(135deg, rgba(147, 51, 234, 0.1), rgba(168, 85, 247, 0.05));
-        border-bottom: 1px solid rgba(147, 51, 234, 0.1);
-    }
-    
-    .modal-icon {
-        width: 3rem;
-        height: 3rem;
-        font-size: 1.5rem;
-        margin-bottom: 0.75rem;
-    }
-    
-    .modal-header h3 {
-        font-size: 1.5rem;
-        margin-bottom: 0.5rem;
-    }
-    
-    .close-modal {
-        top: 1rem;
-        right: 1rem;
-        width: 2.5rem;
-        height: 2.5rem;
-        font-size: 1.2rem;
-        background-color: rgba(255, 255, 255, 0.9);
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    }
-    
     .modal-body {
-        padding: 1.5rem;
+        padding: 2rem 1.5rem 1.5rem;
+        text-align: center;
     }
     
     .modal-description {
         margin-bottom: 1.5rem;
-        text-align: center;
     }
     
     .modal-description p {
@@ -1212,39 +1269,6 @@ body {
         line-height: 1.6;
         margin-bottom: 1rem;
         color: #374151;
-    }
-    
-    .feature-highlights {
-        flex-direction: column;
-        gap: 1rem;
-        margin: 1.5rem 0;
-        padding: 1.25rem;
-        background-color: rgba(147, 51, 234, 0.05);
-        border-radius: 0.75rem;
-        border: 1px solid rgba(147, 51, 234, 0.15);
-    }
-    
-    .feature-item {
-        width: 100%;
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: center;
-        gap: 1rem;
-        padding: 0.5rem 0;
-    }
-    
-    .feature-item i {
-        font-size: 1.5rem;
-        color: #9333ea;
-        width: 2rem;
-        text-align: center;
-    }
-    
-    .feature-item span {
-        font-size: 1rem;
-        font-weight: 500;
-        color: #374151;
-        text-align: left;
     }
     
     .email-signup {
@@ -1321,36 +1345,12 @@ body {
         max-width: 320px;
     }
     
-    .modal-header {
-        padding: 1.25rem 1.25rem 0.75rem;
-    }
-    
     .modal-body {
-        padding: 1.25rem;
-    }
-    
-    .modal-icon {
-        width: 2.5rem;
-        height: 2.5rem;
-        font-size: 1.25rem;
-    }
-    
-    .modal-header h3 {
-        font-size: 1.25rem;
-    }
-    
-    .close-modal {
-        width: 2rem;
-        height: 2rem;
-        font-size: 1rem;
+        padding: 1.5rem 1.25rem 1.25rem;
     }
     
     .modal-description p {
         font-size: 0.95rem;
-    }
-    
-    .feature-item span {
-        font-size: 0.9rem;
     }
     
     .footer-link {
@@ -1358,7 +1358,7 @@ body {
     }
 }
 
-/* Modal content styles (kept for completeness) */
+/* Modal content animations */
 .modal-content::before {
     content: '';
     position: absolute;
@@ -1388,189 +1388,4 @@ body {
         opacity: 1;
         transform: translateY(0) scale(1);
     }
-}
-
-.modal-header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 1.5rem 1.25rem 0.75rem;
-    position: relative;
-    background: linear-gradient(to bottom, rgba(147, 51, 234, 0.08), transparent);
-}
-
-.modal-icon {
-    width: 3rem;
-    height: 3rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #9333ea, #a855f7);
-    color: white;
-    border-radius: 50%;
-    font-size: 1.25rem;
-    margin-bottom: 0.75rem;
-    box-shadow: 0 8px 15px rgba(147, 51, 234, 0.2);
-    animation: float 3s ease-in-out infinite;
-}
-
-@keyframes float {
-    0% {
-        transform: translateY(0px);
-    }
-    50% {
-        transform: translateY(-5px);
-    }
-    100% {
-        transform: translateY(0px);
-    }
-}
-
-.modal-header h3 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: #111827;
-    margin-bottom: 0.5rem;
-    background: linear-gradient(90deg, #9333ea, #a855f7);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.close-modal {
-    position: absolute;
-    top: 0.75rem;
-    right: 0.75rem;
-    background: rgba(255, 255, 255, 0.8);
-    border: none;
-    font-size: 1rem;
-    color: #6b7280;
-    cursor: pointer;
-    transition: all 0.2s;
-    width: 1.75rem;
-    height: 1.75rem;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.close-modal:hover {
-    color: #111827;
-    background: white;
-    transform: rotate(90deg);
-}
-
-.modal-body {
-    padding: 1.25rem 1.25rem;
-}
-
-.modal-description {
-    margin-bottom: 1rem;
-}
-
-.modal-description p {
-    margin-bottom: 0.75rem;
-    color: #4b5563;
-    text-align: center;
-    font-size: 0.9rem;
-    line-height: 1.5;
-}
-
-.feature-highlights {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 1rem;
-    background: linear-gradient(135deg, rgba(147, 51, 234, 0.05), rgba(168, 85, 247, 0.05));
-    padding: 0.75rem;
-    border-radius: 0.5rem;
-    border: 1px solid rgba(147, 51, 234, 0.1);
-}
-
-.feature-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    width: 30%;
-}
-
-.feature-item i {
-    font-size: 1.25rem;
-    color: #9333ea;
-    margin-bottom: 0.375rem;
-}
-
-.feature-item span {
-    font-size: 0.7rem;
-    color: #4b5563;
-    font-weight: 500;
-}
-
-.email-signup {
-    display: flex;
-    margin-bottom: 0.75rem;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
-    border-radius: 0.5rem;
-    overflow: hidden;
-    margin-top: 1rem;
-}
-
-.email-input {
-    flex: 1;
-    padding: 0.75rem 0.875rem;
-    border: none;
-    font-size: 0.875rem;
-    background-color: white;
-}
-
-.email-input:focus {
-    outline: none;
-}
-
-.notify-btn {
-    padding: 0.75rem 1.25rem;
-    border: none;
-    background: linear-gradient(90deg, #9333ea, #a855f7);
-    color: white;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-    font-size: 0.875rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-}
-
-.notify-btn:hover {
-    background: linear-gradient(90deg, #8b2fc9, #9d4bf3);
-    transform: translateY(-2px);
-    box-shadow: 0 3px 6px rgba(147, 51, 234, 0.2);
-}
-
-.modal-footer {
-    padding: 0.75rem 1.25rem;
-    border-top: 1px solid #e5e7eb;
-    text-align: center;
-}
-
-.modal-btn {
-    background: linear-gradient(90deg, #9333ea, #a855f7);
-    color: white;
-    border: none;
-    border-radius: 0.5rem;
-    padding: 0.5rem 1.75rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-    box-shadow: 0 3px 8px rgba(147, 51, 234, 0.2);
-    font-size: 0.875rem;
-}
-
-.modal-btn:hover {
-    background: linear-gradient(90deg, #8b2fc9, #9d4bf3);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(147, 51, 234, 0.25);
 }
