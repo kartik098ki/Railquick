@@ -5,15 +5,15 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 // DOM Elements
 const logoLink = document.getElementById('logoLink');
 const homeLink = document.getElementById('homeLink');
-const founderLink = document.getElementById('founderLink');
+const contactLink = document.getElementById('contactLink');
 const hiringLink = document.getElementById('hiringLink');
 const footerHomeLink = document.getElementById('footerHomeLink');
-const footerFounderLink = document.getElementById('footerFounderLink');
+const footerContactLink = document.getElementById('footerContactLink');
 const footerHiringLink = document.getElementById('footerHiringLink');
-const mobileFounderLink = document.getElementById('mobileFounderLink');
+const mobileContactLink = document.getElementById('mobileContactLink');
 const mobileHiringLink = document.getElementById('mobileHiringLink');
 const homeSection = document.getElementById('homeSection');
-const founderSection = document.getElementById('founderSection');
+const contactSection = document.getElementById('contactSection');
 const hiringSection = document.getElementById('hiringSection');
 
 // Modal elements
@@ -30,6 +30,10 @@ const dontSeeForm = document.getElementById('dontSeeForm');
 const dontSeeInput = document.getElementById('dontSeeInput');
 const dontSeeMessageDiv = document.getElementById('dontSeeMessage');
 
+// Contact form elements
+const contactForm = document.getElementById('contactForm');
+const contactMessageDiv = document.getElementById('contactMessage');
+
 // Hiring form elements
 const hiringForm = document.getElementById('hiringForm');
 const hiringMessageDiv = document.getElementById('hiringMessage');
@@ -42,12 +46,12 @@ const navMenu = document.querySelector('.nav-menu');
 function showSection(sectionToShow) {
     // Hide all sections
     homeSection.classList.remove('active');
-    founderSection.classList.remove('active');
+    contactSection.classList.remove('active');
     hiringSection.classList.remove('active');
     
     // Remove active class from all nav links
     homeLink.classList.remove('active');
-    founderLink.classList.remove('active');
+    contactLink.classList.remove('active');
     hiringLink.classList.remove('active');
     
     // Show selected section and activate corresponding nav link
@@ -56,9 +60,9 @@ function showSection(sectionToShow) {
             homeSection.classList.add('active');
             homeLink.classList.add('active');
             break;
-        case 'founder':
-            founderSection.classList.add('active');
-            founderLink.classList.add('active');
+        case 'contact':
+            contactSection.classList.add('active');
+            contactLink.classList.add('active');
             break;
         case 'hiring':
             hiringSection.classList.add('active');
@@ -81,9 +85,9 @@ homeLink.addEventListener('click', (e) => {
     showSection('home');
 });
 
-founderLink.addEventListener('click', (e) => {
+contactLink.addEventListener('click', (e) => {
     e.preventDefault();
-    showSection('founder');
+    showSection('contact');
 });
 
 hiringLink.addEventListener('click', (e) => {
@@ -91,7 +95,7 @@ hiringLink.addEventListener('click', (e) => {
     showSection('hiring');
 });
 
-// Footer navigation (removed as per requirement)
+// Footer navigation
 if (footerHomeLink) {
     footerHomeLink.addEventListener('click', (e) => {
         e.preventDefault();
@@ -99,10 +103,10 @@ if (footerHomeLink) {
     });
 }
 
-if (footerFounderLink) {
-    footerFounderLink.addEventListener('click', (e) => {
+if (footerContactLink) {
+    footerContactLink.addEventListener('click', (e) => {
         e.preventDefault();
-        showSection('founder');
+        showSection('contact');
     });
 }
 
@@ -114,9 +118,9 @@ if (footerHiringLink) {
 }
 
 // Mobile navigation links in header
-mobileFounderLink.addEventListener('click', (e) => {
+mobileContactLink.addEventListener('click', (e) => {
     e.preventDefault();
-    showSection('founder');
+    showSection('contact');
 });
 
 mobileHiringLink.addEventListener('click', (e) => {
@@ -165,7 +169,6 @@ async function handleApiResponse(response, successMessage, messageElement) {
             const errorData = await response.json();
             console.error('API Error:', errorData);
             
-            // Handle specific error cases
             if (response.status === 409) {
                 errorMessage = 'You have already submitted this information.';
             } else if (response.status === 400) {
@@ -202,20 +205,17 @@ function showMessage(element, text, type) {
 notifyBtn.addEventListener('click', async () => {
     const email = emailInput.value.trim();
     
-    // Validation
     if (!email) {
         showMessage(emailMessage, 'Please enter your email address', 'error');
         return;
     }
     
-    // Email format validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
         showMessage(emailMessage, 'Please enter a valid email address', 'error');
         return;
     }
     
-    // Show loading state
     const originalText = notifyBtn.textContent;
     notifyBtn.textContent = 'Submitting...';
     notifyBtn.disabled = true;
@@ -245,7 +245,6 @@ notifyBtn.addEventListener('click', async () => {
         console.error('Network error:', error);
         showMessage(emailMessage, 'Network error. Please check your connection and try again.', 'error');
     } finally {
-        // Reset button state
         notifyBtn.textContent = originalText;
         notifyBtn.disabled = false;
     }
@@ -257,13 +256,11 @@ dontSeeForm.addEventListener('submit', async (e) => {
     
     const need = dontSeeInput.value.trim();
     
-    // Validation
     if (!need) {
         showMessage(dontSeeMessageDiv, 'Please enter what you need', 'error');
         return;
     }
     
-    // Show loading state
     const submitButton = dontSeeForm.querySelector('.dont-see-submit-btn');
     const originalHTML = submitButton.innerHTML;
     submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
@@ -294,8 +291,66 @@ dontSeeForm.addEventListener('submit', async (e) => {
         console.error('Network error:', error);
         showMessage(dontSeeMessageDiv, 'Network error. Please check your connection and try again.', 'error');
     } finally {
-        // Reset button state
         submitButton.innerHTML = originalHTML;
+        submitButton.disabled = false;
+    }
+});
+
+// Contact form submission handler
+contactForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const formData = new FormData(contactForm);
+    const name = formData.get('name').trim();
+    const email = formData.get('email').trim();
+    const inquiry = formData.get('inquiry').trim();
+    
+    if (!name || !email || !inquiry) {
+        showMessage(contactMessageDiv, 'Please fill in all required fields', 'error');
+        return;
+    }
+    
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        showMessage(contactMessageDiv, 'Please enter a valid email address', 'error');
+        return;
+    }
+    
+    const submitButton = contactForm.querySelector('.submit-application-btn');
+    const originalText = submitButton.textContent;
+    submitButton.textContent = 'Sending...';
+    submitButton.disabled = true;
+    
+    try {
+        const response = await fetch(`${SUPABASE_URL}/rest/v1/contacts`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'apikey': SUPABASE_ANON_KEY,
+                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                'Prefer': 'return=minimal'
+            },
+            body: JSON.stringify({ 
+                name, 
+                email, 
+                inquiry
+            })
+        });
+        
+        const success = await handleApiResponse(
+            response, 
+            'Thank you for your message! We\'ll get back to you soon.', 
+            contactMessageDiv
+        );
+        
+        if (success) {
+            contactForm.reset();
+        }
+    } catch (error) {
+        console.error('Network error:', error);
+        showMessage(contactMessageDiv, 'Network error. Please check your connection and try again.', 'error');
+    } finally {
+        submitButton.textContent = originalText;
         submitButton.disabled = false;
     }
 });
@@ -304,7 +359,6 @@ dontSeeForm.addEventListener('submit', async (e) => {
 hiringForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     
-    // Get form data
     const formData = new FormData(hiringForm);
     const name = formData.get('name').trim();
     const email = formData.get('email').trim();
@@ -313,20 +367,17 @@ hiringForm.addEventListener('submit', async (e) => {
     const linkedin = formData.get('linkedin').trim();
     const journey = formData.get('journey').trim();
     
-    // Validation
     if (!name || !email || !reason || !linkedin) {
         showMessage(hiringMessageDiv, 'Please fill in all required fields', 'error');
         return;
     }
     
-    // Email format validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
         showMessage(hiringMessageDiv, 'Please enter a valid email address', 'error');
         return;
     }
     
-    // URL validation for LinkedIn
     try {
         if (linkedin && !new URL(linkedin)) {
             showMessage(hiringMessageDiv, 'Please enter a valid LinkedIn URL', 'error');
@@ -337,7 +388,6 @@ hiringForm.addEventListener('submit', async (e) => {
         return;
     }
     
-    // Show loading state
     const submitButton = hiringForm.querySelector('.submit-application-btn');
     const originalText = submitButton.textContent;
     submitButton.textContent = 'Submitting...';
@@ -375,7 +425,6 @@ hiringForm.addEventListener('submit', async (e) => {
         console.error('Network error:', error);
         showMessage(hiringMessageDiv, 'Network error. Please check your connection and try again.', 'error');
     } finally {
-        // Reset button state
         submitButton.textContent = originalText;
         submitButton.disabled = false;
     }
