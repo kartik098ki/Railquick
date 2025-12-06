@@ -12,6 +12,7 @@ const footerHomeLink = document.getElementById('footerHomeLink');
 const footerAboutLink = document.getElementById('footerAboutLink');
 const footerContactLink = document.getElementById('footerContactLink');
 const footerHiringLink = document.getElementById('footerHiringLink');
+const mobileAboutLink = document.getElementById('mobileAboutLink');
 const mobileContactLink = document.getElementById('mobileContactLink');
 const mobileHiringLink = document.getElementById('mobileHiringLink');
 const aboutHiringLink = document.getElementById('aboutHiringLink');
@@ -41,10 +42,6 @@ const contactMessageDiv = document.getElementById('contactMessage');
 // Hiring form elements
 const hiringForm = document.getElementById('hiringForm');
 const hiringMessageDiv = document.getElementById('hiringMessage');
-
-// Mobile menu
-const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-const navMenu = document.querySelector('.nav-menu');
 
 // Navigation
 function showSection(sectionToShow) {
@@ -140,15 +137,26 @@ if (footerHiringLink) {
 }
 
 // Mobile navigation links in header
-mobileContactLink.addEventListener('click', (e) => {
-    e.preventDefault();
-    showSection('contact');
-});
+if(mobileAboutLink) {
+    mobileAboutLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        showSection('about');
+    });
+}
 
-mobileHiringLink.addEventListener('click', (e) => {
-    e.preventDefault();
-    showSection('hiring');
-});
+if(mobileContactLink) {
+    mobileContactLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        showSection('contact');
+    });
+}
+
+if(mobileHiringLink) {
+    mobileHiringLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        showSection('hiring');
+    });
+}
 
 // "Apply Now" button in About Us section
 if (aboutHiringLink) {
@@ -157,11 +165,6 @@ if (aboutHiringLink) {
         showSection('hiring');
     });
 }
-
-// Mobile menu toggle (hidden in mobile view)
-mobileMenuBtn.addEventListener('click', () => {
-    navMenu.classList.toggle('mobile-menu-open');
-});
 
 // Modal controls
 function openModal() {
