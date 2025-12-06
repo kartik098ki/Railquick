@@ -19,6 +19,7 @@
         </a>
         <nav class="nav-menu">
             <a href="#" id="homeLink" class="nav-link active">Home</a>
+            <a href="#" id="aboutLink" class="nav-link">About Us</a>
             <a href="#" id="contactLink" class="nav-link">Contact Us</a>
             <a href="#" id="hiringLink" class="nav-link">We're Hiring</a>
         </nav>
@@ -154,6 +155,105 @@
                     <div id="dontSeeMessage"></div>
                 </div>
             </div>
+
+            <!-- FAQ Section -->
+            <div class="faq-section">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>How does RailQuick work?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Simply enter your PNR, browse our catalog of essentials, and place your order. We'll deliver it right to your train seat at the next station.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>Which cities are currently serviced?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>We are currently testing our services in Delhi at Hazrat Nizamuddin, New Delhi, Delhi Junction, and Anand Vihar Terminal. We'll be expanding to more cities soon!</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>What payment methods are accepted?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>We accept various payment methods, including credit/debit cards, UPI, and cash on delivery (COD) for your convenience.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Us Section -->
+        <section id="aboutSection" class="content-section">
+            <div class="content-container">
+                <h2 class="section-title">About RailQuick</h2>
+                
+                <div class="about-content">
+                    <div class="about-intro">
+                        <h3>RailQuick: Your Train Seat, One Click Away from Essentials</h3>
+                        <p>Train journeys just got smarter—order medicines, snacks, or anything via PNR in minutes. From a real traveler's pain to your hassle-free ride.</p>
+                    </div>
+                    
+                    <div class="about-story">
+                        <h3>Our Story</h3>
+                        <p>Kartik Guleria, founder, was traveling to Shirdi when his mom pointed out the gap: no quick delivery for medicines or essentials on trains, unlike 10-min urban services. Research confirmed no app existed—food apps stopped at trains, ignoring everyday needs. After deep thinking, Kartik shared the vision with friend Harshit Sinha; now they're building RailQuick together, turning that journey frustration into seamless seat-side delivery.</p>
+                    </div>
+                    
+                    <div class="about-mission">
+                        <h3>Mission & Values</h3>
+                        <p><strong>Mission:</strong> Empower travelers to enjoy journeys fully—hassle-free, with one-click delivery of anything to their seat, anytime. RailQuick innovates rail logistics by blending quick commerce with train tracking for ultra-fast, precise drops.</p>
+                        
+                        <div class="core-values">
+                            <h4>Core Values:</h4>
+                            <ul>
+                                <li><strong>Passenger-First Hustle:</strong> Prioritize speed and reliability over everything.</li>
+                                <li><strong>Innovate Boldly:</strong> Challenge "train food only" norms with full essentials.</li>
+                                <li><strong>Build Together:</strong> From two founders to a growing family, learning through action.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="about-team">
+                        <h3>Meet the Team</h3>
+                        <div class="team-grid">
+                            <div class="team-member-card">
+                                <div class="member-image">
+                                    <img src="1762616922445.jpeg" alt="Kartik Guleria" />
+                                </div>
+                                <div class="member-details">
+                                    <h4 class="member-name">Kartik Guleria</h4>
+                                    <p class="member-title">Founder & CEO (BCA student, JIIT Noida)</p>
+                                    <p class="member-description">Hackathon leader and startup builder spotting real pains like RailQuick's origin. Drives product from idea to Delhi station tests.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="team-member-card">
+                                <div class="member-image">
+                                    <img src="1754411802709.jpeg" alt="Harshit Sinha" />
+                                </div>
+                                <div class="member-details">
+                                    <h4 class="member-name">Harshit Sinha</h4>
+                                    <p class="member-title">Co-Founder (Core Builder)</p>
+                                    <p class="member-description">Partnering with Kartik to code the app, handle ops, and scale deliveries via PNR/COD.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="about-hiring">
+                        <p>We're in early phase—hiring hungry builders! Join our family to hustle, fail fast, and launch big.</p>
+                        <a href="#" id="aboutHiringLink" class="apply-now-btn">Apply Now</a>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <!-- Contact Us Section -->
@@ -178,7 +278,10 @@
                         <textarea id="contactInquiry" name="inquiry" class="form-textarea" rows="5" required></textarea>
                     </div>
                     
-                    <button type="submit" class="submit-application-btn">Send Message</button>
+                    <button type="submit" class="submit-application-btn">
+                        <span class="btn-text">Send Message</span>
+                        <i class="fas fa-spinner fa-spin btn-loader" style="display: none;"></i>
+                    </button>
                 </form>
                 
                 <div id="contactMessage"></div>
@@ -291,7 +394,10 @@
                         <textarea id="applicantJourney" name="journey" class="form-textarea" rows="4"></textarea>
                     </div>
                     
-                    <button type="submit" class="submit-application-btn">Submit Application</button>
+                    <button type="submit" class="submit-application-btn">
+                        <span class="btn-text">Submit Application</span>
+                        <i class="fas fa-spinner fa-spin btn-loader" style="display: none;"></i>
+                    </button>
                 </form>
                 
                 <div id="hiringMessage"></div>
@@ -312,6 +418,7 @@
                     <h3 class="footer-links-title">Quick Links</h3>
                     <div class="footer-links">
                         <a href="#" id="footerHomeLink" class="footer-link">Home</a>
+                        <a href="#" id="footerAboutLink" class="footer-link">About Us</a>
                         <a href="#" id="footerContactLink" class="footer-link">Contact Us</a>
                         <a href="#" id="footerHiringLink" class="footer-link">We're Hiring</a>
                     </div>
@@ -374,7 +481,10 @@ Order essentials from your train seat via our app — launching next!</p>
                 </div>
                 <div class="email-signup">
                     <input type="email" id="emailInput" placeholder="Enter your email address" class="email-input">
-                    <button id="notifyBtn" class="notify-btn">Notify Me</button>
+                    <button id="notifyBtn" class="notify-btn">
+                        <span class="btn-text">Notify Me</span>
+                        <i class="fas fa-spinner fa-spin btn-loader" style="display: none;"></i>
+                    </button>
                 </div>
                 <div id="emailMessage"></div>
             </div>
