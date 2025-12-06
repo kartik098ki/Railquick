@@ -4,6 +4,7 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 
 // DOM Elements
 const logoLink = document.getElementById('logoLink');
+const homeLink = document.getElementById('homeLink');
 const founderLink = document.getElementById('founderLink');
 const hiringLink = document.getElementById('hiringLink');
 const footerHomeLink = document.getElementById('footerHomeLink');
@@ -33,8 +34,7 @@ const hiringMessageDiv = document.getElementById('hiringMessage');
 
 // Mobile menu
 const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-const navLinks = document.getElementById('navLinks');
-const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+const navMenu = document.querySelector('.nav-menu');
 
 // Navigation
 function showSection(sectionToShow) {
@@ -52,7 +52,7 @@ function showSection(sectionToShow) {
     switch(sectionToShow) {
         case 'home':
             homeSection.classList.add('active');
-            founderLink.classList.add('active');
+            homeLink.classList.add('active');
             break;
         case 'founder':
             founderSection.classList.add('active');
@@ -68,12 +68,16 @@ function showSection(sectionToShow) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     
     // Close mobile menu if open
-    navLinks.classList.remove('mobile-menu-open');
-    mobileMenuOverlay.classList.remove('active');
+    navMenu.classList.remove('mobile-menu-open');
 }
 
 // Event listeners for navigation
 logoLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    showSection('home');
+});
+
+homeLink.addEventListener('click', (e) => {
     e.preventDefault();
     showSection('home');
 });
@@ -106,25 +110,16 @@ footerHiringLink.addEventListener('click', (e) => {
 
 // Mobile menu toggle
 mobileMenuBtn.addEventListener('click', () => {
-    navLinks.classList.add('mobile-menu-open');
-    mobileMenuOverlay.classList.add('active');
-});
-
-// Close mobile menu when clicking on overlay
-mobileMenuOverlay.addEventListener('click', () => {
-    navLinks.classList.remove('mobile-menu-open');
-    mobileMenuOverlay.classList.remove('active');
+    navMenu.classList.toggle('mobile-menu-open');
 });
 
 // Modal controls
 function openModal() {
     appModal.style.display = 'flex';
-    document.body.style.overflow = 'hidden';
 }
 
 function closeModalFunc() {
     appModal.style.display = 'none';
-    document.body.style.overflow = 'auto';
 }
 
 // Event listeners for modal
