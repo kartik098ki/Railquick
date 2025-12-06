@@ -5,14 +5,18 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 // DOM Elements
 const logoLink = document.getElementById('logoLink');
 const homeLink = document.getElementById('homeLink');
+const aboutLink = document.getElementById('aboutLink');
 const contactLink = document.getElementById('contactLink');
 const hiringLink = document.getElementById('hiringLink');
 const footerHomeLink = document.getElementById('footerHomeLink');
+const footerAboutLink = document.getElementById('footerAboutLink');
 const footerContactLink = document.getElementById('footerContactLink');
 const footerHiringLink = document.getElementById('footerHiringLink');
 const mobileContactLink = document.getElementById('mobileContactLink');
 const mobileHiringLink = document.getElementById('mobileHiringLink');
+const aboutHiringLink = document.getElementById('aboutHiringLink');
 const homeSection = document.getElementById('homeSection');
+const aboutSection = document.getElementById('aboutSection');
 const contactSection = document.getElementById('contactSection');
 const hiringSection = document.getElementById('hiringSection');
 
@@ -46,11 +50,13 @@ const navMenu = document.querySelector('.nav-menu');
 function showSection(sectionToShow) {
     // Hide all sections
     homeSection.classList.remove('active');
+    aboutSection.classList.remove('active');
     contactSection.classList.remove('active');
     hiringSection.classList.remove('active');
     
     // Remove active class from all nav links
     homeLink.classList.remove('active');
+    aboutLink.classList.remove('active');
     contactLink.classList.remove('active');
     hiringLink.classList.remove('active');
     
@@ -59,6 +65,10 @@ function showSection(sectionToShow) {
         case 'home':
             homeSection.classList.add('active');
             homeLink.classList.add('active');
+            break;
+        case 'about':
+            aboutSection.classList.add('active');
+            aboutLink.classList.add('active');
             break;
         case 'contact':
             contactSection.classList.add('active');
@@ -85,6 +95,11 @@ homeLink.addEventListener('click', (e) => {
     showSection('home');
 });
 
+aboutLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    showSection('about');
+});
+
 contactLink.addEventListener('click', (e) => {
     e.preventDefault();
     showSection('contact');
@@ -100,6 +115,13 @@ if (footerHomeLink) {
     footerHomeLink.addEventListener('click', (e) => {
         e.preventDefault();
         showSection('home');
+    });
+}
+
+if (footerAboutLink) {
+    footerAboutLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        showSection('about');
     });
 }
 
@@ -128,6 +150,14 @@ mobileHiringLink.addEventListener('click', (e) => {
     showSection('hiring');
 });
 
+// "Apply Now" button in About Us section
+if (aboutHiringLink) {
+    aboutHiringLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        showSection('hiring');
+    });
+}
+
 // Mobile menu toggle (hidden in mobile view)
 mobileMenuBtn.addEventListener('click', () => {
     navMenu.classList.toggle('mobile-menu-open');
@@ -152,6 +182,25 @@ appModal.addEventListener('click', (e) => {
     if (e.target === appModal) {
         closeModalFunc();
     }
+});
+
+// FAQ Section
+const faqItems = document.querySelectorAll('.faq-item');
+
+faqItems.forEach(item => {
+    const question = item.querySelector('.faq-question');
+    
+    question.addEventListener('click', () => {
+        // Close all other items
+        faqItems.forEach(otherItem => {
+            if (otherItem !== item) {
+                otherItem.classList.remove('active');
+            }
+        });
+        
+        // Toggle current item
+        item.classList.toggle('active');
+    });
 });
 
 // Helper function to check if response is OK and handle errors
@@ -194,11 +243,56 @@ function showMessage(element, text, type) {
     element.textContent = text;
     element.className = type === 'success' ? 'success-message' : 'error-message';
     
-    // Clear message after 5 seconds
-    setTimeout(() => {
-        element.textContent = '';
-        element.className = '';
-    }, 5000);
+    // Don't clear message automatically
+}
+
+// Function to clear message when user starts typing
+function setupMessageClearing(inputElement, messageElement) {
+    inputElement.addEventListener('input', () => {
+        if (messageElement.textContent) {
+            messageElement.textContent = '';
+            messageElement.className = '';
+        }
+    });
+}
+
+// Set up message clearing for all form inputs
+setupMessageClearing(dontSeeInput, dontSeeMessageDiv);
+setupMessageClearing(document.getElementById('contactName'), contactMessageDiv);
+setupMessageClearing(document.getElementById('contactEmail'), contactMessageDiv);
+setupMessageClearing(document.getElementById('contactInquiry'), contactMessageDiv);
+setupMessageClearing(document.getElementById('applicantName'), hiringMessageDiv);
+setupMessageClearing(document.getElementById('applicantEmail'), hiringMessageDiv);
+setupMessageClearing(document.getElementById('applicantPhone'), hiringMessageDiv);
+setupMessageClearing(document.getElementById('applicantReason'), hiringMessageDiv);
+setupMessageClearing(document.getElementById('applicantLinkedIn'), hiringMessageDiv);
+setupMessageClearing(document.getElementById('applicantJourney'), hiringMessageDiv);
+setupMessageClearing(emailInput, emailMessage);
+
+// Function to show loading spinner
+function showLoading(buttonElement) {
+    const btnText = buttonElement.querySelector('.btn-text');
+    const btnLoader = buttonElement.querySelector('.btn-loader');
+    
+    if (btnText && btnLoader) {
+        btnText.style.display = 'none';
+        btnLoader.style.display = 'inline-block';
+    }
+    
+    buttonElement.disabled = true;
+}
+
+// Function to hide loading spinner
+function hideLoading(buttonElement, originalText) {
+    const btnText = buttonElement.querySelector('.btn-text');
+    const btnLoader = buttonElement.querySelector('.btn-loader');
+    
+    if (btnText && btnLoader) {
+        btnText.style.display = 'inline-block';
+        btnLoader.style.display = 'none';
+    }
+    
+    buttonElement.disabled = false;
 }
 
 // Email notification handler
@@ -216,9 +310,7 @@ notifyBtn.addEventListener('click', async () => {
         return;
     }
     
-    const originalText = notifyBtn.textContent;
-    notifyBtn.textContent = 'Submitting...';
-    notifyBtn.disabled = true;
+    showLoading(notifyBtn);
     
     try {
         const response = await fetch(`${SUPABASE_URL}/rest/v1/notifications`, {
@@ -245,8 +337,7 @@ notifyBtn.addEventListener('click', async () => {
         console.error('Network error:', error);
         showMessage(emailMessage, 'Network error. Please check your connection and try again.', 'error');
     } finally {
-        notifyBtn.textContent = originalText;
-        notifyBtn.disabled = false;
+        hideLoading(notifyBtn, 'Notify Me');
     }
 });
 
@@ -263,8 +354,7 @@ dontSeeForm.addEventListener('submit', async (e) => {
     
     const submitButton = dontSeeForm.querySelector('.dont-see-submit-btn');
     const originalHTML = submitButton.innerHTML;
-    submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-    submitButton.disabled = true;
+    showLoading(submitButton);
     
     try {
         const response = await fetch(`${SUPABASE_URL}/rest/v1/needs`, {
@@ -291,8 +381,7 @@ dontSeeForm.addEventListener('submit', async (e) => {
         console.error('Network error:', error);
         showMessage(dontSeeMessageDiv, 'Network error. Please check your connection and try again.', 'error');
     } finally {
-        submitButton.innerHTML = originalHTML;
-        submitButton.disabled = false;
+        hideLoading(submitButton, originalHTML);
     }
 });
 
@@ -317,9 +406,7 @@ contactForm.addEventListener('submit', async (e) => {
     }
     
     const submitButton = contactForm.querySelector('.submit-application-btn');
-    const originalText = submitButton.textContent;
-    submitButton.textContent = 'Sending...';
-    submitButton.disabled = true;
+    showLoading(submitButton);
     
     try {
         const response = await fetch(`${SUPABASE_URL}/rest/v1/contacts`, {
@@ -350,8 +437,7 @@ contactForm.addEventListener('submit', async (e) => {
         console.error('Network error:', error);
         showMessage(contactMessageDiv, 'Network error. Please check your connection and try again.', 'error');
     } finally {
-        submitButton.textContent = originalText;
-        submitButton.disabled = false;
+        hideLoading(submitButton, 'Send Message');
     }
 });
 
@@ -389,9 +475,7 @@ hiringForm.addEventListener('submit', async (e) => {
     }
     
     const submitButton = hiringForm.querySelector('.submit-application-btn');
-    const originalText = submitButton.textContent;
-    submitButton.textContent = 'Submitting...';
-    submitButton.disabled = true;
+    showLoading(submitButton);
     
     try {
         const response = await fetch(`${SUPABASE_URL}/rest/v1/applications`, {
@@ -425,8 +509,7 @@ hiringForm.addEventListener('submit', async (e) => {
         console.error('Network error:', error);
         showMessage(hiringMessageDiv, 'Network error. Please check your connection and try again.', 'error');
     } finally {
-        submitButton.textContent = originalText;
-        submitButton.disabled = false;
+        hideLoading(submitButton, 'Submit Application');
     }
 });
 
