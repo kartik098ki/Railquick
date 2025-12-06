@@ -84,7 +84,7 @@ body {
 
 /* Mobile Navigation Links in Header - Fixed overlapping */
 .mobile-nav-links {
-    display: none;
+    display: flex;
     align-items: center;
     gap: 1rem;
 }
@@ -107,7 +107,7 @@ body {
 
 /* Mobile Menu Button */
 .mobile-menu-btn {
-    display: block;
+    display: none;
     background: none;
     border: none;
     font-size: 1.5rem;
@@ -246,62 +246,63 @@ body {
 
 /* Service Banner - Improved for mobile */
 .service-banner {
-    background-color: #f9fafb;
-    padding: 1.5rem;
+    background-color: #ffffff;
+    padding: 2rem 1.5rem;
     border-top: 1px solid #e5e7eb;
     border-bottom: 1px solid #e5e7eb;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .banner-content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
+    gap: 1.5rem;
     max-width: 56rem;
     margin: 0 auto;
     text-align: center;
 }
 
 .banner-icon {
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 3rem;
+    height: 3rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #111827;
+    background: linear-gradient(135deg, #9333ea, #a855f7);
     color: white;
     border-radius: 50%;
-    font-size: 1rem;
+    font-size: 1.25rem;
     flex-shrink: 0;
+    box-shadow: 0 4px 10px rgba(147, 51, 234, 0.2);
 }
 
 .banner-text {
     flex: 1;
 }
 
-/* --- REVISED BANNER TEXT SIZE --- */
 .banner-text h3 {
-    font-size: 1.25rem; /* Increased from 1rem */
+    font-size: 1.5rem;
     font-weight: 600;
     color: #111827;
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.5rem;
 }
 
 .banner-text p {
     color: #6b7280;
-    font-size: 0.95rem; /* Increased from 0.8rem */
-    line-height: 1.4;
+    font-size: 1rem;
+    line-height: 1.5;
 }
-/* --- END OF BANNER REVISION --- */
 
 .banner-badge {
-    background-color: #e5e7eb;
-    color: #4b5563;
-    padding: 0.25rem 0.75rem;
+    background: linear-gradient(90deg, #9333ea, #a855f7);
+    color: white;
+    padding: 0.5rem 1rem;
     border-radius: 9999px;
-    font-size: 0.7rem;
-    font-weight: 500;
-    align-self: flex-start;
+    font-size: 0.875rem;
+    font-weight: 600;
+    align-self: center;
+    box-shadow: 0 4px 6px rgba(147, 51, 234, 0.2);
 }
 
 /* Product Categories */
@@ -435,6 +436,133 @@ body {
     transform: translateY(-50%) scale(1.05);
 }
 
+/* FAQ Section */
+.faq-section {
+    padding: 4rem 1.5rem;
+    background-color: #f9fafb;
+}
+
+.faq-container {
+    max-width: 56rem;
+    margin: 0 auto;
+}
+
+.faq-item {
+    background-color: white;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.faq-question {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    background: none;
+    border: none;
+    text-align: left;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #111827;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.2s;
+}
+
+.faq-question:hover {
+    background-color: #f9fafb;
+}
+
+.faq-question i {
+    transition: transform 0.2s;
+}
+
+.faq-item.active .faq-question i {
+    transform: rotate(180deg);
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+.faq-item.active .faq-answer {
+    max-height: 200px;
+}
+
+.faq-answer p {
+    padding: 0 1.5rem 1rem;
+    color: #6b7280;
+    font-size: 0.875rem;
+}
+
+/* About Us Section */
+.about-content {
+    max-width: 56rem;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.about-intro, .about-story, .about-mission, .about-team, .about-hiring {
+    margin-bottom: 3rem;
+}
+
+.about-intro h3, .about-story h3, .about-mission h3, .about-team h3 {
+    font-size: 1.875rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #111827;
+}
+
+.about-intro p, .about-story p, .about-mission p {
+    color: #4b5563;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.core-values {
+    margin-top: 1.5rem;
+}
+
+.core-values h4 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #111827;
+}
+
+.core-values ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.core-values li {
+    margin-bottom: 0.5rem;
+    color: #4b5563;
+}
+
+.about-hiring {
+    text-align: center;
+}
+
+.apply-now-btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: #111827;
+    color: white;
+    text-decoration: none;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.apply-now-btn:hover {
+    background-color: #333333;
+}
+
 /* Contact Us Section Specific Styles */
 .contact-form {
     text-align: left;
@@ -442,7 +570,7 @@ body {
     margin: 0 auto 3rem;
 }
 
-/* --- REVISED TEAM MEMBER STYLES --- */
+/* Team Member Styles */
 .team-grid {
     display: grid;
     gap: 1.5rem;
@@ -500,6 +628,12 @@ body {
 .member-title {
     font-size: 0.875rem;
     color: #6b7280;
+    margin-bottom: 1rem;
+}
+
+.member-description {
+    font-size: 0.875rem;
+    color: #4b5563;
     margin-bottom: 1rem;
 }
 
@@ -601,17 +735,26 @@ body {
     font-weight: 500;
     font-size: 1rem;
     width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
 }
 
 .submit-application-btn:hover {
     background-color: #333333;
 }
 
+.btn-loader {
+    font-size: 1rem;
+}
+
 /* Footer - Enhanced with navigation links */
 .footer {
     margin-top: 4rem;
     padding: 3rem 1.5rem 2rem;
-    background-color: #f9fafb;
+    background: linear-gradient(135deg, #111827, #374151);
+    color: #f9fafb;
     border-top: 1px solid #e5e7eb;
 }
 
@@ -623,29 +766,38 @@ body {
     gap: 2.5rem;
 }
 
-/* --- REVISED FOOTER FOR MOBILE --- */
 .footer-top {
     display: flex;
-    flex-direction: column; /* Stack items vertically on mobile */
+    flex-direction: column;
     align-items: center;
     gap: 2rem;
 }
 
 .footer-logo {
-    order: 1; /* Logo appears first */
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: #f9fafb;
+}
+
+.footer-logo .brand-element {
+    background: #f9fafb;
+}
+
+.footer-logo .logo-text {
+    color: #f9fafb;
 }
 
 .footer-links-section, .footer-social-section {
-    order: 2; /* Links and social appear below */
     width: 100%;
     text-align: center;
 }
-/* --- END OF FOOTER REVISION --- */
 
-.footer-links-title {
+.footer-links-title, .social-links-title {
     font-size: 0.875rem;
     font-weight: 600;
-    color: #6b7280;
+    color: #d1d5db;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     margin-bottom: 0.5rem;
@@ -660,7 +812,7 @@ body {
 
 .footer-link {
     text-decoration: none;
-    color: #4b5563;
+    color: #d1d5db;
     font-weight: 500;
     font-size: 0.95rem;
     transition: all 0.2s;
@@ -669,7 +821,7 @@ body {
 }
 
 .footer-link:hover {
-    color: #9333ea;
+    color: #f9fafb;
     transform: translateY(-2px);
 }
 
@@ -688,14 +840,6 @@ body {
     width: 100%;
 }
 
-.social-links-title {
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: #6b7280;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
 .footer-social {
     display: flex;
     justify-content: center;
@@ -708,8 +852,8 @@ body {
     justify-content: center;
     width: 2.5rem;
     height: 2.5rem;
-    background-color: #e5e7eb;
-    color: #4b5563;
+    background-color: #374151;
+    color: #d1d5db;
     border-radius: 50%;
     text-decoration: none;
     transition: all 0.2s;
@@ -728,13 +872,13 @@ body {
     align-items: center;
     gap: 1rem;
     padding-top: 2rem;
-    border-top: 1px solid #e5e7eb;
+    border-top: 1px solid #374151;
 }
 
 .footer-copyright {
     text-align: center;
     font-size: 0.875rem;
-    color: #6b7280;
+    color: #d1d5db;
 }
 
 .footer-tagline {
@@ -783,7 +927,7 @@ body {
     background-color: white;
     border-radius: 0.75rem;
     width: 90%;
-    max-width: 22rem; /* Default for mobile */
+    max-width: 22rem;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     animation: modalFadeIn 0.4s ease-out;
@@ -793,34 +937,31 @@ body {
 
 /* Media query for larger screens (laptop/desktop) */
 @media (min-width: 768px) {
-    /* --- REVISED MODAL SIZE FOR DESKTOP --- */
     .modal-content {
-        max-width: 32rem; /* Increased from 28rem for a bigger look */
-        padding: 0.5rem; /* Add some padding */
+        max-width: 32rem;
     }
 
     .modal-header {
-        padding: 2rem 2rem 1rem; /* Increased padding */
+        padding: 2rem 2rem 1rem;
     }
 
     .modal-body {
-        padding: 0 2rem 1.5rem; /* Increased padding */
+        padding: 0 2rem 1.5rem;
     }
 
     .modal-description p {
-        font-size: 1.1rem; /* Slightly larger text for desktop */
+        font-size: 1.1rem;
         line-height: 1.6;
     }
     
     .modal-header h3 {
-        font-size: 1.75rem; /* Larger title */
+        font-size: 1.75rem;
     }
 
     .email-input, .notify-btn {
-        padding: 1rem 1.25rem; /* Larger input and button */
+        padding: 1rem 1.25rem;
         font-size: 1rem;
     }
-    /* --- END OF MODAL REVISION --- */
 
     .hero-title {
         font-size: 3.75rem;
@@ -834,28 +975,22 @@ body {
         display: flex;
     }
     
-    .mobile-menu-btn {
-        display: none;
-    }
-    
     .mobile-nav-links {
         display: none;
     }
     
-    /* --- REVISED FOOTER FOR DESKTOP --- */
     .footer-top {
-        flex-direction: row; /* Back to row layout for desktop */
+        flex-direction: row;
         justify-content: space-between;
         align-items: flex-start;
     }
     
     .footer-links-section,
     .footer-social-section {
-        align-items: flex-start; /* Align to top */
-        width: auto; /* Reset width */
-        text-align: left; /* Align text left */
+        align-items: flex-start;
+        width: auto;
+        text-align: left;
     }
-    /* --- END OF FOOTER REVISION --- */
 
     .team-member-card {
         flex-direction: row;
@@ -881,17 +1016,18 @@ body {
 
 /* Mobile Specific Styles */
 @media (max-width: 767px) {
-    /* Show mobile navigation links in header */
     .mobile-nav-links {
         display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        width: 100%;
+        margin-top: 0.5rem;
     }
     
-    /* Hide the mobile menu button */
     .mobile-menu-btn {
         display: none;
     }
     
-    /* Adjust header to accommodate mobile nav links */
     .header {
         padding: 1rem 1rem;
         flex-wrap: wrap;
@@ -902,7 +1038,6 @@ body {
         font-size: 1.25rem;
     }
     
-    /* Hero section adjustments */
     .hero-section {
         padding: 3rem 1rem 2rem;
         min-height: 60vh;
@@ -916,7 +1051,6 @@ body {
         font-size: 1.1rem;
     }
     
-    /* Product Categories adjustments */
     .section-title {
         font-size: 1.875rem;
     }
@@ -944,37 +1078,34 @@ body {
         font-size: 0.8rem;
     }
     
-    /* Service Banner adjustments for mobile */
     .service-banner {
-        padding: 1rem;
+        padding: 1.5rem 1rem;
     }
     
     .banner-content {
-        gap: 0.75rem;
+        gap: 1rem;
     }
     
     .banner-text h3 {
-        font-size: 1rem; /* Keep it readable on small screens */
+        font-size: 1.25rem;
     }
     
     .banner-text p {
-        font-size: 0.8rem; /* Keep it readable on small screens */
-        line-height: 1.3;
+        font-size: 0.95rem;
+        line-height: 1.4;
     }
     
     .banner-icon {
-        width: 2rem;
-        height: 2rem;
-        font-size: 0.875rem;
+        width: 2.5rem;
+        height: 2.5rem;
+        font-size: 1rem;
     }
     
     .banner-badge {
-        font-size: 0.6rem;
-        padding: 0.2rem 0.6rem;
-        align-self: center;
+        font-size: 0.75rem;
+        padding: 0.25rem 0.75rem;
     }
     
-    /* Footer adjustments for mobile */
     .footer-content {
         gap: 2rem;
     }
@@ -991,7 +1122,7 @@ body {
 /* Responsive Design for Modal */
 @media (max-width: 640px) {
     .modal-content {
-        width: 90%;
+        width: 95%;
         max-width: none;
         max-height: 90vh;
         overflow-y: auto;
@@ -1202,6 +1333,10 @@ body {
     cursor: pointer;
     transition: all 0.2s;
     font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
 }
 
 .notify-btn:hover {
