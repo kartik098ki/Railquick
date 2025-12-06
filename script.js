@@ -32,6 +32,10 @@ const dontSeeMessageDiv = document.getElementById('dontSeeMessage');
 const hiringForm = document.getElementById('hiringForm');
 const hiringMessageDiv = document.getElementById('hiringMessage');
 
+// Mobile menu
+const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+const navLinks = document.getElementById('navLinks');
+
 // Navigation
 function showSection(sectionToShow) {
     // Hide all sections
@@ -62,6 +66,9 @@ function showSection(sectionToShow) {
     
     // Scroll to top
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    
+    // Close mobile menu if open
+    navLinks.classList.remove('mobile-menu-open');
 }
 
 // Event listeners for navigation
@@ -99,6 +106,11 @@ footerFounderLink.addEventListener('click', (e) => {
 footerHiringLink.addEventListener('click', (e) => {
     e.preventDefault();
     showSection('hiring');
+});
+
+// Mobile menu toggle
+mobileMenuBtn.addEventListener('click', () => {
+    navLinks.classList.toggle('mobile-menu-open');
 });
 
 // Modal controls
