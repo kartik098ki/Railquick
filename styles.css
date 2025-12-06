@@ -82,6 +82,30 @@ body {
     background-color: #111827;
 }
 
+/* Mobile Navigation Links in Header */
+.mobile-nav-links {
+    display: none;
+    flex-direction: column;
+    gap: 0.25rem;
+    position: absolute;
+    top: 50%;
+    right: 4rem;
+    transform: translateY(-50%);
+}
+
+.mobile-nav-link {
+    text-decoration: none;
+    color: #6b7280;
+    font-weight: 500;
+    font-size: 0.875rem;
+    transition: color 0.2s;
+    white-space: nowrap;
+}
+
+.mobile-nav-link:hover {
+    color: #9333ea;
+}
+
 /* Mobile Menu Button */
 .mobile-menu-btn {
     display: block;
@@ -581,7 +605,7 @@ body {
     background-color: #333333;
 }
 
-/* Footer */
+/* Footer - Removed navigation links */
 .footer {
     margin-top: 4rem;
     padding: 2rem 1.5rem;
@@ -593,6 +617,7 @@ body {
     flex-direction: column;
     gap: 2rem;
     margin-bottom: 2rem;
+    align-items: center;
 }
 
 .footer-logo {
@@ -600,23 +625,6 @@ body {
     align-items: center;
     gap: 0.75rem;
     justify-content: center;
-}
-
-.footer-links {
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-}
-
-.footer-link {
-    text-decoration: none;
-    color: #6b7280;
-    font-weight: 500;
-    transition: color 0.2s;
-}
-
-.footer-link:hover {
-    color: #9333ea;
 }
 
 .footer-social {
@@ -940,14 +948,14 @@ body {
         display: none;
     }
     
+    .mobile-nav-links {
+        display: none;
+    }
+    
     .footer-content {
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-    }
-    
-    .footer-links {
-        order: 2;
     }
     
     .footer-social {
@@ -972,39 +980,23 @@ body {
 
 /* Mobile Specific Styles */
 @media (max-width: 767px) {
-    /* Hide the mobile menu button and navigation menu */
+    /* Show mobile navigation links in header */
+    .mobile-nav-links {
+        display: flex;
+    }
+    
+    /* Hide the mobile menu button */
     .mobile-menu-btn {
         display: none;
     }
     
-    /* Add simple navigation links in footer */
-    .footer-content {
-        position: relative;
-        padding-bottom: 3rem;
+    /* Adjust header to accommodate mobile nav links */
+    .header {
+        padding: 1rem 1rem;
     }
     
-    .mobile-nav-links {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        gap: 1.5rem;
-        padding: 0.75rem 0;
-        border-top: 1px solid #e5e7eb;
-    }
-    
-    .mobile-nav-link {
-        text-decoration: none;
-        color: #6b7280;
-        font-weight: 500;
-        font-size: 0.9rem;
-        transition: color 0.2s;
-    }
-    
-    .mobile-nav-link:hover {
-        color: #9333ea;
+    .logo-text {
+        font-size: 1.25rem;
     }
     
     /* Hero section adjustments */
