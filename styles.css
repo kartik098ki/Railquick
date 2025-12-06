@@ -172,14 +172,12 @@ body {
 
 .title-bold {
     font-weight: 700;
-    background: linear-gradient(90deg, #9333ea, #a855f7, #c084fc);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: #9333ea;
     position: relative;
     display: inline-block;
     padding: 0.2rem 0.5rem;
-    border-radius: 0.5rem;
+    border-radius: 0.25rem;
+    box-shadow: 0 0 10px rgba(147, 51, 234, 0.2);
     animation: glow 2s ease-in-out infinite alternate;
 }
 
@@ -868,7 +866,7 @@ body {
 
 .email-signup {
     display: flex;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     border-radius: 0.75rem;
     overflow: hidden;
@@ -915,7 +913,7 @@ body {
     color: white;
     border: none;
     border-radius: 0.75rem;
-    padding: 0.5rem 1.5rem;
+    padding: 0.5rem 1.25rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s;
@@ -927,6 +925,42 @@ body {
     background: linear-gradient(90deg, #8b2fc9, #9d4bf3);
     transform: translateY(-2px);
     box-shadow: 0 6px 16px rgba(147, 51, 234, 0.4);
+}
+
+/* Mobile Menu Overlay */
+.mobile-menu-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s;
+}
+
+.mobile-menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.mobile-menu-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: white;
+    padding: 2rem;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-out;
+}
+
+.mobile-menu-overlay.active {
+    transform: translateX(0);
 }
 
 /* Responsive Design */
@@ -951,7 +985,7 @@ body {
     }
     
     .mobile-menu-btn {
-        display: none;
+        display: block;
     }
     
     .nav-links {
@@ -1108,7 +1142,7 @@ body {
     }
     
     .modal-header {
-        padding: 1.5rem 1rem 1rem;
+        padding: 1.5rem 1rem 1.5rem;
     }
     
     .modal-body {
@@ -1126,21 +1160,16 @@ body {
     }
     
     .modal-description p {
-        font-size: 0.8rem;
+        font-size: 0.75rem;
         margin-bottom: 0.75rem;
     }
     
     .feature-highlights {
-        flex-direction: column;
-        gap: 1rem;
         padding: 1rem;
     }
     
     .feature-item {
-        width: 100%;
-        flex-direction: row;
-        justify-content: center;
-        gap: 0.75rem;
+        font-size: 0.75rem;
     }
     
     .feature-item i {
@@ -1149,26 +1178,22 @@ body {
     }
     
     .feature-item span {
-        font-size: 0.75rem;
-    }
-    
-    .email-signup {
-        margin-top: 1rem;
+        font-size: 0.7rem;
     }
     
     .email-input {
         padding: 0.75rem 1rem;
-        font-size: 0.85rem;
+        font-size: 0.8rem;
     }
     
     .notify-btn {
         padding: 0.75rem 1rem;
-        font-size: 0.85rem;
+        font-size: 0.8rem;
     }
     
     .modal-btn {
         padding: 0.5rem 1.25rem;
-        font-size: 0.85rem;
+        font-size: 0.8rem;
     }
 }
 
@@ -1210,7 +1235,7 @@ body {
     
     .dont-see-input {
         padding: 0.75rem 3rem 0.75rem 1rem;
-        font-size: 0.85rem;
+        font-size: 0.8rem;
     }
     
     .dont-see-submit-btn {
@@ -1225,11 +1250,11 @@ body {
     }
     
     .modal-header {
-        padding: 1rem 0.75rem 0.75rem;
+        padding: 1.5rem 1rem 1.5rem;
     }
     
     .modal-body {
-        padding: 0.75rem;
+        padding: 1rem;
     }
     
     .modal-icon {
@@ -1248,7 +1273,20 @@ body {
     }
     
     .feature-highlights {
-        padding: 0.75rem;
+        padding: 1rem;
+    }
+    
+    .feature-item {
+        font-size: 0.7rem;
+    }
+    
+    .feature-item i {
+        font-size: 1rem;
+        margin-bottom: 0;
+    }
+    
+    .feature-item span {
+        font-size: 0.7rem;
     }
     
     .email-input {
