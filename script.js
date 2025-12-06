@@ -10,6 +10,8 @@ const hiringLink = document.getElementById('hiringLink');
 const footerHomeLink = document.getElementById('footerHomeLink');
 const footerFounderLink = document.getElementById('footerFounderLink');
 const footerHiringLink = document.getElementById('footerHiringLink');
+const mobileFounderLink = document.getElementById('mobileFounderLink');
+const mobileHiringLink = document.getElementById('mobileHiringLink');
 const homeSection = document.getElementById('homeSection');
 const founderSection = document.getElementById('founderSection');
 const hiringSection = document.getElementById('hiringSection');
@@ -66,9 +68,6 @@ function showSection(sectionToShow) {
     
     // Scroll to top
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    
-    // Close mobile menu if open
-    navMenu.classList.remove('mobile-menu-open');
 }
 
 // Event listeners for navigation
@@ -108,7 +107,18 @@ footerHiringLink.addEventListener('click', (e) => {
     showSection('hiring');
 });
 
-// Mobile menu toggle
+// Mobile navigation links
+mobileFounderLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    showSection('founder');
+});
+
+mobileHiringLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    showSection('hiring');
+});
+
+// Mobile menu toggle (hidden in mobile view)
 mobileMenuBtn.addEventListener('click', () => {
     navMenu.classList.toggle('mobile-menu-open');
 });
