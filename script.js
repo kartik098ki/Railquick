@@ -43,7 +43,67 @@ const contactMessageDiv = document.getElementById('contactMessage');
 const hiringForm = document.getElementById('hiringForm');
 const hiringMessageDiv = document.getElementById('hiringMessage');
 
-// Navigation
+// Initialize page
+document.addEventListener('DOMContentLoaded', function() {
+    // Set up event listeners
+    setupNavigation();
+    setupModal();
+    setupFAQ();
+    setupForms();
+    
+    // Ensure modal is hidden on page load
+    appModal.style.display = 'none';
+});
+
+// Navigation functionality
+function setupNavigation() {
+    // Main navigation links
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.id.replace('Link', 'Section');
+            showSection(targetId);
+            
+            // Update active state
+            navLinks.forEach(l => l.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+
+    // Mobile navigation links
+    mobileNavLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.id.replace('mobile', '').replace('Link', 'Section');
+            showSection(targetId);
+            
+            // Update active state in main nav
+            navLinks.forEach(l => l.classList.remove('active'));
+            const mainNavLink = document.getElementById(this.id.replace('mobile', ''));
+            if (mainNavLink) {
+                mainNavLink.classList.add('active');
+            }
+        });
+    });
+
+    // Footer navigation links
+    footerLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.id.replace('footer', '').replace('Link', 'Section');
+            showSection(targetId);
+            
+            // Update active state in main nav
+            navLinks.forEach(l => l.classList.remove('active'));
+            const mainNavLink = document.getElementById(this.id.replace('footer', ''));
+            if (mainNavLink) {
+                mainNavLink.classList.add('active');
+            }
+        });
+    });
+}
+
+// Show the selected section
 function showSection(sectionToShow) {
     // Hide all sections
     homeSection.classList.remove('active');
@@ -81,224 +141,34 @@ function showSection(sectionToShow) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// Event listeners for navigation
-logoLink.addEventListener('click', (e) => {
-    e.preventDefault();
-    showSection('home');
-});
-
-homeLink.addEventListener('click', (e) => {
-    e.preventDefault();
-    showSection('home');
-});
-
-aboutLink.addEventListener('click', (e) => {
-    e.preventDefault();
-    showSection('about');
-});
-
-contactLink.addEventListener('click', (e) => {
-    e.preventDefault();
-    showSection('contact');
-});
-
-hiringLink.addEventListener('click', (e) => {
-    e.preventDefault();
-    showSection('hiring');
-});
-
-// Footer navigation
-if (footerHomeLink) {
-    footerHomeLink.addEventListener('click', (e) => {
+// Modal functionality
+function setupModal() {
+    // Open modal when download app button is clicked
+    downloadAppBtn.addEventListener('click', function(e) {
         e.preventDefault();
-        showSection('home');
+        appModal.style.display = 'flex';
     });
-}
 
-if (footerAboutLink) {
-    footerAboutLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        showSection('about');
+    // Close modal when close button is clicked
+    closeModal.addEventListener('click', closeModalFunc);
+    closeModalBtn.addEventListener('click', closeModalFunc);
+
+    // Close modal when clicking outside the modal content
+    window.addEventListener('click', function(e) {
+        if (e.target === appModal) {
+            closeModalFunc();
+        }
     });
-}
-
-if (footerContactLink) {
-    footerContactLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        showSection('contact');
-    });
-}
-
-if (footerHiringLink) {
-    footerHiringLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        showSection('hiring');
-    });
-}
-
-// Mobile navigation links in header
-if(mobileAboutLink) {
-    mobileAboutLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        showSection('about');
-    });
-}
-
-if(mobileContactLink) {
-    mobileContactLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        showSection('contact');
-    });
-}
-
-if(mobileHiringLink) {
-    mobileHiringLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        showSection('hiring');
-    });
-}
-
-// "Apply Now" button in About Us section
-if (aboutHiringLink) {
-    aboutHiringLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        showSection('hiring');
-    });
-}
-
-// Modal controls
-function openModal() {
-    appModal.style.display = 'flex';
 }
 
 function closeModalFunc() {
     appModal.style.display = 'none';
+    emailInput.value = '';
+    emailMessage.textContent = '';
+    emailMessage.className = '';
 }
 
-// Event listeners for modal
-downloadAppBtn.addEventListener('click', openModal);
-closeModal.addEventListener('click', closeModalFunc);
-closeModalBtn.addEventListener('click', closeModalFunc);
-
-// Close modal when clicking outside
-appModal.addEventListener('click', (e) => {
-    if (e.target === appModal) {
-        closeModalFunc();
-    }
-});
-
-// FAQ Section
-const faqItems = document.querySelectorAll('.faq-item');
-
-faqItems.forEach(item => {
-    const question = item.querySelector('.faq-question');
-    
-    question.addEventListener('click', () => {
-        // Close all other items
-        faqItems.forEach(otherItem => {
-            if (otherItem !== item) {
-                otherItem.classList.remove('active');
-            }
-        });
-        
-        // Toggle current item
-        item.classList.toggle('active');
-    });
-});
-
-// Helper function to check if response is OK and handle errors
-async function handleApiResponse(response, successMessage, messageElement) {
-    console.log('Response status:', response.status);
-    console.log('Response URL:', response.url);
-    
-    if (response.ok) {
-        showMessage(messageElement, successMessage, 'success');
-        return true;
-    } else {
-        let errorMessage = 'Something went wrong. Please try again.';
-        
-        try {
-            const errorData = await response.json();
-            console.error('API Error:', errorData);
-            
-            if (response.status === 409) {
-                errorMessage = 'You have already submitted this information.';
-            } else if (response.status === 400) {
-                errorMessage = 'Invalid data provided. Please check your inputs.';
-            } else if (response.status === 401 || response.status === 403) {
-                errorMessage = 'Authentication error. Please refresh the page and try again.';
-            } else if (response.status === 404) {
-                errorMessage = 'Database table not found. Please ensure tables are created in Supabase.';
-            } else if (response.status >= 500) {
-                errorMessage = 'Server error. Please try again later.';
-            }
-        } catch (e) {
-            console.error('Error parsing error response:', e);
-        }
-        
-        showMessage(messageElement, errorMessage, 'error');
-        return false;
-    }
-}
-
-// Helper function to show messages
-function showMessage(element, text, type) {
-    element.textContent = text;
-    element.className = type === 'success' ? 'success-message' : 'error-message';
-    
-    // Don't clear message automatically
-}
-
-// Function to clear message when user starts typing
-function setupMessageClearing(inputElement, messageElement) {
-    inputElement.addEventListener('input', () => {
-        if (messageElement.textContent) {
-            messageElement.textContent = '';
-            messageElement.className = '';
-        }
-    });
-}
-
-// Set up message clearing for all form inputs
-setupMessageClearing(dontSeeInput, dontSeeMessageDiv);
-setupMessageClearing(document.getElementById('contactName'), contactMessageDiv);
-setupMessageClearing(document.getElementById('contactEmail'), contactMessageDiv);
-setupMessageClearing(document.getElementById('contactInquiry'), contactMessageDiv);
-setupMessageClearing(document.getElementById('applicantName'), hiringMessageDiv);
-setupMessageClearing(document.getElementById('applicantEmail'), hiringMessageDiv);
-setupMessageClearing(document.getElementById('applicantPhone'), hiringMessageDiv);
-setupMessageClearing(document.getElementById('applicantReason'), hiringMessageDiv);
-setupMessageClearing(document.getElementById('applicantLinkedIn'), hiringMessageDiv);
-setupMessageClearing(document.getElementById('applicantJourney'), hiringMessageDiv);
-setupMessageClearing(emailInput, emailMessage);
-
-// Function to show loading spinner
-function showLoading(buttonElement) {
-    const btnText = buttonElement.querySelector('.btn-text');
-    const btnLoader = buttonElement.querySelector('.btn-loader');
-    
-    if (btnText && btnLoader) {
-        btnText.style.display = 'none';
-        btnLoader.style.display = 'inline-block';
-    }
-    
-    buttonElement.disabled = true;
-}
-
-// Function to hide loading spinner
-function hideLoading(buttonElement, originalText) {
-    const btnText = buttonElement.querySelector('.btn-text');
-    const btnLoader = buttonElement.querySelector('.btn-loader');
-    
-    if (btnText && btnLoader) {
-        btnText.style.display = 'inline-block';
-        btnLoader.style.display = 'none';
-    }
-    
-    buttonElement.disabled = false;
-}
-
-// Email notification handler
+// Email notification functionality
 notifyBtn.addEventListener('click', async () => {
     const email = emailInput.value.trim();
     
@@ -344,179 +214,272 @@ notifyBtn.addEventListener('click', async () => {
     }
 });
 
-// Don't see form submission handler
-dontSeeForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
+// Helper function to check if response is OK and handle errors
+async function handleApiResponse(response, successMessage, messageElement) {
+    console.log('Response status:', response.status);
+    console.log('Response URL:', response.url);
     
-    const need = dontSeeInput.value.trim();
-    
-    if (!need) {
-        showMessage(dontSeeMessageDiv, 'Please enter what you need', 'error');
-        return;
-    }
-    
-    const submitButton = dontSeeForm.querySelector('.dont-see-submit-btn');
-    const originalHTML = submitButton.innerHTML;
-    showLoading(submitButton);
-    
-    try {
-        const response = await fetch(`${SUPABASE_URL}/rest/v1/needs`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'apikey': SUPABASE_ANON_KEY,
-                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-                'Prefer': 'return=minimal'
-            },
-            body: JSON.stringify({ need })
-        });
+    if (response.ok) {
+        showMessage(messageElement, successMessage, 'success');
+        return true;
+    } else {
+        let errorMessage = 'Something went wrong. Please try again.';
         
-        const success = await handleApiResponse(
-            response, 
-            'Thank you for your suggestion! We\'ll consider it for our service.', 
-            dontSeeMessageDiv
-        );
-        
-        if (success) {
-            dontSeeInput.value = '';
+        try {
+            const errorData = await response.json();
+            console.error('API Error:', errorData);
+            
+            if (response.status === 409) {
+                errorMessage = 'You have already submitted this information.';
+            } else if (response.status === 400) {
+                errorMessage = 'Invalid data provided. Please check your inputs.';
+            } else if (response.status === 401 || response.status === 403) {
+                errorMessage = 'Authentication error. Please refresh the page and try again.';
+            } else if (response.status === 404) {
+                errorMessage = 'Database table not found. Please ensure tables are created in Supabase.';
+            } else if (response.status >= 500) {
+                errorMessage = 'Server error. Please try again later.';
+            }
+        } catch (e) {
+            console.error('Error parsing error response:', e);
         }
-    } catch (error) {
-        console.error('Network error:', error);
-        showMessage(dontSeeMessageDiv, 'Network error. Please check your connection and try again.', 'error');
-    } finally {
-        hideLoading(submitButton, originalHTML);
+        
+        showMessage(messageElement, errorMessage, 'error');
+        return false;
     }
-});
+}
 
-// Contact form submission handler
-contactForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
+// Helper function to show messages
+function showMessage(element, text, type) {
+    element.textContent = text;
+    element.className = type === 'success' ? 'success-message' : 'error-message';
+}
+
+// Function to show loading spinner
+function showLoading(buttonElement) {
+    const btnText = buttonElement.querySelector('.btn-text');
+    const btnLoader = buttonElement.querySelector('.btn-loader');
     
-    const formData = new FormData(contactForm);
-    const name = formData.get('name').trim();
-    const email = formData.get('email').trim();
-    const inquiry = formData.get('inquiry').trim();
-    
-    if (!name || !email || !inquiry) {
-        showMessage(contactMessageDiv, 'Please fill in all required fields', 'error');
-        return;
+    if (btnText && btnLoader) {
+        btnText.style.display = 'none';
+        btnLoader.style.display = 'inline-block';
     }
     
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-        showMessage(contactMessageDiv, 'Please enter a valid email address', 'error');
-        return;
+    buttonElement.disabled = true;
+}
+
+// Function to hide loading spinner
+function hideLoading(buttonElement, originalText) {
+    const btnText = buttonElement.querySelector('.btn-text');
+    const btnLoader = buttonElement.querySelector('.btn-loader');
+    
+    if (btnText && btnLoader) {
+        btnText.style.display = 'inline-block';
+        btnLoader.style.display = 'none';
     }
     
-    const submitButton = contactForm.querySelector('.submit-application-btn');
-    showLoading(submitButton);
-    
-    try {
-        const response = await fetch(`${SUPABASE_URL}/rest/v1/contacts`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'apikey': SUPABASE_ANON_KEY,
-                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-                'Prefer': 'return=minimal'
-            },
-            body: JSON.stringify({ 
-                name, 
-                email, 
-                inquiry
-            })
+    buttonElement.disabled = false;
+}
+
+// FAQ Section
+const faqItems = document.querySelectorAll('.faq-item');
+
+function setupFAQ() {
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        
+        question.addEventListener('click', () => {
+            // Close all other items
+            faqItems.forEach(otherItem => {
+                if (otherItem !== item) {
+                    otherItem.classList.remove('active');
+                }
+            });
+            
+            // Toggle current item
+            item.classList.toggle('active');
         });
-        
-        const success = await handleApiResponse(
-            response, 
-            'Thank you for your message! We\'ll get back to you soon.', 
-            contactMessageDiv
-        );
-        
-        if (success) {
-            contactForm.reset();
-        }
-    } catch (error) {
-        console.error('Network error:', error);
-        showMessage(contactMessageDiv, 'Network error. Please check your connection and try again.', 'error');
-    } finally {
-        hideLoading(submitButton, 'Send Message');
-    }
-});
+    });
+}
 
-// Hiring form submission handler
-hiringForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
+// Form functionality
+function setupForms() {
+    // Don't See form
+    dontSeeForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const need = dontSeeInput.value.trim();
+        
+        if (!need) {
+            showMessage(dontSeeMessageDiv, 'Please enter what you need', 'error');
+            return;
+        }
+        
+        const submitButton = dontSeeForm.querySelector('.dont-see-submit-btn');
+        const originalHTML = submitButton.innerHTML;
+        showLoading(submitButton);
+        
+        try {
+            const response = await fetch(`${SUPABASE_URL}/rest/v1/needs`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'apikey': SUPABASE_ANON_KEY,
+                    'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                    'Prefer': 'return=minimal'
+                },
+                body: JSON.stringify({ need })
+            });
+            
+            const success = await handleApiResponse(
+                response, 
+                'Thank you for your suggestion! We\'ll consider it for our service.', 
+                dontSeeMessageDiv
+            );
+            
+            if (success) {
+                dontSeeInput.value = '';
+            }
+        } catch (error) {
+            console.error('Network error:', error);
+            showMessage(dontSeeMessageDiv, 'Network error. Please check your connection and try again.', 'error');
+        } finally {
+            hideLoading(submitButton, originalHTML);
+        }
+    });
     
-    const formData = new FormData(hiringForm);
-    const name = formData.get('name').trim();
-    const email = formData.get('email').trim();
-    const phone = formData.get('phone').trim();
-    const reason = formData.get('reason').trim();
-    const linkedin = formData.get('linkedin').trim();
-    const journey = formData.get('journey').trim();
+    // Contact form
+    contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const formData = new FormData(contactForm);
+        const name = formData.get('name').trim();
+        const email = formData.get('email').trim();
+        const inquiry = formData.get('inquiry').trim();
+        
+        if (!name || !email || !inquiry) {
+            showMessage(contactMessageDiv, 'Please fill in all required fields', 'error');
+            return;
+        }
+        
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            showMessage(contactMessageDiv, 'Please enter a valid email address', 'error');
+            return;
+        }
+        
+        const submitButton = contactForm.querySelector('.submit-application-btn');
+        showLoading(submitButton);
+        
+        try {
+            const response = await fetch(`${SUPABASE_URL}/rest/v1/contacts`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'apikey': SUPABASE_ANON_KEY,
+                    'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                    'Prefer': 'return=minimal'
+                },
+                body: JSON.stringify({ 
+                    name, 
+                    email, 
+                    inquiry
+                })
+            });
+            
+            const success = await handleApiResponse(
+                response, 
+                'Thank you for your message! We\'ll get back to you soon.', 
+                contactMessageDiv
+            );
+            
+            if (success) {
+                contactForm.reset();
+            }
+        } catch (error) {
+            console.error('Network error:', error);
+            showMessage(contactMessageDiv, 'Network error. Please check your connection and try again.', 'error');
+        } finally {
+            hideLoading(submitButton, 'Send Message');
+        }
+    });
     
-    if (!name || !email || !reason || !linkedin) {
-        showMessage(hiringMessageDiv, 'Please fill in all required fields', 'error');
-        return;
-    }
-    
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-        showMessage(hiringMessageDiv, 'Please enter a valid email address', 'error');
-        return;
-    }
-    
-    try {
-        if (linkedin && !new URL(linkedin)) {
+    // Hiring form
+    hiringForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const formData = new FormData(hiringForm);
+        const name = formData.get('name').trim();
+        const email = formData.get('email').trim();
+        const phone = formData.get('phone').trim();
+        const reason = formData.get('reason').trim();
+        const linkedin = formData.get('linkedin').trim();
+        const journey = formData.get('journey').trim();
+        
+        if (!name || !email || !reason || !linkedin) {
+            showMessage(hiringMessageDiv, 'Please fill in all required fields', 'error');
+            return;
+        }
+        
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            showMessage(hiringMessageDiv, 'Please enter a valid email address', 'error');
+            return;
+        }
+        
+        try {
+            if (linkedin && !new URL(linkedin)) {
+                showMessage(hiringMessageDiv, 'Please enter a valid LinkedIn URL', 'error');
+                return;
+            }
+        } catch (e) {
             showMessage(hiringMessageDiv, 'Please enter a valid LinkedIn URL', 'error');
             return;
         }
-    } catch (e) {
-        showMessage(hiringMessageDiv, 'Please enter a valid LinkedIn URL', 'error');
-        return;
-    }
-    
-    const submitButton = hiringForm.querySelector('.submit-application-btn');
-    showLoading(submitButton);
-    
-    try {
-        const response = await fetch(`${SUPABASE_URL}/rest/v1/applications`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'apikey': SUPABASE_ANON_KEY,
-                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-                'Prefer': 'return=minimal'
-            },
-            body: JSON.stringify({ 
-                name, 
-                email, 
-                phone, 
-                reason, 
-                linkedin, 
-                journey 
-            })
-        });
         
-        const success = await handleApiResponse(
-            response, 
-            'Thank you for your application! We\'ll be in touch soon.', 
-            hiringMessageDiv
-        );
+        const submitButton = hiringForm.querySelector('.submit-application-btn');
+        showLoading(submitButton);
         
-        if (success) {
-            hiringForm.reset();
+        try {
+            const response = await fetch(`${SUPABASE_URL}/rest/v1/applications`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'apikey': SUPABASE_ANON_KEY,
+                    'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                    'Prefer': 'return=minimal'
+                },
+                body: JSON.stringify({ 
+                    name, 
+                    email, 
+                    phone, 
+                    reason, 
+                    linkedin, 
+                    journey 
+                })
+            });
+            
+            const success = await handleApiResponse(
+                response, 
+                'Thank you for your application! We\'ll be in touch soon.', 
+                hiringMessageDiv
+            );
+            
+            if (success) {
+                hiringForm.reset();
+            }
+        } catch (error) {
+            console.error('Network error:', error);
+            showMessage(hiringMessageDiv, 'Network error. Please check your connection and try again.', 'error');
+        } finally {
+            hideLoading(submitButton, 'Submit Application');
         }
-    } catch (error) {
-        console.error('Network error:', error);
-        showMessage(hiringMessageDiv, 'Network error. Please check your connection and try again.', 'error');
-    } finally {
-        hideLoading(submitButton, 'Submit Application');
-    }
-});
+    });
+}
 
 // Simple initialization
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Railquick website loaded');
+    
+    // Ensure modal is hidden on page load
+    appModal.style.display = 'none';
 });
