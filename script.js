@@ -116,10 +116,12 @@ mobileMenuBtn.addEventListener('click', () => {
 // Modal controls
 function openModal() {
     appModal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
 }
 
 function closeModalFunc() {
     appModal.style.display = 'none';
+    document.body.style.overflow = 'auto';
 }
 
 // Event listeners for modal
@@ -295,77 +297,4 @@ hiringForm.addEventListener('submit', async (e) => {
     const phone = formData.get('phone').trim();
     const reason = formData.get('reason').trim();
     const linkedin = formData.get('linkedin').trim();
-    const journey = formData.get('journey').trim();
-    
-    // Validation
-    if (!name || !email || !reason || !linkedin) {
-        showMessage(hiringMessageDiv, 'Please fill in all required fields', 'error');
-        return;
-    }
-    
-    // Email format validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-        showMessage(hiringMessageDiv, 'Please enter a valid email address', 'error');
-        return;
-    }
-    
-    // URL validation for LinkedIn
-    try {
-        if (linkedin && !new URL(linkedin)) {
-            showMessage(hiringMessageDiv, 'Please enter a valid LinkedIn URL', 'error');
-            return;
-        }
-    } catch (e) {
-        showMessage(hiringMessageDiv, 'Please enter a valid LinkedIn URL', 'error');
-        return;
-    }
-    
-    // Show loading state
-    const submitButton = hiringForm.querySelector('.submit-application-btn');
-    const originalText = submitButton.textContent;
-    submitButton.textContent = 'Submitting...';
-    submitButton.disabled = true;
-    
-    try {
-        const response = await fetch(`${SUPABASE_URL}/rest/v1/applications`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'apikey': SUPABASE_ANON_KEY,
-                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-                'Prefer': 'return=minimal'
-            },
-            body: JSON.stringify({ 
-                name, 
-                email, 
-                phone, 
-                reason, 
-                linkedin, 
-                journey 
-            })
-        });
-        
-        const success = await handleApiResponse(
-            response, 
-            'Thank you for your application! We\'ll be in touch soon.', 
-            hiringMessageDiv
-        );
-        
-        if (success) {
-            hiringForm.reset();
-        }
-    } catch (error) {
-        console.error('Network error:', error);
-        showMessage(hiringMessageDiv, 'Network error. Please check your connection and try again.', 'error');
-    } finally {
-        // Reset button state
-        submitButton.textContent = originalText;
-        submitButton.disabled = false;
-    }
-});
-
-// Simple initialization
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('Railquick website loaded');
-});
+    const journey = formData.get('
