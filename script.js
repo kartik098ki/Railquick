@@ -91,23 +91,29 @@ hiringLink.addEventListener('click', (e) => {
     showSection('hiring');
 });
 
-// Footer navigation
-footerHomeLink.addEventListener('click', (e) => {
-    e.preventDefault();
-    showSection('home');
-});
+// Footer navigation (removed as per requirement)
+if (footerHomeLink) {
+    footerHomeLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        showSection('home');
+    });
+}
 
-footerFounderLink.addEventListener('click', (e) => {
-    e.preventDefault();
-    showSection('founder');
-});
+if (footerFounderLink) {
+    footerFounderLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        showSection('founder');
+    });
+}
 
-footerHiringLink.addEventListener('click', (e) => {
-    e.preventDefault();
-    showSection('hiring');
-});
+if (footerHiringLink) {
+    footerHiringLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        showSection('hiring');
+    });
+}
 
-// Mobile navigation links
+// Mobile navigation links in header
 mobileFounderLink.addEventListener('click', (e) => {
     e.preventDefault();
     showSection('founder');
