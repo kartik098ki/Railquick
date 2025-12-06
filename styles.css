@@ -1149,108 +1149,160 @@ body {
     /* --- END OF MOBILE FOOTER REVISION --- */
 }
 
-/* Responsive Design for Modal */
+/* Enhanced Mobile Modal Styles */
 @media (max-width: 640px) {
-    /* --- REVISED MOBILE MODAL --- */
     .modal {
-        padding: 1rem;
+        padding: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     
     .modal-content {
-        width: 100%;
-        max-width: 350px;
-        max-height: 90vh;
+        width: 95%;
+        max-width: 360px;
+        max-height: 85vh;
         overflow-y: auto;
-        margin: 0;
-        border-radius: 0.75rem;
+        border-radius: 1rem;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        animation: modalSlideUp 0.4s ease-out;
     }
     
     .modal-header {
         padding: 1.5rem 1.5rem 1rem;
-        text-align: center;
         position: relative;
-    }
-    
-    .modal-body {
-        padding: 1rem 1.5rem 1.5rem;
-    }
-
-    .modal-description p {
-        font-size: 0.95rem;
-        line-height: 1.5;
-        margin-bottom: 1rem;
-    }
-    
-    .feature-highlights {
-        flex-direction: column;
-        gap: 0.75rem;
-        padding: 1rem;
-        margin: 1rem 0;
-    }
-    
-    .feature-item {
-        width: 100%;
-        flex-direction: row;
-        justify-content: flex-start;
-        gap: 1rem;
-        padding: 0.5rem 0;
-    }
-    
-    .feature-item i {
-        font-size: 1.25rem;
-    }
-    
-    .feature-item span {
-        font-size: 0.9rem;
-        text-align: left;
-    }
-    
-    .modal-footer {
-        padding: 1rem 1.5rem;
-        border-top: 1px solid #e5e7eb;
-    }
-    
-    .email-signup {
-        flex-direction: column;
-        gap: 0.75rem;
-        box-shadow: none;
-        border: 1px solid #e5e7eb;
-        border-radius: 0.5rem;
-        padding: 0.5rem;
-        margin-top: 1rem;
-    }
-    
-    .email-input {
-        padding: 0.875rem 1rem;
-        border-radius: 0.5rem;
-        border: 1px solid #e5e7eb;
-    }
-    
-    .notify-btn {
-        padding: 0.875rem 1rem;
-        border-radius: 0.5rem;
-        width: 100%;
-        justify-content: center;
+        text-align: center;
+        background: linear-gradient(135deg, rgba(147, 51, 234, 0.1), rgba(168, 85, 247, 0.05));
+        border-bottom: 1px solid rgba(147, 51, 234, 0.1);
     }
     
     .modal-icon {
-        width: 2.5rem;
-        height: 2.5rem;
-        font-size: 1.25rem;
+        width: 3rem;
+        height: 3rem;
+        font-size: 1.5rem;
+        margin-bottom: 0.75rem;
     }
     
     .modal-header h3 {
-        font-size: 1.25rem;
+        font-size: 1.5rem;
         margin-bottom: 0.5rem;
     }
     
     .close-modal {
         top: 1rem;
         right: 1rem;
-        width: 1.5rem;
-        height: 1.5rem;
+        width: 2.5rem;
+        height: 2.5rem;
+        font-size: 1.2rem;
+        background-color: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     }
-    /* --- END OF MOBILE MODAL REVISION --- */
+    
+    .modal-body {
+        padding: 1.5rem;
+    }
+    
+    .modal-description {
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+    
+    .modal-description p {
+        font-size: 1rem;
+        line-height: 1.6;
+        margin-bottom: 1rem;
+        color: #374151;
+    }
+    
+    .feature-highlights {
+        flex-direction: column;
+        gap: 1rem;
+        margin: 1.5rem 0;
+        padding: 1.25rem;
+        background-color: rgba(147, 51, 234, 0.05);
+        border-radius: 0.75rem;
+        border: 1px solid rgba(147, 51, 234, 0.15);
+    }
+    
+    .feature-item {
+        width: 100%;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.5rem 0;
+    }
+    
+    .feature-item i {
+        font-size: 1.5rem;
+        color: #9333ea;
+        width: 2rem;
+        text-align: center;
+    }
+    
+    .feature-item span {
+        font-size: 1rem;
+        font-weight: 500;
+        color: #374151;
+        text-align: left;
+    }
+    
+    .email-signup {
+        flex-direction: column;
+        gap: 1rem;
+        margin-top: 1.5rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        border-radius: 0.75rem;
+        overflow: hidden;
+        border: 1px solid #e5e7eb;
+    }
+    
+    .email-input {
+        padding: 1rem 1.25rem;
+        font-size: 1rem;
+        border: none;
+        border-bottom: 1px solid #e5e7eb;
+    }
+    
+    .notify-btn {
+        padding: 1rem;
+        font-size: 1rem;
+        font-weight: 600;
+        border-radius: 0 0 0.75rem 0.75rem;
+    }
+    
+    .modal-footer {
+        padding: 1rem 1.5rem 1.5rem;
+        text-align: center;
+        border-top: 1px solid #e5e7eb;
+    }
+    
+    .modal-btn {
+        padding: 0.75rem 2rem;
+        font-size: 1rem;
+        font-weight: 600;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 8px rgba(147, 51, 234, 0.2);
+    }
+    
+    #emailMessage {
+        margin-top: 1rem;
+        padding: 0.75rem;
+        border-radius: 0.5rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Animation for mobile modal */
+@keyframes modalSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* For very small screens */
@@ -1265,7 +1317,40 @@ body {
     }
     
     .modal-content {
+        width: 98%;
         max-width: 320px;
+    }
+    
+    .modal-header {
+        padding: 1.25rem 1.25rem 0.75rem;
+    }
+    
+    .modal-body {
+        padding: 1.25rem;
+    }
+    
+    .modal-icon {
+        width: 2.5rem;
+        height: 2.5rem;
+        font-size: 1.25rem;
+    }
+    
+    .modal-header h3 {
+        font-size: 1.25rem;
+    }
+    
+    .close-modal {
+        width: 2rem;
+        height: 2rem;
+        font-size: 1rem;
+    }
+    
+    .modal-description p {
+        font-size: 0.95rem;
+    }
+    
+    .feature-item span {
+        font-size: 0.9rem;
     }
     
     .footer-link {
