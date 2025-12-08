@@ -1,0 +1,9 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.example.railquick",
+    "sha256_cert_fingerprints":
+    ["A7:0C:F2:68:8B:6F:16:D9:2D:D4:C2:D9:4D:56:F5:74:A6:CC:0A:DF:3C:06:FA:EA:A4:82:26:51:85:EB:FE:D8"]
+  }
+}]
