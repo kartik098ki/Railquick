@@ -7,10 +7,13 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <!-- Background Effect -->
+    <div class="bg-effect"></div>
+    
     <!-- Header -->
     <header class="header">
         <a href="#" id="logoLink" class="logo-container">
@@ -23,8 +26,10 @@
             <a href="#" id="contactLink" class="nav-link">Contact Us</a>
             <a href="#" id="hiringLink" class="nav-link">We're Hiring</a>
         </nav>
+        
         <!-- Mobile Navigation Links -->
         <div class="mobile-nav-links">
+            <a href="#" id="mobileHomeLink" class="mobile-nav-link active">Home</a>
             <a href="#" id="mobileAboutLink" class="mobile-nav-link">About Us</a>
             <a href="#" id="mobileContactLink" class="mobile-nav-link">Contact Us</a>
             <a href="#" id="mobileHiringLink" class="mobile-nav-link">We're Hiring</a>
@@ -63,7 +68,7 @@
                 </div>
             </div>
             
-            <!-- Service Banner - Improved for mobile -->
+            <!-- Service Banner -->
             <div class="service-banner">
                 <div class="banner-content">
                     <div class="banner-icon">
@@ -128,32 +133,76 @@
                 </div>
             </div>
             
-            <!-- Don't See Section -->
-            <div class="dont-see-section">
-                <div class="dont-see-content">
-                    <h2 class="section-title">Don't See What You Need?</h2>
-                    <p>Tell us what you're looking for and we'll try our best to add it to our delivery list!</p>
+            <!-- Launch Info Section -->
+            <div class="launch-info-section">
+                <div class="launch-container">
+                    <div class="launch-header">
+                        <h2 class="launch-title">Launching Soon in Delhi</h2>
+                        <p class="launch-subtitle">Be the first to experience train seat delivery!</p>
+                    </div>
                     
-                    <form id="dontSeeForm" class="dont-see-form">
-                        <div class="input-container">
-                            <input 
-                                type="text" 
-                                id="dontSeeInput" 
-                                name="need" 
-                                class="dont-see-input" 
-                                placeholder="Type what you need..."
-                                required
-                            />
-                            <button type="submit" class="dont-see-submit-btn">
-                                <i class="fas fa-paper-plane"></i>
-                            </button>
+                    <div class="launch-content">
+                        <div class="launch-details">
+                            <div class="launch-detail">
+                                <div class="launch-icon">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div class="launch-info">
+                                    <h4>Phase 1 Launch</h4>
+                                    <p>Testing our delivery service at select Delhi railway stations</p>
+                                </div>
+                            </div>
+                            
+                            <div class="launch-detail">
+                                <div class="launch-icon">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </div>
+                                <div class="launch-info">
+                                    <h4>Coming December 2025</h4>
+                                    <p>Get ready for a revolutionary train journey experience</p>
+                                </div>
+                            </div>
+                            
+                            <div class="launch-detail">
+                                <div class="launch-icon">
+                                    <i class="fas fa-train"></i>
+                                </div>
+                                <div class="launch-info">
+                                    <h4>Major Delhi Stations</h4>
+                                    <p>Hazrat Nizamuddin, New Delhi, Delhi Junction, Anand Vihar</p>
+                                </div>
+                            </div>
                         </div>
-                    </form>
-                    
-                    <div id="dontSeeMessage"></div>
+                        
+                        <div class="launch-cta">
+                            <div class="launch-illustration">
+                                <div class="train-animation">
+                                    <i class="fas fa-train"></i>
+                                    <div class="track"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="launch-form-container">
+                                <h3>Get Notified at Launch</h3>
+                                <p>Enter your email to be the first to know when RailQuick launches in Delhi</p>
+                                
+                                <form id="launchNotifyForm" class="launch-form">
+                                    <div class="form-group">
+                                        <input type="email" id="launchEmailInput" placeholder="Enter your email address" class="launch-email-input" required>
+                                    </div>
+                                    <button type="submit" class="launch-notify-btn" id="launchNotifyBtn">
+                                        <span class="btn-text">Notify Me</span>
+                                        <i class="fas fa-bell"></i>
+                                    </button>
+                                </form>
+                                
+                                <div id="launchEmailMessage" class="launch-message"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-
+            
             <!-- FAQ Section -->
             <div class="faq-section">
                 <h2 class="section-title">Frequently Asked Questions</h2>
@@ -243,6 +292,28 @@
                                     <p class="member-description">Harshit likes managing how things work and making sure everything runs smoothly. At RailQuick, he helps organize tasks and supports the team so that features and operations stay on track. He believes small improvements can make a big difference in the overall experience.</p>
                                 </div>
                             </div>
+                            
+                            <div class="team-member-card">
+                                <div class="member-image">
+                                    <img src="https://picsum.photos/seed/avni/300/300.jpg" alt="Avni Porwal" />
+                                </div>
+                                <div class="member-details">
+                                    <h4 class="member-name">Avni Porwal</h4>
+                                    <p class="member-title">Design Lead</p>
+                                    <p class="member-description">Avni brings creativity and user-centric design thinking to RailQuick. With a keen eye for detail and a passion for intuitive interfaces, she ensures that every interaction with RailQuick is seamless and delightful for travelers.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="team-member-card">
+                                <div class="member-image">
+                                    <img src="https://picsum.photos/seed/anushka/300/300.jpg" alt="Anushka" />
+                                </div>
+                                <div class="member-details">
+                                    <h4 class="member-name">Anushka</h4>
+                                    <p class="member-title">Social Content Manager</p>
+                                    <p class="member-description">Anushka crafts compelling stories and engaging content that connects RailQuick with its community. Her creative approach to social media helps travelers discover the convenience of on-seat delivery services.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     
@@ -260,85 +331,88 @@
                 <h2 class="section-title">Contact Us</h2>
                 
                 <!-- Contact Us Form -->
-                <form id="contactForm" class="contact-form">
-                    <div class="form-group">
-                        <label for="contactName" class="form-label">Name *</label>
-                        <input type="text" id="contactName" name="name" class="form-input" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="contactEmail" class="form-label">Email ID *</label>
-                        <input type="email" id="contactEmail" name="email" class="form-input" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="contactInquiry" class="form-label">Your Inquiry *</label>
-                        <textarea id="contactInquiry" name="inquiry" class="form-textarea" rows="5" required></textarea>
-                    </div>
-                    
-                    <button type="submit" class="submit-application-btn">
-                        <span class="btn-text">Send Message</span>
-                        <i class="fas fa-spinner fa-spin btn-loader" style="display: none;"></i>
-                    </button>
-                </form>
-                
-                <div id="contactMessage"></div>
-
-                <!-- NEW HEADING FOR FOUNDERS -->
-                <h2 class="section-title" style="margin-top: 4rem;">Contact Founders</h2>
-
-                <!-- Founder & Team Profiles -->
-                <div class="team-grid">
-                    <div class="team-member-card">
-                        <div class="member-image">
-                            <img src="1762616922445.jpeg" alt="Kartik Guleria" />
+                <div class="contact-form">
+                    <h3 class="contact-form-title">Get in Touch</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="contactName" class="form-label">Name *</label>
+                            <input type="text" id="contactName" name="name" class="form-input" required>
                         </div>
                         
-                        <div class="member-details">
-                            <h3 class="member-name">Kartik Guleria</h3>
-                            <p class="member-title">Founder & CEO</p>
+                        <div class="form-group">
+                            <label for="contactEmail" class="form-label">Email ID *</label>
+                            <input type="email" id="contactEmail" name="email" class="form-input" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contactInquiry" class="form-label">Your Inquiry *</label>
+                            <textarea id="contactInquiry" name="inquiry" class="form-textarea" rows="5" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="submit-application-btn">
+                            <span class="btn-text">Send Message</span>
+                            <i class="fas fa-spinner fa-spin btn-loader" style="display: none;"></i>
+                        </button>
+                    </form>
+                    
+                    <div id="contactMessage"></div>
+                </div>
+
+                <!-- Founder & Team Profiles -->
+                <div class="founder-section">
+                    <h3 class="founder-section-title">Contact Founders</h3>
+                    <div class="team-grid">
+                        <div class="team-member-card">
+                            <div class="member-image">
+                                <img src="1762616922445.jpeg" alt="Kartik Guleria" />
+                            </div>
                             
-                            <div class="member-contact">
-                                <div class="contact-info">
-                                    <div class="contact-item">
-                                        <svg class="contact-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                                        </svg>
-                                        <a href="mailto:kartikguleria12@gmail.com" class="contact-link">kartikguleria12@gmail.com</a>
-                                    </div>
-                                    <div class="contact-item">
-                                        <svg class="contact-icon" fill="currentColor" viewBox="0 0 24 24">
-                                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                                        </svg>
-                                        <a href="https://www.linkedin.com/in/kartikguleria1/" target="_blank" class="contact-link">LinkedIn Profile</a>
+                            <div class="member-details">
+                                <h3 class="member-name">Kartik Guleria</h3>
+                                <p class="member-title">Founder & CEO</p>
+                                
+                                <div class="member-contact">
+                                    <div class="contact-info">
+                                        <div class="contact-item">
+                                            <svg class="contact-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                            </svg>
+                                            <a href="mailto:kartikguleria12@gmail.com" class="contact-link">kartikguleria12@gmail.com</a>
+                                        </div>
+                                        <div class="contact-item">
+                                            <svg class="contact-icon" fill="currentColor" viewBox="0 0 24 24">
+                                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75.1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                                            </svg>
+                                            <a href="https://www.linkedin.com/in/kartikguleria1/" target="_blank" class="contact-link">LinkedIn Profile</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="team-member-card">
-                        <div class="member-image">
-                            <img src="1754411802709.jpeg" alt="Harshit Sinha" />
-                        </div>
-                        
-                        <div class="member-details">
-                            <h3 class="member-name">Harshit Sinha</h3>
-                            <p class="member-title">Founder & Operation Head</p>
+                        <div class="team-member-card">
+                            <div class="member-image">
+                                <img src="1754411802709.jpeg" alt="Harshit Sinha" />
+                            </div>
                             
-                            <div class="member-contact">
-                                <div class="contact-info">
-                                    <div class="contact-item">
-                                        <svg class="contact-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                                        </svg>
-                                        <a href="mailto:sinhah166@gmail.com" class="contact-link">sinhah166@gmail.com</a>
-                                    </div>
-                                    <div class="contact-item">
-                                        <svg class="contact-icon" fill="currentColor" viewBox="0 0 24 24">
-                                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                                        </svg>
-                                        <a href="https://www.linkedin.com/in/harshit-sinha-3833172a1/" target="_blank" class="contact-link">LinkedIn Profile</a>
+                            <div class="member-details">
+                                <h3 class="member-name">Harshit Sinha</h3>
+                                <p class="member-title">Founder & Operation Head</p>
+                                
+                                <div class="member-contact">
+                                    <div class="contact-info">
+                                        <div class="contact-item">
+                                            <svg class="contact-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                            </svg>
+                                            <a href="mailto:sinhah166@gmail.com" class="contact-link">sinhah166@gmail.com</a>
+                                        </div>
+                                        <div class="contact-item">
+                                            <svg class="contact-icon" fill="currentColor" viewBox="0 0 24 24">
+                                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75.1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                                            </svg>
+                                            <a href="https://www.linkedin.com/in/harshit-sinha-3833172a1/" target="_blank" class="contact-link">LinkedIn Profile</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -350,55 +424,57 @@
 
         <!-- Hiring Section -->
         <section id="hiringSection" class="content-section">
-            <div class="content-container">
-                <h2 class="section-title">Join Our Team</h2>
-                
-                <div class="hiring-message">
-                    <p>Hey,</p>
-                    <p>We're not some big company — we're building one, from the ground up. RailQuick started because of a problem every traveler has faced, and we decided to fix it. No fancy talk — just pure hustle, ideas, and long nights turning dreams into reality.</p>
-                    <p>We've given our time, skills, and everything we've got to make this happen. Now, we need a crew — hungry minds who want to build, learn, fail fast, and grow faster.</p>
-                    <p>If you're someone who believes in action over talk, who's ready to give real time and energy — welcome. We're not hiring employees. We're building a family.</p>
-                    <p>Let's go make something crazy together.</p>
+            <div class="hiring-section">
+                <div class="hiring-container">
+                    <h2 class="section-title">Join Our Team</h2>
+                    
+                    <div class="hiring-message">
+                        <p>Hey,</p>
+                        <p>We're not some big company — we're building one, from the ground up. RailQuick started because of a problem every traveler has faced, and we decided to fix it. No fancy talk — just pure hustle, ideas, and long nights turning dreams into reality.</p>
+                        <p>We've given our time, skills, and everything we've got to make this happen. Now, we need a crew — hungry minds who want to build, learn, fail fast, and grow faster.</p>
+                        <p>If you're someone who believes in action over talk, who's ready to give real time and energy — welcome. We're not hiring employees. We're building a family.</p>
+                        <p>Let's go make something crazy together.</p>
+                    </div>
+                    
+                    <form id="hiringForm" class="hiring-form">
+                        <div class="form-group">
+                            <label for="applicantName" class="form-label">Name *</label>
+                            <input type="text" id="applicantName" name="name" class="form-input" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="applicantEmail" class="form-label">Email ID *</label>
+                            <input type="email" id="applicantEmail" name="email" class="form-input" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="applicantPhone" class="form-label">Contact Number</label>
+                            <input type="tel" id="applicantPhone" name="phone" class="form-input">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="applicantReason" class="form-label">Why do you want to join us? *</label>
+                            <textarea id="applicantReason" name="reason" class="form-textarea" rows="4" required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="applicantLinkedIn" class="form-label">LinkedIn Profile *</label>
+                            <input type="url" id="applicantLinkedIn" name="linkedin" class="form-input" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="applicantJourney" class="form-label">Previous Work/Journey</label>
+                            <textarea id="applicantJourney" name="journey" class="form-textarea" rows="4"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="submit-application-btn">
+                            <span class="btn-text">Submit Application</span>
+                            <i class="fas fa-spinner fa-spin btn-loader" style="display: none;"></i>
+                        </button>
+                    </form>
+                    
+                    <div id="hiringMessage"></div>
                 </div>
-                
-                <form id="hiringForm" class="hiring-form">
-                    <div class="form-group">
-                        <label for="applicantName" class="form-label">Name *</label>
-                        <input type="text" id="applicantName" name="name" class="form-input" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="applicantEmail" class="form-label">Email ID *</label>
-                        <input type="email" id="applicantEmail" name="email" class="form-input" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="applicantPhone" class="form-label">Contact Number</label>
-                        <input type="tel" id="applicantPhone" name="phone" class="form-input">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="applicantReason" class="form-label">Why do you want to join us? *</label>
-                        <textarea id="applicantReason" name="reason" class="form-textarea" rows="4" required></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="applicantLinkedIn" class="form-label">LinkedIn Profile *</label>
-                        <input type="url" id="applicantLinkedIn" name="linkedin" class="form-input" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="applicantJourney" class="form-label">Previous Work/Journey</label>
-                        <textarea id="applicantJourney" name="journey" class="form-textarea" rows="4"></textarea>
-                    </div>
-                    
-                    <button type="submit" class="submit-application-btn">
-                        <span class="btn-text">Submit Application</span>
-                        <i class="fas fa-spinner fa-spin btn-loader" style="display: none;"></i>
-                    </button>
-                </form>
-                
-                <div id="hiringMessage"></div>
             </div>
         </section>
     </main>
@@ -439,10 +515,8 @@
             </div>
             
             <div class="footer-bottom">
-                <p class="footer-copyright">© 2025 Railquick. Revolutionizing train travel.</p>
                 <p class="footer-tagline">Your journey, our priority</p>
-
-                  
+                <p class="footer-copyright">© 2025 Railquick. Revolutionizing train travel.</p>
             </div>
         </div>
     </footer>
