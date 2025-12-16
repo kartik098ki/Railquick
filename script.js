@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const footerAboutLink = document.getElementById('footerAboutLink');
     const footerContactLink = document.getElementById('footerContactLink');
     const footerHiringLink = document.getElementById('footerHiringLink');
+    const mobileHomeLink = document.getElementById('mobileHomeLink');
     const mobileAboutLink = document.getElementById('mobileAboutLink');
     const mobileContactLink = document.getElementById('mobileContactLink');
     const mobileHiringLink = document.getElementById('mobileHiringLink');
@@ -33,6 +34,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const emailInput = document.getElementById('emailInput');
     const notifyBtn = document.getElementById('notifyBtn');
     const emailMessage = document.getElementById('emailMessage');
+
+    // Launch notification form elements
+    const launchNotifyForm = document.getElementById('launchNotifyForm');
+    const launchEmailInput = document.getElementById('launchEmailInput');
+    const launchNotifyBtn = document.getElementById('launchNotifyBtn');
+    const launchEmailMessage = document.getElementById('launchEmailMessage');
 
     // Form elements
     const dontSeeForm = document.getElementById('dontSeeForm');
@@ -70,23 +77,33 @@ document.addEventListener('DOMContentLoaded', function() {
         contactLink.classList.remove('active');
         hiringLink.classList.remove('active');
         
+        // Remove active class from mobile nav links
+        mobileHomeLink.classList.remove('active');
+        mobileAboutLink.classList.remove('active');
+        mobileContactLink.classList.remove('active');
+        mobileHiringLink.classList.remove('active');
+        
         // Show selected section and activate corresponding nav link
         switch(sectionToShow) {
             case 'home':
                 homeSection.classList.add('active');
                 homeLink.classList.add('active');
+                mobileHomeLink.classList.add('active');
                 break;
             case 'about':
                 aboutSection.classList.add('active');
                 aboutLink.classList.add('active');
+                mobileAboutLink.classList.add('active');
                 break;
             case 'contact':
                 contactSection.classList.add('active');
                 contactLink.classList.add('active');
+                mobileContactLink.classList.add('active');
                 break;
             case 'hiring':
                 hiringSection.classList.add('active');
                 hiringLink.classList.add('active');
+                mobileHiringLink.classList.add('active');
                 break;
         }
         
@@ -115,101 +132,28 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Event listeners for navigation
-    if (logoLink) {
-        logoLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            showSection('home');
-        });
-    }
-
-    if (homeLink) {
-        homeLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            showSection('home');
-        });
-    }
-
-    if (aboutLink) {
-        aboutLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            showSection('about');
-        });
-    }
-
-    if (contactLink) {
-        contactLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            showSection('contact');
-        });
-    }
-
-    if (hiringLink) {
-        hiringLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            showSection('hiring');
-        });
-    }
-
+    if (logoLink) logoLink.addEventListener('click', (e) => { e.preventDefault(); showSection('home'); });
+    if (homeLink) homeLink.addEventListener('click', (e) => { e.preventDefault(); showSection('home'); });
+    if (aboutLink) aboutLink.addEventListener('click', (e) => { e.preventDefault(); showSection('about'); });
+    if (contactLink) contactLink.addEventListener('click', (e) => { e.preventDefault(); showSection('contact'); });
+    if (hiringLink) hiringLink.addEventListener('click', (e) => { e.preventDefault(); showSection('hiring'); });
+    
     // Footer navigation
-    if (footerHomeLink) {
-        footerHomeLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            showSection('home');
-        });
-    }
-
-    if (footerAboutLink) {
-        footerAboutLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            showSection('about');
-        });
-    }
-
-    if (footerContactLink) {
-        footerContactLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            showSection('contact');
-        });
-    }
-
-    if (footerHiringLink) {
-        footerHiringLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            showSection('hiring');
-        });
-    }
+    if (footerHomeLink) footerHomeLink.addEventListener('click', (e) => { e.preventDefault(); showSection('home'); });
+    if (footerAboutLink) footerAboutLink.addEventListener('click', (e) => { e.preventDefault(); showSection('about'); });
+    if (footerContactLink) footerContactLink.addEventListener('click', (e) => { e.preventDefault(); showSection('contact'); });
+    if (footerHiringLink) footerHiringLink.addEventListener('click', (e) => { e.preventDefault(); showSection('hiring'); });
 
     // Mobile navigation links in header
-    if (mobileAboutLink) {
-        mobileAboutLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            showSection('about');
-        });
-    }
-
-    if (mobileContactLink) {
-        mobileContactLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            showSection('contact');
-        });
-    }
-
-    if (mobileHiringLink) {
-        mobileHiringLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            showSection('hiring');
-        });
-    }
+    if (mobileHomeLink) mobileHomeLink.addEventListener('click', (e) => { e.preventDefault(); showSection('home'); });
+    if (mobileAboutLink) mobileAboutLink.addEventListener('click', (e) => { e.preventDefault(); showSection('about'); });
+    if (mobileContactLink) mobileContactLink.addEventListener('click', (e) => { e.preventDefault(); showSection('contact'); });
+    if (mobileHiringLink) mobileHiringLink.addEventListener('click', (e) => { e.preventDefault(); showSection('hiring'); });
 
     // "Apply Now" button in About Us section
-    if (aboutHiringLink) {
-        aboutHiringLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            showSection('hiring');
-        });
-    }
+    if (aboutHiringLink) aboutHiringLink.addEventListener('click', (e) => { e.preventDefault(); showSection('hiring'); });
 
-    // Modal controls - THIS IS THE IMPORTANT PART
+    // Modal controls
     if (downloadAppBtn) {
         console.log('Download app button found, adding event listener');
         downloadAppBtn.addEventListener('click', function(e) {
@@ -221,13 +165,8 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error('Download app button not found!');
     }
 
-    if (closeModal) {
-        closeModal.addEventListener('click', closeModalFunc);
-    }
-
-    if (closeModalBtn) {
-        closeModalBtn.addEventListener('click', closeModalFunc);
-    }
+    if (closeModal) closeModal.addEventListener('click', closeModalFunc);
+    if (closeModalBtn) closeModalBtn.addEventListener('click', closeModalFunc);
 
     // Close modal when clicking outside
     if (appModal) {
@@ -241,7 +180,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // FAQ Section
     faqItems.forEach(item => {
         const question = item.querySelector('.faq-question');
-        
         if (question) {
             question.addEventListener('click', () => {
                 // Close all other items
@@ -250,7 +188,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         otherItem.classList.remove('active');
                     }
                 });
-                
                 // Toggle current item
                 item.classList.toggle('active');
             });
@@ -260,33 +197,22 @@ document.addEventListener('DOMContentLoaded', function() {
     // Helper function to check if response is OK and handle errors
     async function handleApiResponse(response, successMessage, messageElement) {
         console.log('Response status:', response.status);
-        console.log('Response URL:', response.url);
-        
         if (response.ok) {
             showMessage(messageElement, successMessage, 'success');
             return true;
         } else {
             let errorMessage = 'Something went wrong. Please try again.';
-            
             try {
                 const errorData = await response.json();
                 console.error('API Error:', errorData);
-                
-                if (response.status === 409) {
-                    errorMessage = 'You have already submitted this information.';
-                } else if (response.status === 400) {
-                    errorMessage = 'Invalid data provided. Please check your inputs.';
-                } else if (response.status === 401 || response.status === 403) {
-                    errorMessage = 'Authentication error. Please refresh the page and try again.';
-                } else if (response.status === 404) {
-                    errorMessage = 'Database table not found. Please ensure tables are created in Supabase.';
-                } else if (response.status >= 500) {
-                    errorMessage = 'Server error. Please try again later.';
-                }
+                if (response.status === 409) errorMessage = 'You have already submitted this information.';
+                else if (response.status === 400) errorMessage = 'Invalid data provided. Please check your inputs.';
+                else if (response.status === 401 || response.status === 403) errorMessage = 'Authentication error. Please refresh the page and try again.';
+                else if (response.status === 404) errorMessage = 'Database table not found. Please ensure tables are created in Supabase.';
+                else if (response.status >= 500) errorMessage = 'Server error. Please try again later.';
             } catch (e) {
                 console.error('Error parsing error response:', e);
             }
-            
             showMessage(messageElement, errorMessage, 'error');
             return false;
         }
@@ -302,12 +228,10 @@ document.addEventListener('DOMContentLoaded', function() {
     function showLoading(buttonElement) {
         const btnText = buttonElement.querySelector('.btn-text');
         const btnLoader = buttonElement.querySelector('.btn-loader');
-        
         if (btnText && btnLoader) {
             btnText.style.display = 'none';
             btnLoader.style.display = 'inline-block';
         }
-        
         buttonElement.disabled = true;
     }
 
@@ -315,12 +239,10 @@ document.addEventListener('DOMContentLoaded', function() {
     function hideLoading(buttonElement, originalText) {
         const btnText = buttonElement.querySelector('.btn-text');
         const btnLoader = buttonElement.querySelector('.btn-loader');
-        
         if (btnText && btnLoader) {
             btnText.style.display = 'inline-block';
             btnLoader.style.display = 'none';
         }
-        
         buttonElement.disabled = false;
     }
 
@@ -328,20 +250,20 @@ document.addEventListener('DOMContentLoaded', function() {
     if (notifyBtn) {
         notifyBtn.addEventListener('click', async () => {
             const email = emailInput.value.trim();
-            
             if (!email) {
                 showMessage(emailMessage, 'Please enter your email address', 'error');
                 return;
             }
-            
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(email)) {
                 showMessage(emailMessage, 'Please enter a valid email address', 'error');
                 return;
             }
             
-            showLoading(notifyBtn);
-            
+            const originalBtnContent = notifyBtn.innerHTML;
+            notifyBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            notifyBtn.disabled = true;
+
             try {
                 const response = await fetch(`${SUPABASE_URL}/rest/v1/notifications`, {
                     method: 'POST',
@@ -354,24 +276,62 @@ document.addEventListener('DOMContentLoaded', function() {
                     body: JSON.stringify({ email })
                 });
                 
-                const success = await handleApiResponse(
-                    response, 
-                    'Thank you! We\'ll notify you when our app launches.', 
-                    emailMessage
-                );
-                
+                const success = await handleApiResponse(response, 'Thank you! We\'ll notify you when our app launches.', emailMessage);
                 if (success) {
                     emailInput.value = '';
-                    // Close modal after successful submission
-                    setTimeout(() => {
-                        closeModalFunc();
-                    }, 2000);
+                    setTimeout(() => closeModalFunc(), 2500);
                 }
             } catch (error) {
                 console.error('Network error:', error);
                 showMessage(emailMessage, 'Network error. Please check your connection and try again.', 'error');
             } finally {
-                hideLoading(notifyBtn, 'Notify Me');
+                notifyBtn.innerHTML = originalBtnContent;
+                notifyBtn.disabled = false;
+            }
+        });
+    }
+
+    // Launch notification form handler
+    if (launchNotifyForm) {
+        launchNotifyForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = launchEmailInput.value.trim();
+            if (!email) {
+                showMessage(launchEmailMessage, 'Please enter your email address', 'error');
+                return;
+            }
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showMessage(launchEmailMessage, 'Please enter a valid email address', 'error');
+                return;
+            }
+            
+            const originalBtnContent = launchNotifyBtn.innerHTML;
+            launchNotifyBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            launchNotifyBtn.disabled = true;
+
+            try {
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/notifications`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                        'Prefer': 'return=minimal'
+                    },
+                    body: JSON.stringify({ email })
+                });
+                
+                const success = await handleApiResponse(response, 'Thank you! We\'ll notify you when our service launches in Delhi.', launchEmailMessage);
+                if (success) {
+                    launchEmailInput.value = '';
+                }
+            } catch (error) {
+                console.error('Network error:', error);
+                showMessage(launchEmailMessage, 'Network error. Please check your connection and try again.', 'error');
+            } finally {
+                launchNotifyBtn.innerHTML = originalBtnContent;
+                launchNotifyBtn.disabled = false;
             }
         });
     }
@@ -380,9 +340,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (dontSeeForm) {
         dontSeeForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            
             const need = dontSeeInput.value.trim();
-            
             if (!need) {
                 showMessage(dontSeeMessageDiv, 'Please enter what you need', 'error');
                 return;
@@ -390,8 +348,9 @@ document.addEventListener('DOMContentLoaded', function() {
             
             const submitButton = dontSeeForm.querySelector('.dont-see-submit-btn');
             const originalHTML = submitButton.innerHTML;
-            showLoading(submitButton);
-            
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            submitButton.disabled = true;
+
             try {
                 const response = await fetch(`${SUPABASE_URL}/rest/v1/needs`, {
                     method: 'POST',
@@ -404,12 +363,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     body: JSON.stringify({ need })
                 });
                 
-                const success = await handleApiResponse(
-                    response, 
-                    'Thank you for your suggestion! We\'ll consider it for our service.', 
-                    dontSeeMessageDiv
-                );
-                
+                const success = await handleApiResponse(response, 'Thank you for your suggestion! We\'ll consider it for our service.', dontSeeMessageDiv);
                 if (success) {
                     dontSeeInput.value = '';
                 }
@@ -417,7 +371,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.error('Network error:', error);
                 showMessage(dontSeeMessageDiv, 'Network error. Please check your connection and try again.', 'error');
             } finally {
-                hideLoading(submitButton, originalHTML);
+                submitButton.innerHTML = originalHTML;
+                submitButton.disabled = false;
             }
         });
     }
@@ -426,7 +381,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (contactForm) {
         contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            
             const formData = new FormData(contactForm);
             const name = formData.get('name').trim();
             const email = formData.get('email').trim();
@@ -436,7 +390,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 showMessage(contactMessageDiv, 'Please fill in all required fields', 'error');
                 return;
             }
-            
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(email)) {
                 showMessage(contactMessageDiv, 'Please enter a valid email address', 'error');
@@ -444,6 +397,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             const submitButton = contactForm.querySelector('.submit-application-btn');
+            const originalBtnText = submitButton.querySelector('.btn-text').textContent;
             showLoading(submitButton);
             
             try {
@@ -455,19 +409,10 @@ document.addEventListener('DOMContentLoaded', function() {
                         'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
                         'Prefer': 'return=minimal'
                     },
-                    body: JSON.stringify({ 
-                        name, 
-                        email, 
-                        inquiry
-                    })
+                    body: JSON.stringify({ name, email, inquiry })
                 });
                 
-                const success = await handleApiResponse(
-                    response, 
-                    'Thank you for your message! We\'ll get back to you soon.', 
-                    contactMessageDiv
-                );
-                
+                const success = await handleApiResponse(response, 'Thank you for your message! We\'ll get back to you soon.', contactMessageDiv);
                 if (success) {
                     contactForm.reset();
                 }
@@ -475,7 +420,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.error('Network error:', error);
                 showMessage(contactMessageDiv, 'Network error. Please check your connection and try again.', 'error');
             } finally {
-                hideLoading(submitButton, 'Send Message');
+                hideLoading(submitButton, originalBtnText);
             }
         });
     }
@@ -484,7 +429,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (hiringForm) {
         hiringForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            
             const formData = new FormData(hiringForm);
             const name = formData.get('name').trim();
             const email = formData.get('email').trim();
@@ -497,13 +441,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 showMessage(hiringMessageDiv, 'Please fill in all required fields', 'error');
                 return;
             }
-            
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(email)) {
                 showMessage(hiringMessageDiv, 'Please enter a valid email address', 'error');
                 return;
             }
-            
             try {
                 if (linkedin && !new URL(linkedin)) {
                     showMessage(hiringMessageDiv, 'Please enter a valid LinkedIn URL', 'error');
@@ -515,6 +457,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             const submitButton = hiringForm.querySelector('.submit-application-btn');
+            const originalBtnText = submitButton.querySelector('.btn-text').textContent;
             showLoading(submitButton);
             
             try {
@@ -526,22 +469,10 @@ document.addEventListener('DOMContentLoaded', function() {
                         'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
                         'Prefer': 'return=minimal'
                     },
-                    body: JSON.stringify({ 
-                        name, 
-                        email, 
-                        phone, 
-                        reason, 
-                        linkedin, 
-                        journey 
-                    })
+                    body: JSON.stringify({ name, email, phone, reason, linkedin, journey })
                 });
                 
-                const success = await handleApiResponse(
-                    response, 
-                    'Thank you for your application! We\'ll be in touch soon.', 
-                    hiringMessageDiv
-                );
-                
+                const success = await handleApiResponse(response, 'Thank you for your application! We\'ll be in touch soon.', hiringMessageDiv);
                 if (success) {
                     hiringForm.reset();
                 }
@@ -549,7 +480,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.error('Network error:', error);
                 showMessage(hiringMessageDiv, 'Network error. Please check your connection and try again.', 'error');
             } finally {
-                hideLoading(submitButton, 'Submit Application');
+                hideLoading(submitButton, originalBtnText);
             }
         });
     }
