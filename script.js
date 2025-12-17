@@ -1,9 +1,9 @@
 // ==================================================
 // !!! ACTION REQUIRED: PLEASE UPDATE THIS URL !!!
 // ==================================================
-// Replace the placeholder URL below with the direct RAW link to your app-debug.apk file on GitHub.
-// Example: 'https://raw.githubusercontent.com/your_username/your_repo_name/main/app-debug.apk'
-const APK_URL = 'https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO_NAME/main/app-debug.apk'; 
+// Replace the placeholder URL below with the direct link to your app-debug.apk file on GitHub.
+// Example: 'https://github.com/your_username/your_repo_name/releases/download/v1.0/app-debug.apk'
+const APK_URL = 'https://github.com/YOUR_USERNAME/YOUR_REPO_NAME/releases/download/v1.0/app-debug.apk'; 
 
 // Configuration
 const SUPABASE_URL = 'https://lviykwlunvdfjizxpgvd.supabase.co';
