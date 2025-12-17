@@ -3,11 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- !!! UPDATED: Added Logo to Browser Tab Title !!! -->
-    <title>
-        <img src="Blue and Black Minimalist Brand Logo.ico" alt="RailQuick Logo" style="height: 24px; vertical-align: middle; margin-right: 8px;">
-        railquick - India's First Train On-Seat Essential Delivery
-    </title>
+    <title>railquick - India's First Train On-Seat Essential Delivery</title>
     
     <!-- !!! UPDATED FAVICON LINK !!! -->
     <!-- This now points to your .ico file -->
@@ -25,32 +21,24 @@
     
     <!-- Header -->
     <header class="header">
-        <!-- !!! UPDATED: Improved Mobile Header Structure !!! -->
-        <div class="header-top-group">
-            <a href="#" id="logoLink" class="logo-container">
-                <div class="brand-element"></div>
-                <span class="logo-text">railquick</span>
-            </a>
-            
-            <div class="header-nav-group">
-                <div class="nav-menu">
-                    <a href="#" id="homeLink" class="nav-link active">Home</a>
-                    <a href="#" id="aboutLink" class="nav-link">About Us</a>
-                    <a href="#" id="contactLink" class="nav-link">Contact Us</a>
-                    <a href="#" id="hiringLink" class="nav-link">We're Hiring</a>
-                </nav>
-                
-                <!-- Mobile Navigation Links -->
-                <div class="mobile-nav-links">
-                    <a href="#" id="mobileHomeLink" class="mobile-nav-link active">Home</a>
-                    <span class="nav-separator">|</span>
-                    <a href="#" id="mobileAboutLink" class="mobile-nav-link">About Us</a>
-                    <span class="nav-separator">|</span>
-                    <a href="#" id="mobileContactLink" class="mobile-nav-link">Contact Us</a>
-                    <span class="nav-separator">|</span>
-                    <a href="#" id="mobileHiringLink" class="mobile-nav-link">We're Hiring</a>
-                </div>
-            </div>
+        <a href="#" id="logoLink" class="logo-container">
+            <!-- !!! RESTORED: Original Text-Based Logo !!! -->
+            <div class="brand-element"></div>
+            <span class="logo-text">railquick</span>
+        </a>
+        <nav class="nav-menu">
+            <a href="#" id="homeLink" class="nav-link active">Home</a>
+            <a href="#" id="aboutLink" class="nav-link">About Us</a>
+            <a href="#" id="contactLink" class="nav-link">Contact Us</a>
+            <a href="#" id="hiringLink" class="nav-link">We're Hiring</a>
+        </nav>
+        
+        <!-- Mobile Navigation Links -->
+        <div class="mobile-nav-links">
+            <a href="#" id="mobileHomeLink" class="mobile-nav-link active">Home</a>
+            <a href="#" id="mobileAboutLink" class="mobile-nav-link">About Us</a>
+            <a href="#" id="mobileContactLink" class="mobile-nav-link">Contact Us</a>
+            <a href="#" id="mobileHiringLink" class="mobile-nav-link">We're Hiring</a>
         </div>
     </header>
 
@@ -577,7 +565,7 @@ Order essentials from your train seat via our app — launching next!</p>
                     <input type="email" id="emailInput" placeholder="Enter your email address" class="email-input">
                     <button id="notifyBtn" class="notify-btn">
                         <span class="btn-text">Notify Me</span>
-                        <i class="fas fa-bell"></i>
+                        <i class="fas fa-spinner fa-spin btn-loader" style="display: none;"></i>
                     </button>
                 </div>
                 <div id="emailMessage"></div>
