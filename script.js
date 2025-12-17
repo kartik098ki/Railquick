@@ -1,10 +1,3 @@
-// ==================================================
-// !!! ACTION REQUIRED: PLEASE UPDATE THIS URL !!!
-// ==================================================
-// Replace the placeholder URL below with the direct link to your app-debug.apk file on GitHub.
-// Example: 'https://github.com/your_username/your_repo_name/releases/download/v1.0/app-debug.apk'
-const APK_URL = 'https://github.com/YOUR_USERNAME/YOUR_REPO_NAME/releases/download/v1.0/app-debug.apk'; 
-
 // Configuration
 const SUPABASE_URL = 'https://lviykwlunvdfjizxpgvd.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx2aXlrd2x1bnZkZmppenhwZ3ZkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI2NzUyOTYsImV4cCI6MjA3ODI1MTI5Nn0.ugD5GHsfYLKKRidFkvKL8fhQ0U_xXLxrT3lf18g0NW8';
@@ -33,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const contactSection = document.getElementById('contactSection');
     const hiringSection = document.getElementById('hiringSection');
 
-    // Modal elements (The modal is no longer used for download, but can be for other features)
+    // Modal elements
     const appModal = document.getElementById('appModal');
     const closeModal = document.getElementById('closeModal');
     const closeModalBtn = document.getElementById('closeModalBtn');
@@ -41,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const notifyBtn = document.getElementById('notifyBtn');
     const emailMessage = document.getElementById('emailMessage');
 
-    // --- NEW: Download and Order Now Buttons ---
+    // Download and Order Now Buttons
     const downloadAppBtn = document.getElementById('downloadAppBtn');
     const orderNowBtn = document.getElementById('orderNowBtn');
 
@@ -50,11 +43,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const launchEmailInput = document.getElementById('launchEmailInput');
     const launchNotifyBtn = document.getElementById('launchNotifyBtn');
     const launchEmailMessage = document.getElementById('launchEmailMessage');
-
-    // NOTE: The following elements are not in the HTML. The related code is commented out to prevent errors.
-    // const dontSeeForm = document.getElementById('dontSeeForm');
-    // const dontSeeInput = document.getElementById('dontSeeInput');
-    // const dontSeeMessageDiv = document.getElementById('dontSeeMessage');
 
     // Contact form elements
     const contactForm = document.getElementById('contactForm');
@@ -121,30 +109,23 @@ document.addEventListener('DOMContentLoaded', function() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // --- NEW: Download App Functionality ---
+    // --- UPDATED: Download App Functionality ---
     if (downloadAppBtn) {
         downloadAppBtn.addEventListener('click', function(e) {
             e.preventDefault();
             console.log('Download app button clicked');
 
-            // Change button to "downloading" state
+            // Change button to "redirecting" state
             const originalContent = downloadAppBtn.innerHTML;
-            downloadAppBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Downloading...';
+            downloadAppBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Redirecting...';
             downloadAppBtn.disabled = true;
 
-            // Create a temporary anchor element to trigger the download
-            const a = document.createElement('a');
-            a.href = APK_URL;
-            a.download = 'app-debug.apk'; // Suggest a filename for the download
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-
-            // Revert button after a short delay
+            // Open the download page in a new tab
             setTimeout(() => {
+                window.open('download.html', '_blank');
                 downloadAppBtn.innerHTML = originalContent;
                 downloadAppBtn.disabled = false;
-            }, 3000); // 3 seconds
+            }, 1000); // 1 second delay for better UX
         });
     }
 
