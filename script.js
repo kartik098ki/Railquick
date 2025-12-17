@@ -2,12 +2,8 @@
 const SUPABASE_URL = 'https://lviykwlunvdfjizxpgvd.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx2aXlrd2x1bnZkZmppenhwZ3ZkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI2NzUyOTYsImV4cCI6MjA3ODI1MTI5Nn0.ugD5GHsfYLKKRidFkvKL8fhQ0U_xXLxrT3lf18g0NW8';
 
-// ==================================================
-// !!! ACTION REQUIRED: PLEASE UPDATE THIS URL !!!
-// ==================================================
-// Replace the placeholder URL below with the direct RAW link to your app-debug.apk file on GitHub.
-// Example: 'https://raw.githubusercontent.com/your_username/your_repo_name/main/app-debug.apk'
-const APK_URL = 'https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO_NAME/main/app-debug.apk'; 
+// Direct download link for the APK file
+const APK_URL = 'https://raw.githubusercontent.com/kartik098ki/Railquick/main/app-debug.apk';
 
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
@@ -41,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const notifyBtn = document.getElementById('notifyBtn');
     const emailMessage = document.getElementById('emailMessage');
 
-    // --- Download and Order Now Buttons ---
+    // Download and Order Now Buttons
     const downloadAppBtn = document.getElementById('downloadAppBtn');
     const orderNowBtn = document.getElementById('orderNowBtn');
 
@@ -157,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Modal functionality (now only for the email notification)
+    // Modal functionality (now only for email notification)
     function openModal() {
         console.log('Opening modal');
         if (appModal) {
