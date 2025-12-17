@@ -74,7 +74,12 @@ body{
   border-bottom:1px solid rgba(255,255,255,.08);
 }
 .logo-container{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff}
-.brand-element{width:6px;height:28px;border-radius:999px;background:linear-gradient(180deg,var(--brand),var(--brand2))}
+.company-logo {
+  height: 32px;
+  width: auto;
+  max-width: 120px;
+  object-fit: contain;
+}
 .logo-text{font-size:1.4rem;font-weight:800}
 
 .nav-menu{display:none;gap:24px}
@@ -125,22 +130,12 @@ body{
   -webkit-background-clip:text;background-clip:text;color:transparent;
 }
 .hero-description{max-width:640px;margin:0 auto 32px;color:var(--muted);font-size:18px}
-
-/* Hero Actions Container */
-.hero-actions {
-  display: flex;
-  gap: 16px;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
 .app-btn, .order-btn {
   display:inline-flex;align-items:center;gap:10px;
   padding:14px 22px;border-radius:16px;border:0;cursor:pointer;
   font-weight:900;
   font-size: 16px;
-  text-decoration: none; /* For the 'a' tag */
+  text-decoration: none;
   transition: transform .2s ease, box-shadow .2s ease;
 }
 
@@ -782,6 +777,12 @@ body{
   gap: 10px;
   justify-content: center;
 }
+.footer-company-logo {
+  height: 32px;
+  width: auto;
+  max-width: 120px;
+  object-fit: contain;
+}
 .footer-links,.footer-social{display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
 .footer-link{color:var(--muted);text-decoration:none;font-weight:800}
 .footer-link:hover{color:#fff}
@@ -899,11 +900,6 @@ body{
   .logo-text {
     font-size: 1.3rem;
     letter-spacing: 0.5px;
-  }
-  
-  .brand-element {
-    width: 6px;
-    height: 28px;
   }
   
   /* Smaller mobile nav links with more space */
