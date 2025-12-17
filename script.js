@@ -1,3 +1,10 @@
+// ==================================================
+// !!! ACTION REQUIRED: PLEASE UPDATE THIS URL !!!
+// ==================================================
+// Replace the placeholder URL below with the direct RAW link to your app-debug.apk file on GitHub.
+// Example: 'https://raw.githubusercontent.com/your_username/your_repo_name/main/app-debug.apk'
+const APK_URL = 'https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO_NAME/main/app-debug.apk'; 
+
 // Configuration
 const SUPABASE_URL = 'https://lviykwlunvdfjizxpgvd.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx2aXlrd2x1bnZkZmppenhwZ3ZkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI2NzUyOTYsImV4cCI6MjA3ODI1MTI5Nn0.ugD5GHsfYLKKRidFkvKL8fhQ0U_xXLxrT3lf18g0NW8';
@@ -26,8 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const contactSection = document.getElementById('contactSection');
     const hiringSection = document.getElementById('hiringSection');
 
-    // Modal elements
-    const downloadAppBtn = document.getElementById('downloadAppBtn');
+    // Modal elements (The modal is no longer used for download, but can be for other features)
     const appModal = document.getElementById('appModal');
     const closeModal = document.getElementById('closeModal');
     const closeModalBtn = document.getElementById('closeModalBtn');
@@ -35,16 +41,20 @@ document.addEventListener('DOMContentLoaded', function() {
     const notifyBtn = document.getElementById('notifyBtn');
     const emailMessage = document.getElementById('emailMessage');
 
+    // --- NEW: Download and Order Now Buttons ---
+    const downloadAppBtn = document.getElementById('downloadAppBtn');
+    const orderNowBtn = document.getElementById('orderNowBtn');
+
     // Launch notification form elements
     const launchNotifyForm = document.getElementById('launchNotifyForm');
     const launchEmailInput = document.getElementById('launchEmailInput');
     const launchNotifyBtn = document.getElementById('launchNotifyBtn');
     const launchEmailMessage = document.getElementById('launchEmailMessage');
 
-    // Form elements
-    const dontSeeForm = document.getElementById('dontSeeForm');
-    const dontSeeInput = document.getElementById('dontSeeInput');
-    const dontSeeMessageDiv = document.getElementById('dontSeeMessage');
+    // NOTE: The following elements are not in the HTML. The related code is commented out to prevent errors.
+    // const dontSeeForm = document.getElementById('dontSeeForm');
+    // const dontSeeInput = document.getElementById('dontSeeInput');
+    // const dontSeeMessageDiv = document.getElementById('dontSeeMessage');
 
     // Contact form elements
     const contactForm = document.getElementById('contactForm');
@@ -111,7 +121,43 @@ document.addEventListener('DOMContentLoaded', function() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Modal functionality
+    // --- NEW: Download App Functionality ---
+    if (downloadAppBtn) {
+        downloadAppBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('Download app button clicked');
+
+            // Change button to "downloading" state
+            const originalContent = downloadAppBtn.innerHTML;
+            downloadAppBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Downloading...';
+            downloadAppBtn.disabled = true;
+
+            // Create a temporary anchor element to trigger the download
+            const a = document.createElement('a');
+            a.href = APK_URL;
+            a.download = 'app-debug.apk'; // Suggest a filename for the download
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+
+            // Revert button after a short delay
+            setTimeout(() => {
+                downloadAppBtn.innerHTML = originalContent;
+                downloadAppBtn.disabled = false;
+            }, 3000); // 3 seconds
+        });
+    }
+
+    // --- NEW: Order Now Functionality ---
+    if (orderNowBtn) {
+        orderNowBtn.addEventListener('click', function(e) {
+            // No need to prevent default, we want the link to work.
+            // This is just for logging or future features.
+            console.log('Order Now button clicked');
+        });
+    }
+
+    // Modal functionality (now only for the email notification)
     function openModal() {
         console.log('Opening modal');
         if (appModal) {
@@ -130,7 +176,7 @@ document.addEventListener('DOMContentLoaded', function() {
             emailMessage.className = '';
         }
     }
-
+    
     // Event listeners for navigation
     if (logoLink) logoLink.addEventListener('click', (e) => { e.preventDefault(); showSection('home'); });
     if (homeLink) homeLink.addEventListener('click', (e) => { e.preventDefault(); showSection('home'); });
@@ -153,18 +199,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // "Apply Now" button in About Us section
     if (aboutHiringLink) aboutHiringLink.addEventListener('click', (e) => { e.preventDefault(); showSection('hiring'); });
 
-    // Modal controls
-    if (downloadAppBtn) {
-        console.log('Download app button found, adding event listener');
-        downloadAppBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            console.log('Download app button clicked');
-            openModal();
-        });
-    } else {
-        console.error('Download app button not found!');
-    }
-
+    // Modal controls (The download button no longer opens the modal)
     if (closeModal) closeModal.addEventListener('click', closeModalFunc);
     if (closeModalBtn) closeModalBtn.addEventListener('click', closeModalFunc);
 
@@ -246,7 +281,7 @@ document.addEventListener('DOMContentLoaded', function() {
         buttonElement.disabled = false;
     }
 
-    // Email notification handler
+    // Email notification handler (from modal)
     if (notifyBtn) {
         notifyBtn.addEventListener('click', async () => {
             const email = emailInput.value.trim();
@@ -332,47 +367,6 @@ document.addEventListener('DOMContentLoaded', function() {
             } finally {
                 launchNotifyBtn.innerHTML = originalBtnContent;
                 launchNotifyBtn.disabled = false;
-            }
-        });
-    }
-
-    // Don't see form submission handler
-    if (dontSeeForm) {
-        dontSeeForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const need = dontSeeInput.value.trim();
-            if (!need) {
-                showMessage(dontSeeMessageDiv, 'Please enter what you need', 'error');
-                return;
-            }
-            
-            const submitButton = dontSeeForm.querySelector('.dont-see-submit-btn');
-            const originalHTML = submitButton.innerHTML;
-            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-            submitButton.disabled = true;
-
-            try {
-                const response = await fetch(`${SUPABASE_URL}/rest/v1/needs`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'apikey': SUPABASE_ANON_KEY,
-                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-                        'Prefer': 'return=minimal'
-                    },
-                    body: JSON.stringify({ need })
-                });
-                
-                const success = await handleApiResponse(response, 'Thank you for your suggestion! We\'ll consider it for our service.', dontSeeMessageDiv);
-                if (success) {
-                    dontSeeInput.value = '';
-                }
-            } catch (error) {
-                console.error('Network error:', error);
-                showMessage(dontSeeMessageDiv, 'Network error. Please check your connection and try again.', 'error');
-            } finally {
-                submitButton.innerHTML = originalHTML;
-                submitButton.disabled = false;
             }
         });
     }
