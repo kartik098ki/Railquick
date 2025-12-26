@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Mobile Menu
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-    const mobileNav = document.getElementById('mobileNav');
+    const mobileNavOverlay = document.getElementById('mobileNavOverlay');
     
     // Sections
     const homeSection = document.getElementById('homeSection');
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const contactSection = document.getElementById('contactSection');
     const hiringSection = document.getElementById('hiringSection');
 
-    // --- NEW: Try Now Modal Elements ---
+    // --- Try Now Modal Elements ---
     const tryNowBtn = document.getElementById('tryNowBtn');
     const tryNowModal = document.getElementById('tryNowModal');
     const closeTryNowModal = document.getElementById('closeTryNowModal');
@@ -102,8 +102,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         // Close mobile menu if open
-        if (mobileNav.classList.contains('active')) {
-            mobileNav.classList.remove('active');
+        if (mobileNavOverlay.classList.contains('active')) {
+            mobileNavOverlay.classList.remove('active');
             mobileMenuBtn.classList.remove('active');
         }
         
@@ -211,12 +211,22 @@ document.addEventListener('DOMContentLoaded', function() {
     // Mobile Menu Toggle
     if (mobileMenuBtn) {
         mobileMenuBtn.addEventListener('click', function() {
-            mobileNav.classList.toggle('active');
+            mobileNavOverlay.classList.toggle('active');
             mobileMenuBtn.classList.toggle('active');
         });
     }
 
-    // --- NEW: Try Now Modal Functionality ---
+    // Close mobile menu when clicking on overlay
+    if (mobileNavOverlay) {
+        mobileNavOverlay.addEventListener('click', function(e) {
+            if (e.target === mobileNavOverlay) {
+                mobileNavOverlay.classList.remove('active');
+                mobileMenuBtn.classList.remove('active');
+            }
+        });
+    }
+
+    // --- Try Now Modal Functionality ---
     if (tryNowBtn) {
         tryNowBtn.addEventListener('click', function(e) {
             e.preventDefault();
@@ -237,7 +247,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // --- NEW: Try Now Email Submission Handler ---
+    // --- Try Now Email Submission Handler ---
     if (tryNowNotifyBtn) {
         tryNowNotifyBtn.addEventListener('click', async () => {
             const email = tryNowEmailInput.value.trim();
@@ -286,7 +296,7 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             console.log('Test Phase button clicked');
             // For now, let's scroll to the experience section
-            document.getElementById('experienceSection').scrollIntoView({ behavior: 'smooth' });
+            document.querySelector('.experience-section').scrollIntoView({ behavior: 'smooth' });
         });
     }
 
