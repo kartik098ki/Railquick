@@ -101,25 +101,38 @@ body{
   transform: rotate(-45deg) translate(7px, -6px);
 }
 
-/* Mobile Navigation */
-.mobile-nav {
+/* Mobile Navigation Overlay */
+.mobile-nav-overlay {
   position: fixed;
   top: 0;
   right: -100%;
-  width: 80%;
-  max-width: 300px;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  transition: right 0.3s ease;
+}
+
+.mobile-nav-overlay.active {
+  right: 0;
+}
+
+.mobile-nav {
+  position: absolute;
+  top: 0;
+  right: -300px;
+  width: 300px;
   height: 100vh;
   background: var(--surface);
   box-shadow: -5px 0 15px rgba(0,0,0,0.3);
   transition: right 0.3s ease;
-  z-index: 1000;
   padding: 80px 20px 20px;
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.mobile-nav.active {
+.mobile-nav-overlay.active .mobile-nav {
   right: 0;
 }
 
@@ -256,7 +269,7 @@ body{
 .category-card h3{font-weight:800;font-size: 18px;margin-bottom: 12px;}
 .category-card p{font-size:14px;color:var(--muted);line-height: 1.4;}
 
-/* ================= NEW: TESTIMONIALS SECTION ================= */
+/* ================= TESTIMONIALS SECTION ================= */
 .testimonials-section {
   padding: 60px 20px;
   overflow: hidden;
@@ -327,7 +340,7 @@ body{
   100% { transform: translateX(calc(-350px * 7 - 24px * 6)); /* Total width of original set of cards */ }
 }
 
-/* ================= NEW: EXPERIENCE SECTION ================= */
+/* ================= EXPERIENCE SECTION ================= */
 .experience-section {
   padding: 60px 20px;
   position: relative;
@@ -475,7 +488,7 @@ body{
 @media(min-width:768px){
   .nav-menu{display:flex}
   .mobile-menu-btn{display:none}
-  .mobile-nav{display:none}
+  .mobile-nav-overlay{display:none}
   .footer-top{flex-direction:row;justify-content:space-between;align-items:flex-start}
   .footer-links-section,.footer-social-section{text-align:left}
   .team-member-card{grid-template-columns:150px 1fr}
@@ -492,9 +505,20 @@ body{
 
 /* ================= MOBILE SPECIFIC STYLES ================= */
 @media(max-width:767px) {
-  .header { padding: 12px 16px; }
-  .logo-container { margin-right: auto; }
-  .logo-text { font-size: 1.3rem; }
+  .header { 
+    padding: 12px 16px; 
+    justify-content: space-between;
+  }
+  .logo-container { 
+    margin-right: auto; 
+    order: 1;
+  }
+  .logo-text { 
+    font-size: 1.3rem; 
+  }
+  .mobile-menu-btn {
+    order: 2;
+  }
   
   .hero-section { padding: 50px 16px 20px; }
   .hero-badge { font-size: 12px; padding: 6px 12px; }
@@ -507,85 +531,335 @@ body{
   .banner-text h3 { font-size: 18px; }
   .banner-text p { font-size: 14px; }
   
-  .categories-container { grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 0 16px; }
-  .category-card { padding: 16px 12px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); transition: transform 0.2s ease, box-shadow 0.2s ease; }
-  .category-card:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.25); }
-  .category-icon { width: 40px; height: 40px; font-size: 18px; margin-bottom: 10px; }
-  .category-card h3 { font-size: 14px; margin-bottom: 8px; }
-  .category-card p { font-size: 11px; line-height: 1.3; }
+  .categories-container { 
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 16px; 
+    padding: 0 16px; 
+  }
+  .category-card { 
+    padding: 20px 16px; 
+    border-radius: 16px; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15); 
+    transition: transform 0.2s ease, box-shadow 0.2s ease; 
+  }
+  .category-card:hover { 
+    transform: translateY(-4px); 
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25); 
+  }
+  .category-icon { 
+    width: 50px; 
+    height: 50px; 
+    font-size: 20px; 
+    margin-bottom: 12px; 
+  }
+  .category-card h3 { 
+    font-size: 16px; 
+    margin-bottom: 8px; 
+  }
+  .category-card p { 
+    font-size: 13px; 
+    line-height: 1.4; 
+  }
   
-  .testimonials-section { padding: 40px 0; }
-  .testimonial-track { animation: scroll 70s linear infinite; /* Slightly faster for mobile */ }
-  .testimonial-card { width: 300px; padding: 24px; } /* Adjust for mobile */
+  .testimonials-section { 
+    padding: 40px 0; 
+  }
+  .testimonial-track { 
+    animation: scroll 70s linear infinite; /* Slightly faster for mobile */ 
+  }
+  .testimonial-card { 
+    width: 280px; 
+    padding: 20px; 
+  } /* Adjust for mobile */
+  .testimonial-text {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .author-name {
+    font-size: 16px;
+  }
+  .author-title {
+    font-size: 13px;
+  }
   
-  .about-content { margin: 20px 16px; padding: 0; background: transparent; border: none; border-radius: 0; box-shadow: none; }
-  .about-intro, .about-story, .about-mission { margin-bottom: 30px; padding: 0; background: transparent; border: none; border-radius: 0; box-shadow: none; position: relative; }
-  .about-intro::after, .about-story::after, .about-mission::after { content: ''; position: absolute; bottom: -15px; left: 0; width: 100%; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); }
-  .about-intro h3, .about-story h3, .about-mission h3 { font-size: 20px; margin-bottom: 16px; padding: 0; position: relative; }
-  .about-intro h3::after, .about-story h3::after, .about-mission h3::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 40px; height: 3px; background: linear-gradient(90deg, var(--brand), var(--brand2)); border-radius: 2px; }
-  .about-intro p, .about-story p, .about-mission p { font-size: 14px; line-height: 1.6; padding: 0; text-align: justify; }
-  .core-values { margin-top: 20px; padding: 16px; background: rgba(124,58,237,0.05); border-radius: 16px; border-left: 3px solid var(--brand); }
-  .core-values h4 { font-size: 16px; margin-bottom: 12px; color: var(--brand2); }
-  .core-values ul { list-style-type: none; padding-left: 8px; }
-  .core-values li { margin-bottom: 12px; padding-left: 20px; position: relative; font-size: 14px; }
-  .core-values li:before { content: "•"; color: var(--brand); font-weight: bold; position: absolute; left: 0; font-size: 18px; }
+  .about-content { 
+    margin: 20px 16px; 
+    padding: 0; 
+    background: transparent; 
+    border: none; 
+    border-radius: 0; 
+    box-shadow: none; 
+  }
+  .about-intro, .about-story, .about-mission { 
+    margin-bottom: 30px; 
+    padding: 0; 
+    background: transparent; 
+    border: none; 
+    border-radius: 0; 
+    box-shadow: none; 
+    position: relative; 
+  }
+  .about-intro::after, .about-story::after, .about-mission::after { 
+    content: ''; 
+    position: absolute; 
+    bottom: -15px; 
+    left: 0; 
+    width: 100%; 
+    height: 1px; 
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); 
+  }
+  .about-intro h3, .about-story h3, .about-mission h3 { 
+    font-size: 20px; 
+    margin-bottom: 16px; 
+    padding: 0; 
+    position: relative; 
+  }
+  .about-intro h3::after, .about-story h3::after, .about-mission h3::after { 
+    content: ''; 
+    position: absolute; 
+    bottom: -8px; 
+    left: 0; 
+    width: 40px; 
+    height: 3px; 
+    background: linear-gradient(90deg, var(--brand), var(--brand2)); 
+    border-radius: 2px; 
+  }
+  .about-intro p, .about-story p, .about-mission p { 
+    font-size: 14px; 
+    line-height: 1.6; 
+    padding: 0; 
+    text-align: justify; 
+  }
+  .core-values { 
+    margin-top: 20px; 
+    padding: 16px; 
+    background: rgba(124,58,237,0.05); 
+    border-radius: 16px; 
+    border-left: 3px solid var(--brand); 
+  }
+  .core-values h4 { 
+    font-size: 16px; 
+    margin-bottom: 12px; 
+    color: var(--brand2); 
+  }
+  .core-values ul { 
+    list-style-type: none; 
+    padding-left: 8px; 
+  }
+  .core-values li { 
+    margin-bottom: 12px; 
+    padding-left: 20px; 
+    position: relative; 
+    font-size: 14px; 
+  }
+  .core-values li:before { 
+    content: "•"; 
+    color: var(--brand); 
+    font-weight: bold; 
+    position: absolute; 
+    left: 0; 
+    font-size: 18px; 
+  }
   
-  .team-grid { grid-template-columns: 1fr; gap: 20px; }
-  .team-member-card { padding: 20px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); transition: transform 0.2s ease, box-shadow 0.2s ease; }
-  .team-member-card:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.25); }
-  .member-image img { width: 100px; height: 100px; border-radius: 16px; border: 3px solid rgba(124,58,237,0.3); box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
-  .member-name { font-size: 18px; margin-bottom: 4px; }
-  .member-title { font-size: 13px; margin-bottom: 12px; color: var(--brand2); }
-  .member-description { font-size: 13px; line-height: 1.5; margin-bottom: 16px; }
-  .contact-link { font-size: 13px; }
-  .about-hiring { padding: 20px; border-radius: 16px; background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(124,58,237,0.05)); border: 1px solid rgba(124,58,237,0.3); box-shadow: 0 4px 12px rgba(124,58,237,0.15); }
-  .about-hiring p { font-size: 14px; margin-bottom: 16px; }
-  .apply-now-btn { padding: 12px 24px; font-size: 14px; border-radius: 24px; box-shadow: 0 4px 12px rgba(124,58,237,0.3); transition: transform 0.2s ease, box-shadow 0.2s ease; }
-  .apply-now-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(124,58,237,0.4); }
+  .team-grid { 
+    grid-template-columns: 1fr; 
+    gap: 20px; 
+  }
+  .team-member-card { 
+    padding: 20px; 
+    border-radius: 16px; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15); 
+    transition: transform 0.2s ease, box-shadow 0.2s ease; 
+  }
+  .team-member-card:hover { 
+    transform: translateY(-4px); 
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25); 
+  }
+  .member-image img { 
+    width: 100px; 
+    height: 100px; 
+    border-radius: 16px; 
+    border: 3px solid rgba(124,58,237,0.3); 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); 
+  }
+  .member-name { 
+    font-size: 18px; 
+    margin-bottom: 4px; 
+  }
+  .member-title { 
+    font-size: 13px; 
+    margin-bottom: 12px; 
+    color: var(--brand2); 
+  }
+  .member-description { 
+    font-size: 13px; 
+    line-height: 1.5; 
+    margin-bottom: 16px; 
+  }
+  .contact-link { 
+    font-size: 13px; 
+  }
+  .about-hiring { 
+    padding: 20px; 
+    border-radius: 16px; 
+    background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(124,58,237,0.05)); 
+    border: 1px solid rgba(124,58,237,0.3); 
+    box-shadow: 0 4px 12px rgba(124,58,237,0.15); 
+  }
+  .about-hiring p { 
+    font-size: 14px; 
+    margin-bottom: 16px; 
+  }
+  .apply-now-btn { 
+    padding: 12px 24px; 
+    font-size: 14px; 
+    border-radius: 24px; 
+    box-shadow: 0 4px 12px rgba(124,58,237,0.3); 
+    transition: transform 0.2s ease, box-shadow 0.2s ease; 
+  }
+  .apply-now-btn:hover { 
+    transform: translateY(-2px); 
+    box-shadow: 0 6px 16px rgba(124,58,237,0.4); 
+  }
   
-  .experience-container { padding: 24px 16px; }
-  .experience-title { font-size: 28px; }
-  .experience-subtitle { font-size: 16px; }
-  .experience-features { grid-template-columns: 1fr; gap: 16px; }
-  .experience-feature { padding: 16px; }
-  .feature-icon { width: 40px; height: 40px; font-size: 18px; }
-  .feature-info h4 { font-size: 16px; }
-  .feature-info p { font-size: 13px; }
-  .experience-cta { padding: 20px 16px; }
-  .experience-form-container h3 { font-size: 20px; }
-  .experience-form-container p { font-size: 14px; }
-  .experience-email-input { padding: 14px 16px; font-size: 14px; }
-  .experience-notify-btn { padding: 14px; font-size: 14px; }
+  .experience-container { 
+    padding: 24px 16px; 
+  }
+  .experience-title { 
+    font-size: 28px; 
+  }
+  .experience-subtitle { 
+    font-size: 16px; 
+  }
+  .experience-features { 
+    grid-template-columns: 1fr; 
+    gap: 16px; 
+  }
+  .experience-feature { 
+    padding: 16px; 
+  }
+  .feature-icon { 
+    width: 40px; 
+    height: 40px; 
+    font-size: 18px; 
+  }
+  .feature-info h4 { 
+    font-size: 16px; 
+  }
+  .feature-info p { 
+    font-size: 13px; 
+  }
+  .experience-cta { 
+    padding: 20px 16px; 
+  }
+  .experience-form-container h3 { 
+    font-size: 20px; 
+  }
+  .experience-form-container p { 
+    font-size: 14px; 
+  }
+  .experience-email-input { 
+    padding: 14px 16px; 
+    font-size: 14px; 
+  }
+  .experience-notify-btn { 
+    padding: 14px; 
+    font-size: 14px; 
+  }
   
-  .faq-section { margin: 40px 16px; padding: 16px; }
-  .faq-question { padding: 12px 14px; font-size: 14px; }
-  .faq-answer p { font-size: 13px; }
+  .faq-section { 
+    margin: 40px 16px; 
+    padding: 16px; 
+  }
+  .faq-question { 
+    padding: 12px 14px; 
+    font-size: 14px; 
+  }
+  .faq-answer p { 
+    font-size: 13px; 
+  }
   
-  .contact-section { margin: 20px 16px; padding: 20px 16px; }
-  .contact-form { padding: 20px 16px; }
-  .contact-form-title { font-size: 20px; }
-  .form-label { font-size: 14px; }
-  .form-input, .form-textarea { padding: 12px 14px; font-size: 14px; }
-  .submit-application-btn { padding: 14px; font-size: 14px; }
-  .founder-section-title { font-size: 20px; }
+  .contact-section { 
+    margin: 20px 16px; 
+    padding: 20px 16px; 
+  }
+  .contact-form { 
+    padding: 20px 16px; 
+  }
+  .contact-form-title { 
+    font-size: 20px; 
+  }
+  .form-label { 
+    font-size: 14px; 
+  }
+  .form-input, .form-textarea { 
+    padding: 12px 14px; 
+    font-size: 14px; 
+  }
+  .submit-application-btn { 
+    padding: 14px; 
+    font-size: 14px; 
+  }
+  .founder-section-title { 
+    font-size: 20px; 
+  }
   
-  .hiring-section { margin: 20px 16px; }
-  .hiring-container { padding: 24px 16px; }
-  .hiring-message { padding: 16px; }
-  .hiring-message p { font-size: 14px; }
-  .hiring-form { padding: 20px 16px; }
+  .hiring-section { 
+    margin: 20px 16px; 
+  }
+  .hiring-container { 
+    padding: 24px 16px; 
+  }
+  .hiring-message { 
+    padding: 16px; 
+  }
+  .hiring-message p { 
+    font-size: 14px; 
+  }
+  .hiring-form { 
+    padding: 20px 16px; 
+  }
   
-  .footer { padding: 32px 16px 24px; }
-  .footer-links, .footer-social { gap: 12px; }
-  .footer-link { font-size: 14px; }
-  .social-link { width: 36px; height: 36px; }
-  .footer-bottom p { font-size: 12px; }
+  .footer { 
+    padding: 32px 16px 24px; 
+  }
+  .footer-links, .footer-social { 
+    gap: 12px; 
+  }
+  .footer-link { 
+    font-size: 14px; 
+  }
+  .social-link { 
+    width: 36px; 
+    height: 36px; 
+  }
+  .footer-bottom p { 
+    font-size: 12px; 
+  }
   
-  .modal-content { width: 95%; padding: 20px; }
-  .modal-header h3 { font-size: 20px; }
-  .modal-description p { font-size: 14px; }
-  .feature-item { font-size: 12px; }
-  .email-input { padding: 12px 14px; font-size: 14px; }
-  .notify-btn { padding: 12px; font-size: 14px; }
-  .modal-btn { padding: 8px 16px; font-size: 14px; }
+  .modal-content { 
+    width: 95%; 
+    padding: 20px; 
+  }
+  .modal-header h3 { 
+    font-size: 20px; 
+  }
+  .modal-description p { 
+    font-size: 14px; 
+  }
+  .feature-item { 
+    font-size: 12px; 
+  }
+  .email-input { 
+    padding: 12px 14px; 
+    font-size: 14px; 
+  }
+  .notify-btn { 
+    padding: 12px; 
+    font-size: 14px; 
+  }
+  .modal-btn { 
+    padding: 8px 16px; 
+    font-size: 14px; 
+  }
 }
