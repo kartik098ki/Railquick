@@ -26,6 +26,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const mobileHiringLink = document.getElementById('mobileHiringLink');
     const aboutHiringLink = document.getElementById('aboutHiringLink');
     
+    // Mobile Menu
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileNav = document.getElementById('mobileNav');
+    
     // Sections
     const homeSection = document.getElementById('homeSection');
     const aboutSection = document.getElementById('aboutSection');
@@ -43,10 +47,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Other Buttons & Forms
     const downloadAppBtn = document.getElementById('downloadAppBtn');
-    const launchNotifyForm = document.getElementById('launchNotifyForm');
-    const launchEmailInput = document.getElementById('launchEmailInput');
-    const launchNotifyBtn = document.getElementById('launchNotifyBtn');
-    const launchEmailMessage = document.getElementById('launchEmailMessage');
+    const experienceNotifyForm = document.getElementById('experienceNotifyForm');
+    const experienceEmailInput = document.getElementById('experienceEmailInput');
+    const experienceNotifyBtn = document.getElementById('experienceNotifyBtn');
+    const experienceEmailMessage = document.getElementById('experienceEmailMessage');
     const contactForm = document.getElementById('contactForm');
     const contactMessageDiv = document.getElementById('contactMessage');
     const hiringForm = document.getElementById('hiringForm');
@@ -95,6 +99,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 hiringLink.classList.add('active');
                 mobileHiringLink.classList.add('active');
                 break;
+        }
+        
+        // Close mobile menu if open
+        if (mobileNav.classList.contains('active')) {
+            mobileNav.classList.remove('active');
+            mobileMenuBtn.classList.remove('active');
         }
         
         // Scroll to top smoothly
@@ -198,6 +208,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // --- EVENT LISTENERS ---
 
+    // Mobile Menu Toggle
+    if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileNav.classList.toggle('active');
+            mobileMenuBtn.classList.toggle('active');
+        });
+    }
+
     // --- NEW: Try Now Modal Functionality ---
     if (tryNowBtn) {
         tryNowBtn.addEventListener('click', function(e) {
@@ -267,8 +285,8 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('testPhaseBtn').addEventListener('click', function(e) {
             e.preventDefault();
             console.log('Test Phase button clicked');
-            // For now, let's scroll to the launch info section
-            document.getElementById('launchInfoSection').scrollIntoView({ behavior: 'smooth' });
+            // For now, let's scroll to the experience section
+            document.getElementById('experienceSection').scrollIntoView({ behavior: 'smooth' });
         });
     }
 
@@ -332,17 +350,17 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // --- Launch notification form handler ---
-    if (launchNotifyForm) {
-        launchNotifyForm.addEventListener('submit', async (e) => {
+    // --- Experience notification form handler ---
+    if (experienceNotifyForm) {
+        experienceNotifyForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const email = launchEmailInput.value.trim();
-            if (!email) { showMessage(launchEmailMessage, 'Please enter your email address', 'error'); return; }
+            const email = experienceEmailInput.value.trim();
+            if (!email) { showMessage(experienceEmailMessage, 'Please enter your email address', 'error'); return; }
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) { showMessage(launchEmailMessage, 'Please enter a valid email address', 'error'); return; }
+            if (!emailRegex.test(email)) { showMessage(experienceEmailMessage, 'Please enter a valid email address', 'error'); return; }
             
-            const originalBtnContent = launchNotifyBtn.innerHTML;
-            showLoading(launchNotifyBtn);
+            const originalBtnContent = experienceNotifyBtn.innerHTML;
+            showLoading(experienceNotifyBtn);
             
             try {
                 const response = await fetch(`${SUPABASE_URL}/rest/v1/notifications`, {
@@ -351,13 +369,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     body: JSON.stringify({ email })
                 });
                 
-                const success = await handleApiResponse(response, 'Thank you! We\'ll notify you when our service launches in Delhi.', launchEmailMessage);
-                if (success) launchEmailInput.value = '';
+                const success = await handleApiResponse(response, 'Thank you for joining our waitlist! We\'ll notify you when RailQuick launches.', experienceEmailMessage);
+                if (success) experienceEmailInput.value = '';
             } catch (error) {
                 console.error('Network error:', error);
-                showMessage(launchEmailMessage, 'Network error. Please check your connection and try again.', 'error');
+                showMessage(experienceEmailMessage, 'Network error. Please check your connection and try again.', 'error');
             } finally {
-                hideLoading(launchNotifyBtn, originalBtnContent);
+                hideLoading(experienceNotifyBtn, originalBtnContent);
             }
         });
     }
