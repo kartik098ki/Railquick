@@ -9,7 +9,8 @@ const APK_URL = 'https://raw.githubusercontent.com/kartik098ki/Railquick/main/ap
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM fully loaded');
     
-    // DOM Elements
+    // --- DOM ELEMENT SELECTION ---
+    // Navigation
     const logoLink = document.getElementById('logoLink');
     const homeLink = document.getElementById('homeLink');
     const aboutLink = document.getElementById('aboutLink');
@@ -24,70 +25,53 @@ document.addEventListener('DOMContentLoaded', function() {
     const mobileContactLink = document.getElementById('mobileContactLink');
     const mobileHiringLink = document.getElementById('mobileHiringLink');
     const aboutHiringLink = document.getElementById('aboutHiringLink');
+    
+    // Sections
     const homeSection = document.getElementById('homeSection');
     const aboutSection = document.getElementById('aboutSection');
     const contactSection = document.getElementById('contactSection');
     const hiringSection = document.getElementById('hiringSection');
 
-    // Modal elements (The modal is no longer used for download, but can be for other features)
-    const appModal = document.getElementById('appModal');
-    const closeModal = document.getElementById('closeModal');
-    const closeModalBtn = document.getElementById('closeModalBtn');
-    const emailInput = document.getElementById('emailInput');
-    const notifyBtn = document.getElementById('notifyBtn');
-    const emailMessage = document.getElementById('emailMessage');
+    // --- NEW: Try Now Modal Elements ---
+    const tryNowBtn = document.getElementById('tryNowBtn');
+    const tryNowModal = document.getElementById('tryNowModal');
+    const closeTryNowModal = document.getElementById('closeTryNowModal');
+    const closeTryNowModalBtn = document.getElementById('closeTryNowModalBtn');
+    const tryNowEmailInput = document.getElementById('tryNowEmailInput');
+    const tryNowNotifyBtn = document.getElementById('tryNowNotifyBtn');
+    const tryNowEmailMessage = document.getElementById('tryNowEmailMessage');
 
-    // Download and Order Now Buttons
+    // Other Buttons & Forms
     const downloadAppBtn = document.getElementById('downloadAppBtn');
-    const orderNowBtn = document.getElementById('orderNowBtn');
-
-    // Launch notification form elements
     const launchNotifyForm = document.getElementById('launchNotifyForm');
     const launchEmailInput = document.getElementById('launchEmailInput');
     const launchNotifyBtn = document.getElementById('launchNotifyBtn');
     const launchEmailMessage = document.getElementById('launchEmailMessage');
-
-    // NOTE: The following elements are not in the HTML. The related code is commented out to prevent errors.
-    // const dontSeeForm = document.getElementById('dontSeeForm');
-    // const dontSeeInput = document.getElementById('dontSeeInput');
-    // const dontSeeMessageDiv = document.getElementById('dontSeeMessage');
-
-    // Contact form elements
     const contactForm = document.getElementById('contactForm');
     const contactMessageDiv = document.getElementById('contactMessage');
-
-    // Hiring form elements
     const hiringForm = document.getElementById('hiringForm');
     const hiringMessageDiv = document.getElementById('hiringMessage');
-
-    // FAQ elements
     const faqItems = document.querySelectorAll('.faq-item');
 
-    // Ensure modal is hidden on page load
-    if (appModal) {
-        appModal.style.display = 'none';
-        console.log('Modal hidden on page load');
-    }
+    // --- INITIALIZATION ---
+    // Ensure modals are hidden on page load
+    if (tryNowModal) tryNowModal.style.display = 'none';
 
-    // Navigation functionality
+    // --- CORE FUNCTIONS ---
+
+    /**
+     * Handles navigation between different sections of the single-page application.
+     * @param {string} sectionToShow - The ID of the section to display.
+     */
     function showSection(sectionToShow) {
-        // Hide all sections
-        homeSection.classList.remove('active');
-        aboutSection.classList.remove('active');
-        contactSection.classList.remove('active');
-        hiringSection.classList.remove('active');
-        
-        // Remove active class from all nav links
-        homeLink.classList.remove('active');
-        aboutLink.classList.remove('active');
-        contactLink.classList.remove('active');
-        hiringLink.classList.remove('active');
-        
-        // Remove active class from mobile nav links
-        mobileHomeLink.classList.remove('active');
-        mobileAboutLink.classList.remove('active');
-        mobileContactLink.classList.remove('active');
-        mobileHiringLink.classList.remove('active');
+        // Hide all sections and remove active class from nav links
+        const sections = [homeSection, aboutSection, contactSection, hiringSection];
+        const navLinks = [homeLink, aboutLink, contactLink, hiringLink];
+        const mobileNavLinks = [mobileHomeLink, mobileAboutLink, mobileContactLink, mobileHiringLink];
+
+        sections.forEach(section => section.classList.remove('active'));
+        navLinks.forEach(link => link.classList.remove('active'));
+        mobileNavLinks.forEach(link => link.classList.remove('active'));
         
         // Show selected section and activate corresponding nav link
         switch(sectionToShow) {
@@ -113,119 +97,82 @@ document.addEventListener('DOMContentLoaded', function() {
                 break;
         }
         
-        // Scroll to top
+        // Scroll to top smoothly
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // --- FIXED: Download App Functionality ---
-    if (downloadAppBtn) {
-        downloadAppBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            console.log('Download app button clicked');
-
-            // Change button to "downloading" state
-            const originalContent = downloadAppBtn.innerHTML;
-            downloadAppBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Downloading...';
-            downloadAppBtn.disabled = true;
-
-            // Create a temporary anchor element to trigger the download
-            const a = document.createElement('a');
-            a.href = APK_URL;
-            a.download = 'app-debug.apk'; // Suggest a filename for the download
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-
-            // Revert button after a short delay
-            setTimeout(() => {
-                downloadAppBtn.innerHTML = originalContent;
-                downloadAppBtn.disabled = false;
-            }, 3000); // 3 seconds
-        });
-    }
-
-    // --- Order Now Functionality ---
-    if (orderNowBtn) {
-        orderNowBtn.addEventListener('click', function(e) {
-            // No need to prevent default, we want the link to work.
-            // This is just for logging or future features.
-            console.log('Order Now button clicked');
-        });
-    }
-
-    // Modal functionality (now only for email notification)
-    function openModal() {
-        console.log('Opening modal');
-        if (appModal) {
-            appModal.style.display = 'flex';
+    /**
+     * Opens the "Try Now" modal.
+     */
+    function openTryNowModal() {
+        if (tryNowModal) {
+            tryNowModal.style.display = 'flex';
             document.body.style.overflow = 'hidden'; // Prevent background scrolling
         }
     }
 
-    function closeModalFunc() {
-        console.log('Closing modal');
-        if (appModal) {
-            appModal.style.display = 'none';
+    /**
+     * Closes the "Try Now" modal and resets its state.
+     */
+    function closeTryNowModalFunc() {
+        if (tryNowModal) {
+            tryNowModal.style.display = 'none';
             document.body.style.overflow = 'auto'; // Restore background scrolling
-            emailInput.value = '';
-            emailMessage.textContent = '';
-            emailMessage.className = '';
+            tryNowEmailInput.value = '';
+            tryNowEmailMessage.textContent = '';
+            tryNowEmailMessage.className = '';
         }
     }
-    
-    // Event listeners for navigation
-    if (logoLink) logoLink.addEventListener('click', (e) => { e.preventDefault(); showSection('home'); });
-    if (homeLink) homeLink.addEventListener('click', (e) => { e.preventDefault(); showSection('home'); });
-    if (aboutLink) aboutLink.addEventListener('click', (e) => { e.preventDefault(); showSection('about'); });
-    if (contactLink) contactLink.addEventListener('click', (e) => { e.preventDefault(); showSection('contact'); });
-    if (hiringLink) hiringLink.addEventListener('click', (e) => { e.preventDefault(); showSection('hiring'); });
-    
-    // Footer navigation
-    if (footerHomeLink) footerHomeLink.addEventListener('click', (e) => { e.preventDefault(); showSection('home'); });
-    if (footerAboutLink) footerAboutLink.addEventListener('click', (e) => { e.preventDefault(); showSection('about'); });
-    if (footerContactLink) footerContactLink.addEventListener('click', (e) => { e.preventDefault(); showSection('contact'); });
-    if (footerHiringLink) footerHiringLink.addEventListener('click', (e) => { e.preventDefault(); showSection('hiring'); });
 
-    // Mobile navigation links in header
-    if (mobileHomeLink) mobileHomeLink.addEventListener('click', (e) => { e.preventDefault(); showSection('home'); });
-    if (mobileAboutLink) mobileAboutLink.addEventListener('click', (e) => { e.preventDefault(); showSection('about'); });
-    if (mobileContactLink) mobileContactLink.addEventListener('click', (e) => { e.preventDefault(); showSection('contact'); });
-    if (mobileHiringLink) mobileHiringLink.addEventListener('click', (e) => { e.preventDefault(); showSection('hiring'); });
-
-    // "Apply Now" button in About Us section
-    if (aboutHiringLink) aboutHiringLink.addEventListener('click', (e) => { e.preventDefault(); showSection('hiring'); });
-
-    // Modal controls (The download button no longer opens the modal)
-    if (closeModal) closeModal.addEventListener('click', closeModalFunc);
-    if (closeModalBtn) closeModalBtn.addEventListener('click', closeModalFunc);
-
-    // Close modal when clicking outside
-    if (appModal) {
-        appModal.addEventListener('click', function(e) {
-            if (e.target === appModal) {
-                closeModalFunc();
-            }
-        });
+    /**
+     * Displays a success or error message in a specified element.
+     * @param {HTMLElement} element - The element to display the message in.
+     * @param {string} text - The message to display.
+     * @param {string} type - 'success' or 'error'.
+     */
+    function showMessage(element, text, type) {
+        element.textContent = text;
+        element.className = type === 'success' ? 'success-message' : 'error-message';
     }
 
-    // FAQ Section
-    faqItems.forEach(item => {
-        const question = item.querySelector('.faq-question');
-        if (question) {
-            question.addEventListener('click', () => {
-                // Close all other items
-                faqItems.forEach(otherItem => {
-                    if (otherItem !== item) {
-                        otherItem.classList.remove('active');
-                    }
-                });
-                // Toggle current item
-                item.classList.toggle('active');
-            });
+    /**
+     * Shows a loading spinner inside a button and disables it.
+     * @param {HTMLElement} buttonElement - The button to apply loading state to.
+     */
+    function showLoading(buttonElement) {
+        const btnText = buttonElement.querySelector('.btn-text');
+        const btnLoader = buttonElement.querySelector('.btn-loader');
+        if (btnText && btnLoader) {
+            btnText.style.display = 'none';
+            btnLoader.style.display = 'inline-block';
         }
-    });
+        buttonElement.disabled = true;
+    }
 
-    // Helper function to check if response is OK and handle errors
+    /**
+     * Hides the loading spinner and restores the button's original content.
+     * @param {HTMLElement} buttonElement - The button to revert.
+     * @param {string} originalContent - The original HTML content of the button.
+     */
+    function hideLoading(buttonElement, originalContent) {
+        const btnText = buttonElement.querySelector('.btn-text');
+        const btnLoader = buttonElement.querySelector('.btn-loader');
+        if (btnText && btnLoader) {
+            btnText.style.display = 'inline-block';
+            btnLoader.style.display = 'none';
+        }
+        buttonElement.disabled = false;
+        // Restore original HTML to handle icons correctly
+        buttonElement.innerHTML = originalContent;
+    }
+    
+    /**
+     * Handles API responses, showing appropriate success/error messages.
+     * @param {Response} response - The fetch API response object.
+     * @param {string} successMessage - The message to show on success.
+     * @param {HTMLElement} messageElement - The element to display the message in.
+     * @returns {boolean} - True if successful, false otherwise.
+     */
     async function handleApiResponse(response, successMessage, messageElement) {
         console.log('Response status:', response.status);
         if (response.ok) {
@@ -249,51 +196,45 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Helper function to show messages
-    function showMessage(element, text, type) {
-        element.textContent = text;
-        element.className = type === 'success' ? 'success-message' : 'error-message';
+    // --- EVENT LISTENERS ---
+
+    // --- NEW: Try Now Modal Functionality ---
+    if (tryNowBtn) {
+        tryNowBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('Try Now button clicked');
+            openTryNowModal();
+        });
     }
 
-    // Function to show loading spinner
-    function showLoading(buttonElement) {
-        const btnText = buttonElement.querySelector('.btn-text');
-        const btnLoader = buttonElement.querySelector('.btn-loader');
-        if (btnText && btnLoader) {
-            btnText.style.display = 'none';
-            btnLoader.style.display = 'inline-block';
-        }
-        buttonElement.disabled = true;
+    if (closeTryNowModal) closeTryNowModal.addEventListener('click', closeTryNowModalFunc);
+    if (closeTryNowModalBtn) closeTryNowModalBtn.addEventListener('click', closeTryNowModalFunc);
+    
+    // Close modal when clicking outside of it
+    if (tryNowModal) {
+        tryNowModal.addEventListener('click', function(e) {
+            if (e.target === tryNowModal) {
+                closeTryNowModalFunc();
+            }
+        });
     }
 
-    // Function to hide loading spinner
-    function hideLoading(buttonElement, originalText) {
-        const btnText = buttonElement.querySelector('.btn-text');
-        const btnLoader = buttonElement.querySelector('.btn-loader');
-        if (btnText && btnLoader) {
-            btnText.style.display = 'inline-block';
-            btnLoader.style.display = 'none';
-        }
-        buttonElement.disabled = false;
-    }
-
-    // Email notification handler (from modal)
-    if (notifyBtn) {
-        notifyBtn.addEventListener('click', async () => {
-            const email = emailInput.value.trim();
+    // --- NEW: Try Now Email Submission Handler ---
+    if (tryNowNotifyBtn) {
+        tryNowNotifyBtn.addEventListener('click', async () => {
+            const email = tryNowEmailInput.value.trim();
             if (!email) {
-                showMessage(emailMessage, 'Please enter your email address', 'error');
+                showMessage(tryNowEmailMessage, 'Please enter your email address', 'error');
                 return;
             }
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(email)) {
-                showMessage(emailMessage, 'Please enter a valid email address', 'error');
+                showMessage(tryNowEmailMessage, 'Please enter a valid email address', 'error');
                 return;
             }
             
-            const originalBtnContent = notifyBtn.innerHTML;
-            notifyBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-            notifyBtn.disabled = true;
+            const originalBtnContent = tryNowNotifyBtn.innerHTML;
+            showLoading(tryNowNotifyBtn);
 
             try {
                 const response = await fetch(`${SUPABASE_URL}/rest/v1/notifications`, {
@@ -307,67 +248,121 @@ document.addEventListener('DOMContentLoaded', function() {
                     body: JSON.stringify({ email })
                 });
                 
-                const success = await handleApiResponse(response, 'Thank you! We\'ll notify you when our app launches.', emailMessage);
+                const success = await handleApiResponse(response, 'Thank you! We\'ll notify you when we launch.', tryNowEmailMessage);
                 if (success) {
-                    emailInput.value = '';
-                    setTimeout(() => closeModalFunc(), 2500);
+                    tryNowEmailInput.value = '';
+                    setTimeout(() => closeTryNowModalFunc(), 2500); // Close modal after showing success message
                 }
             } catch (error) {
                 console.error('Network error:', error);
-                showMessage(emailMessage, 'Network error. Please check your connection and try again.', 'error');
+                showMessage(tryNowEmailMessage, 'Network error. Please check your connection and try again.', 'error');
             } finally {
-                notifyBtn.innerHTML = originalBtnContent;
-                notifyBtn.disabled = false;
+                hideLoading(tryNowNotifyBtn, originalBtnContent);
             }
         });
     }
 
-    // Launch notification form handler
+    // --- Test Phase Button ---
+    if (document.getElementById('testPhaseBtn')) {
+        document.getElementById('testPhaseBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('Test Phase button clicked');
+            // For now, let's scroll to the launch info section
+            document.getElementById('launchInfoSection').scrollIntoView({ behavior: 'smooth' });
+        });
+    }
+
+    // --- Download App Functionality (if button exists) ---
+    if (downloadAppBtn) {
+        downloadAppBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('Download app button clicked');
+            const originalContent = downloadAppBtn.innerHTML;
+            downloadAppBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Downloading...';
+            downloadAppBtn.disabled = true;
+            const a = document.createElement('a');
+            a.href = APK_URL;
+            a.download = 'app-debug.apk';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            setTimeout(() => {
+                downloadAppBtn.innerHTML = originalContent;
+                downloadAppBtn.disabled = false;
+            }, 3000);
+        });
+    }
+    
+    // --- Navigation Event Listeners ---
+    if (logoLink) logoLink.addEventListener('click', (e) => { e.preventDefault(); showSection('home'); });
+    if (homeLink) homeLink.addEventListener('click', (e) => { e.preventDefault(); showSection('home'); });
+    if (aboutLink) aboutLink.addEventListener('click', (e) => { e.preventDefault(); showSection('about'); });
+    if (contactLink) contactLink.addEventListener('click', (e) => { e.preventDefault(); showSection('contact'); });
+    if (hiringLink) hiringLink.addEventListener('click', (e) => { e.preventDefault(); showSection('hiring'); });
+    
+    // Footer navigation
+    if (footerHomeLink) footerHomeLink.addEventListener('click', (e) => { e.preventDefault(); showSection('home'); });
+    if (footerAboutLink) footerAboutLink.addEventListener('click', (e) => { e.preventDefault(); showSection('about'); });
+    if (footerContactLink) footerContactLink.addEventListener('click', (e) => { e.preventDefault(); showSection('contact'); });
+    if (footerHiringLink) footerHiringLink.addEventListener('click', (e) => { e.preventDefault(); showSection('hiring'); });
+
+    // Mobile navigation links in header
+    if (mobileHomeLink) mobileHomeLink.addEventListener('click', (e) => { e.preventDefault(); showSection('home'); });
+    if (mobileAboutLink) mobileAboutLink.addEventListener('click', (e) => { e.preventDefault(); showSection('about'); });
+    if (mobileContactLink) mobileContactLink.addEventListener('click', (e) => { e.preventDefault(); showSection('contact'); });
+    if (mobileHiringLink) mobileHiringLink.addEventListener('click', (e) => { e.preventDefault(); showSection('hiring'); });
+
+    // "Apply Now" button in About Us section
+    if (aboutHiringLink) aboutHiringLink.addEventListener('click', (e) => { e.preventDefault(); showSection('hiring'); });
+
+    // --- FAQ Section ---
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        if (question) {
+            question.addEventListener('click', () => {
+                // Close all other items
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+                // Toggle current item
+                item.classList.toggle('active');
+            });
+        }
+    });
+
+    // --- Launch notification form handler ---
     if (launchNotifyForm) {
         launchNotifyForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const email = launchEmailInput.value.trim();
-            if (!email) {
-                showMessage(launchEmailMessage, 'Please enter your email address', 'error');
-                return;
-            }
+            if (!email) { showMessage(launchEmailMessage, 'Please enter your email address', 'error'); return; }
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                showMessage(launchEmailMessage, 'Please enter a valid email address', 'error');
-                return;
-            }
+            if (!emailRegex.test(email)) { showMessage(launchEmailMessage, 'Please enter a valid email address', 'error'); return; }
             
             const originalBtnContent = launchNotifyBtn.innerHTML;
-            launchNotifyBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-            launchNotifyBtn.disabled = true;
-
+            showLoading(launchNotifyBtn);
+            
             try {
                 const response = await fetch(`${SUPABASE_URL}/rest/v1/notifications`, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'apikey': SUPABASE_ANON_KEY,
-                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-                        'Prefer': 'return=minimal'
-                    },
+                    headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}`, 'Prefer': 'return=minimal' },
                     body: JSON.stringify({ email })
                 });
                 
                 const success = await handleApiResponse(response, 'Thank you! We\'ll notify you when our service launches in Delhi.', launchEmailMessage);
-                if (success) {
-                    launchEmailInput.value = '';
-                }
+                if (success) launchEmailInput.value = '';
             } catch (error) {
                 console.error('Network error:', error);
                 showMessage(launchEmailMessage, 'Network error. Please check your connection and try again.', 'error');
             } finally {
-                launchNotifyBtn.innerHTML = originalBtnContent;
-                launchNotifyBtn.disabled = false;
+                hideLoading(launchNotifyBtn, originalBtnContent);
             }
         });
     }
 
-    // Contact form submission handler
+    // --- Contact form submission handler ---
     if (contactForm) {
         contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -376,15 +371,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const email = formData.get('email').trim();
             const inquiry = formData.get('inquiry').trim();
             
-            if (!name || !email || !inquiry) {
-                showMessage(contactMessageDiv, 'Please fill in all required fields', 'error');
-                return;
-            }
+            if (!name || !email || !inquiry) { showMessage(contactMessageDiv, 'Please fill in all required fields', 'error'); return; }
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                showMessage(contactMessageDiv, 'Please enter a valid email address', 'error');
-                return;
-            }
+            if (!emailRegex.test(email)) { showMessage(contactMessageDiv, 'Please enter a valid email address', 'error'); return; }
             
             const submitButton = contactForm.querySelector('.submit-application-btn');
             const originalBtnText = submitButton.querySelector('.btn-text').textContent;
@@ -393,19 +382,12 @@ document.addEventListener('DOMContentLoaded', function() {
             try {
                 const response = await fetch(`${SUPABASE_URL}/rest/v1/contacts`, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'apikey': SUPABASE_ANON_KEY,
-                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-                        'Prefer': 'return=minimal'
-                    },
+                    headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}`, 'Prefer': 'return=minimal' },
                     body: JSON.stringify({ name, email, inquiry })
                 });
                 
                 const success = await handleApiResponse(response, 'Thank you for your message! We\'ll get back to you soon.', contactMessageDiv);
-                if (success) {
-                    contactForm.reset();
-                }
+                if (success) contactForm.reset();
             } catch (error) {
                 console.error('Network error:', error);
                 showMessage(contactMessageDiv, 'Network error. Please check your connection and try again.', 'error');
@@ -415,7 +397,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Hiring form submission handler
+    // --- Hiring form submission handler ---
     if (hiringForm) {
         hiringForm.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -427,24 +409,10 @@ document.addEventListener('DOMContentLoaded', function() {
             const linkedin = formData.get('linkedin').trim();
             const journey = formData.get('journey').trim();
             
-            if (!name || !email || !reason || !linkedin) {
-                showMessage(hiringMessageDiv, 'Please fill in all required fields', 'error');
-                return;
-            }
+            if (!name || !email || !reason || !linkedin) { showMessage(hiringMessageDiv, 'Please fill in all required fields', 'error'); return; }
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                showMessage(hiringMessageDiv, 'Please enter a valid email address', 'error');
-                return;
-            }
-            try {
-                if (linkedin && !new URL(linkedin)) {
-                    showMessage(hiringMessageDiv, 'Please enter a valid LinkedIn URL', 'error');
-                    return;
-                }
-            } catch (e) {
-                showMessage(hiringMessageDiv, 'Please enter a valid LinkedIn URL', 'error');
-                return;
-            }
+            if (!emailRegex.test(email)) { showMessage(hiringMessageDiv, 'Please enter a valid email address', 'error'); return; }
+            try { if (linkedin && !new URL(linkedin)) { throw new Error('Invalid URL'); } } catch (e) { showMessage(hiringMessageDiv, 'Please enter a valid LinkedIn URL', 'error'); return; }
             
             const submitButton = hiringForm.querySelector('.submit-application-btn');
             const originalBtnText = submitButton.querySelector('.btn-text').textContent;
@@ -453,19 +421,12 @@ document.addEventListener('DOMContentLoaded', function() {
             try {
                 const response = await fetch(`${SUPABASE_URL}/rest/v1/applications`, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'apikey': SUPABASE_ANON_KEY,
-                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-                        'Prefer': 'return=minimal'
-                    },
+                    headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}`, 'Prefer': 'return=minimal' },
                     body: JSON.stringify({ name, email, phone, reason, linkedin, journey })
                 });
                 
                 const success = await handleApiResponse(response, 'Thank you for your application! We\'ll be in touch soon.', hiringMessageDiv);
-                if (success) {
-                    hiringForm.reset();
-                }
+                if (success) hiringForm.reset();
             } catch (error) {
                 console.error('Network error:', error);
                 showMessage(hiringMessageDiv, 'Network error. Please check your connection and try again.', 'error');
