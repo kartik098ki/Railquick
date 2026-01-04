@@ -464,5 +464,106 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // --- Statistics Counter Animation ---
+    const statNumbers = document.querySelectorAll('.stat-number');
+    const speed = 200;
+
+    const countUp = () => {
+        statNumbers.forEach(statNumber => {
+            const target = +statNumber.getAttribute('data-target');
+            const count = +statNumber.innerText;
+            const increment = target / speed;
+            
+            if (count < target) {
+                statNumber.innerText = Math.ceil(count + increment);
+                setTimeout(countUp, 10);
+            } else {
+                statNumber.innerText = target;
+            }
+        });
+    };
+
+    // Trigger counter animation when stats section is in viewport
+    const statsSection = document.querySelector('.stats-section');
+    const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                countUp();
+                statsObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    if (statsSection) {
+        statsObserver.observe(statsSection);
+    }
+
+    // --- Newsletter Form Handler ---
+    const newsletterForm = document.getElementById('newsletterForm');
+    const newsletterEmail = document.getElementById('newsletterEmail');
+    const newsletterMessage = document.getElementById('newsletterMessage');
+
+    if (newsletterForm) {
+        newsletterForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = newsletterEmail.value.trim();
+            
+            if (!email) {
+                showMessage(newsletterMessage, 'Please enter your email address', 'error');
+                return;
+            }
+            
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showMessage(newsletterMessage, 'Please enter a valid email address', 'error');
+                return;
+            }
+            
+            const originalBtnContent = newsletterForm.querySelector('.newsletter-btn').innerHTML;
+            showLoading(newsletterForm.querySelector('.newsletter-btn'));
+            
+            try {
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/newsletter`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                        'Prefer': 'return=minimal'
+                    },
+                    body: JSON.stringify({ email })
+                });
+                
+                const success = await handleApiResponse(response, 'Thank you for subscribing! We\'ll keep you updated with our latest news.', newsletterMessage);
+                if (success) {
+                    newsletterForm.reset();
+                }
+            } catch (error) {
+                console.error('Network error:', error);
+                showMessage(newsletterMessage, 'Network error. Please check your connection and try again.', 'error');
+            } finally {
+                hideLoading(newsletterForm.querySelector('.newsletter-btn'), originalBtnContent);
+            }
+        });
+    }
+
+    // --- Pause testimonial animation on hover ---
+    const testimonialCards = document.querySelectorAll('.testimonial-card');
+    testimonialCards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            const track = document.querySelector('.testimonial-track');
+            if (track) {
+                track.style.animationPlayState = 'paused';
+            }
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            const track = document.querySelector('.testimonial-track');
+            if (track) {
+                track.style.animationPlayState = 'running';
+            }
+        });
+    });
+
     console.log('Railquick website initialized successfully');
 });
