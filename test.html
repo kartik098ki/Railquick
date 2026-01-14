@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Phase 1 Results - Railquick</title>
+    <link rel="icon" type="image/x-icon" href="Blue and Black Minimalist Brand Logo.ico">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: var(--radius);
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            background: var(--card);
+            border: 1px solid var(--border);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            display: flex;
+            align-items: flex-end;
+            padding: 24px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-text {
+            color: #fff;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-text {
+            transform: translateY(0);
+        }
+
+        .gallery-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+        }
+
+        .gallery-desc {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-effect"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <a href="index.html" class="logo-container">
+            <span class="logo-text">Railquick</span>
+        </a>
+        <nav class="nav-menu">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="index.html#aboutSection" class="nav-link">About Us</a>
+            <a href="index.html#contactSection" class="nav-link">Contact Us</a>
+            <!-- <a href="#" class="nav-link active">Test Phase 1</a> -->
+        </nav>
+        <button class="mobile-menu-btn" onclick="window.location.href='index.html'">
+            <i class="fas fa-arrow-left" style="color:var(--text); font-size: 20px;"></i>
+        </button>
+    </header>
+
+    <main class="main-content">
+        <section class="content-section active" style="display:block; padding-top: 40px;">
+            <div class="content-container">
+                <div class="hero-content" style="text-align:center; margin-bottom: 60px;">
+                    <div class="hero-badge">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Mission Accomplished</span>
+                    </div>
+                    <h1 class="hero-title">Offline Test <span class="title-bold">Phase 1</span></h1>
+                    <p class="hero-description">
+                        We successfully conducted our first offline test run at major Delhi stations.
+                        Here's a glimpse of how we're changing the travel experience, one seat at a time.
+                    </p>
+                </div>
+
+                <div class="stats-section" style="background:transparent; border:none; padding:0; margin-bottom: 60px;">
+                    <div class="stats-container">
+                        <div class="stat-item">
+                            <div class="stat-icon"><i class="fas fa-box-open"></i></div>
+                            <div class="stat-number">100+</div>
+                            <div class="stat-label">Early Testers</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon"><i class="fas fa-smile"></i></div>
+                            <div class="stat-number">98%</div>
+                            <div class="stat-label">Happy Customers</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon"><i class="fas fa-clock"></i></div>
+                            <div class="stat-number">5</div>
+                            <div class="stat-label">Train Routes</div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="section-title">Gallery</h2>
+                <div class="gallery-grid">
+                    <!-- Placeholder Item 1 -->
+                    <div class="gallery-item">
+                        <div
+                            style="width:100%; height:100%; background: linear-gradient(135deg, #1e293b, #0f172a); display:flex; align-items:center; justify-content:center; color: var(--text-muted);">
+                            <i class="fas fa-image" style="font-size: 48px; opacity: 0.5;"></i>
+                        </div>
+                        <div class="gallery-overlay">
+                            <div class="gallery-text">
+                                <div class="gallery-title">Experience</div>
+                                <div class="gallery-desc"> New Delhi Station</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Placeholder Item 2 -->
+                    <div class="gallery-item">
+                        <div
+                            style="width:100%; height:100%; background: linear-gradient(135deg, #1e293b, #0f172a); display:flex; align-items:center; justify-content:center; color: var(--text-muted);">
+                            <i class="fas fa-image" style="font-size: 48px; opacity: 0.5;"></i>
+                        </div>
+                        <div class="gallery-overlay">
+                            <div class="gallery-text">
+                                <div class="gallery-title">Team in Action</div>
+                                <div class="gallery-desc">Coordinating logistics on the ground</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Placeholder Item 3 -->
+                    <div class="gallery-item">
+                        <div
+                            style="width:100%; height:100%; background: linear-gradient(135deg, #1e293b, #0f172a); display:flex; align-items:center; justify-content:center; color: var(--text-muted);">
+                            <i class="fas fa-image" style="font-size: 48px; opacity: 0.5;"></i>
+                        </div>
+                        <div class="gallery-overlay">
+                            <div class="gallery-text">
+                                <div class="gallery-title">Happy Traveler</div>
+                                <div class="gallery-desc">New delhi</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Placeholder Item 4 -->
+                    <div class="gallery-item">
+                        <div
+                            style="width:100%; height:100%; background: linear-gradient(135deg, #1e293b, #0f172a); display:flex; align-items:center; justify-content:center; color: var(--text-muted);">
+                            <i class="fas fa-image" style="font-size: 48px; opacity: 0.5;"></i>
+                        </div>
+                        <div class="gallery-overlay">
+                            <div class="gallery-text">
+                                <div class="gallery-title">Packaging</div>
+                                <div class="gallery-desc">Secure and hygienic packaging</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 60px;">
+                    <a href="index.html" class="try-now-btn">
+                        <i class="fas fa-home"></i> Back to Home
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-bottom">
+            <p>&copy; 2025 Railquick. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>
