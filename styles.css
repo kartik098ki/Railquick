@@ -1151,10 +1151,7 @@ body {
     font-size: clamp(32px, 6vw, 48px);
     font-weight: 900;
     margin-bottom: 16px;
-    background: linear-gradient(90deg, #fff, var(--accent-light));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    color: #ffffff;
 }
 
 .experience-subtitle {
@@ -1587,10 +1584,7 @@ body {
     font-size: 20px;
     font-weight: 800;
     margin-bottom: 4px;
-    background: linear-gradient(90deg, #fff, var(--accent-light));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    color: #ffffff;
 }
 
 .member-title {
@@ -2498,6 +2492,63 @@ body {
         /* Fix invisible text */
         font-size: 1.25rem;
         margin-bottom: 4px;
+    }
+
+    /* ================= OPTIMIZED MOBILE STRUCTURE (V4 Polish) ================= */
+    /* Reduce "Huge" look */
+    .how-it-works-section {
+        padding: 40px 20px;
+        /* Reduced from default */
+    }
+
+    .steps-container {
+        gap: 24px;
+        /* Tighter gap */
+        margin-top: 30px;
+    }
+
+    .step-card {
+        padding: 24px;
+        /* Reduced padding */
+    }
+
+    .step-number {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+        /* Smaller number */
+        margin-bottom: 16px;
+    }
+
+    .step-card h3 {
+        font-size: 18px;
+        /* Smaller heading */
+        margin-bottom: 8px;
+    }
+
+    .step-card p {
+        font-size: 14px;
+        /* Smaller text */
+        line-height: 1.5;
+    }
+
+    /* General Mobile Compactness */
+    .section-title {
+        font-size: 28px !important;
+        /* Force smaller title */
+        margin-bottom: 30px !important;
+    }
+
+    .stats-section {
+        padding: 40px 20px;
+    }
+
+    .stat-item {
+        padding: 20px;
+    }
+
+    .stat-number {
+        font-size: 36px;
     }
 
     .member-title {
