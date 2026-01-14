@@ -6,9 +6,9 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 const APK_URL = 'https://raw.githubusercontent.com/kartik098ki/Railquick/main/app-debug.apk';
 
 // Wait for DOM to be fully loaded
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     console.log('DOM fully loaded');
-    
+
     // --- DOM ELEMENT SELECTION ---
     // Navigation
     const logoLink = document.getElementById('logoLink');
@@ -25,11 +25,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const mobileContactLink = document.getElementById('mobileContactLink');
     const mobileHiringLink = document.getElementById('mobileHiringLink');
     const aboutHiringLink = document.getElementById('aboutHiringLink');
-    
+
     // Mobile Menu
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     const mobileNavOverlay = document.getElementById('mobileNavOverlay');
-    
+
     // Sections
     const homeSection = document.getElementById('homeSection');
     const aboutSection = document.getElementById('aboutSection');
@@ -76,9 +76,9 @@ document.addEventListener('DOMContentLoaded', function() {
         sections.forEach(section => section.classList.remove('active'));
         navLinks.forEach(link => link.classList.remove('active'));
         mobileNavLinks.forEach(link => link.classList.remove('active'));
-        
+
         // Show selected section and activate corresponding nav link
-        switch(sectionToShow) {
+        switch (sectionToShow) {
             case 'home':
                 homeSection.classList.add('active');
                 homeLink.classList.add('active');
@@ -100,13 +100,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 mobileHiringLink.classList.add('active');
                 break;
         }
-        
+
         // Close mobile menu if open
         if (mobileNavOverlay.classList.contains('active')) {
             mobileNavOverlay.classList.remove('active');
             mobileMenuBtn.classList.remove('active');
         }
-        
+
         // Scroll to top smoothly
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -175,7 +175,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Restore original HTML to handle icons correctly
         buttonElement.innerHTML = originalContent;
     }
-    
+
     /**
      * Handles API responses, showing appropriate success/error messages.
      * @param {Response} response - The fetch API response object.
@@ -210,7 +210,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Mobile Menu Toggle
     if (mobileMenuBtn) {
-        mobileMenuBtn.addEventListener('click', function() {
+        mobileMenuBtn.addEventListener('click', function () {
             mobileNavOverlay.classList.toggle('active');
             mobileMenuBtn.classList.toggle('active');
         });
@@ -218,7 +218,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Close mobile menu when clicking on overlay
     if (mobileNavOverlay) {
-        mobileNavOverlay.addEventListener('click', function(e) {
+        mobileNavOverlay.addEventListener('click', function (e) {
             if (e.target === mobileNavOverlay) {
                 mobileNavOverlay.classList.remove('active');
                 mobileMenuBtn.classList.remove('active');
@@ -228,7 +228,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // --- Try Now Modal Functionality ---
     if (tryNowBtn) {
-        tryNowBtn.addEventListener('click', function(e) {
+        tryNowBtn.addEventListener('click', function (e) {
             e.preventDefault();
             console.log('Try Now button clicked');
             openTryNowModal();
@@ -237,10 +237,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (closeTryNowModal) closeTryNowModal.addEventListener('click', closeTryNowModalFunc);
     if (closeTryNowModalBtn) closeTryNowModalBtn.addEventListener('click', closeTryNowModalFunc);
-    
+
     // Close modal when clicking outside of it
     if (tryNowModal) {
-        tryNowModal.addEventListener('click', function(e) {
+        tryNowModal.addEventListener('click', function (e) {
             if (e.target === tryNowModal) {
                 closeTryNowModalFunc();
             }
@@ -260,7 +260,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 showMessage(tryNowEmailMessage, 'Please enter a valid email address', 'error');
                 return;
             }
-            
+
             const originalBtnContent = tryNowNotifyBtn.innerHTML;
             showLoading(tryNowNotifyBtn);
 
@@ -275,7 +275,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     },
                     body: JSON.stringify({ email })
                 });
-                
+
                 const success = await handleApiResponse(response, 'Thank you! We\'ll notify you when we launch.', tryNowEmailMessage);
                 if (success) {
                     tryNowEmailInput.value = '';
@@ -290,19 +290,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // --- Test Phase Button ---
-    if (document.getElementById('testPhaseBtn')) {
-        document.getElementById('testPhaseBtn').addEventListener('click', function(e) {
-            e.preventDefault();
-            console.log('Test Phase button clicked');
-            // For now, let's scroll to the experience section
-            document.querySelector('.experience-section').scrollIntoView({ behavior: 'smooth' });
-        });
-    }
+
 
     // --- Download App Functionality (if button exists) ---
     if (downloadAppBtn) {
-        downloadAppBtn.addEventListener('click', function(e) {
+        downloadAppBtn.addEventListener('click', function (e) {
             e.preventDefault();
             console.log('Download app button clicked');
             const originalContent = downloadAppBtn.innerHTML;
@@ -320,14 +312,14 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 3000);
         });
     }
-    
+
     // --- Navigation Event Listeners ---
     if (logoLink) logoLink.addEventListener('click', (e) => { e.preventDefault(); showSection('home'); });
     if (homeLink) homeLink.addEventListener('click', (e) => { e.preventDefault(); showSection('home'); });
     if (aboutLink) aboutLink.addEventListener('click', (e) => { e.preventDefault(); showSection('about'); });
     if (contactLink) contactLink.addEventListener('click', (e) => { e.preventDefault(); showSection('contact'); });
     if (hiringLink) hiringLink.addEventListener('click', (e) => { e.preventDefault(); showSection('hiring'); });
-    
+
     // Footer navigation
     if (footerHomeLink) footerHomeLink.addEventListener('click', (e) => { e.preventDefault(); showSection('home'); });
     if (footerAboutLink) footerAboutLink.addEventListener('click', (e) => { e.preventDefault(); showSection('about'); });
@@ -368,17 +360,17 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!email) { showMessage(experienceEmailMessage, 'Please enter your email address', 'error'); return; }
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(email)) { showMessage(experienceEmailMessage, 'Please enter a valid email address', 'error'); return; }
-            
+
             const originalBtnContent = experienceNotifyBtn.innerHTML;
             showLoading(experienceNotifyBtn);
-            
+
             try {
                 const response = await fetch(`${SUPABASE_URL}/rest/v1/notifications`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}`, 'Prefer': 'return=minimal' },
                     body: JSON.stringify({ email })
                 });
-                
+
                 const success = await handleApiResponse(response, 'Thank you for joining our waitlist! We\'ll notify you when RailQuick launches.', experienceEmailMessage);
                 if (success) experienceEmailInput.value = '';
             } catch (error) {
@@ -398,22 +390,22 @@ document.addEventListener('DOMContentLoaded', function() {
             const name = formData.get('name').trim();
             const email = formData.get('email').trim();
             const inquiry = formData.get('inquiry').trim();
-            
+
             if (!name || !email || !inquiry) { showMessage(contactMessageDiv, 'Please fill in all required fields', 'error'); return; }
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(email)) { showMessage(contactMessageDiv, 'Please enter a valid email address', 'error'); return; }
-            
+
             const submitButton = contactForm.querySelector('.submit-application-btn');
             const originalBtnText = submitButton.querySelector('.btn-text').textContent;
             showLoading(submitButton);
-            
+
             try {
                 const response = await fetch(`${SUPABASE_URL}/rest/v1/contacts`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}`, 'Prefer': 'return=minimal' },
                     body: JSON.stringify({ name, email, inquiry })
                 });
-                
+
                 const success = await handleApiResponse(response, 'Thank you for your message! We\'ll get back to you soon.', contactMessageDiv);
                 if (success) contactForm.reset();
             } catch (error) {
@@ -436,23 +428,23 @@ document.addEventListener('DOMContentLoaded', function() {
             const reason = formData.get('reason').trim();
             const linkedin = formData.get('linkedin').trim();
             const journey = formData.get('journey').trim();
-            
+
             if (!name || !email || !reason || !linkedin) { showMessage(hiringMessageDiv, 'Please fill in all required fields', 'error'); return; }
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(email)) { showMessage(hiringMessageDiv, 'Please enter a valid email address', 'error'); return; }
             try { if (linkedin && !new URL(linkedin)) { throw new Error('Invalid URL'); } } catch (e) { showMessage(hiringMessageDiv, 'Please enter a valid LinkedIn URL', 'error'); return; }
-            
+
             const submitButton = hiringForm.querySelector('.submit-application-btn');
             const originalBtnText = submitButton.querySelector('.btn-text').textContent;
             showLoading(submitButton);
-            
+
             try {
                 const response = await fetch(`${SUPABASE_URL}/rest/v1/applications`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}`, 'Prefer': 'return=minimal' },
                     body: JSON.stringify({ name, email, phone, reason, linkedin, journey })
                 });
-                
+
                 const success = await handleApiResponse(response, 'Thank you for your application! We\'ll be in touch soon.', hiringMessageDiv);
                 if (success) hiringForm.reset();
             } catch (error) {
@@ -473,7 +465,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const target = +statNumber.getAttribute('data-target');
             const count = +statNumber.innerText;
             const increment = target / speed;
-            
+
             if (count < target) {
                 statNumber.innerText = Math.ceil(count + increment);
                 setTimeout(countUp, 10);
@@ -507,21 +499,21 @@ document.addEventListener('DOMContentLoaded', function() {
         newsletterForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const email = newsletterEmail.value.trim();
-            
+
             if (!email) {
                 showMessage(newsletterMessage, 'Please enter your email address', 'error');
                 return;
             }
-            
+
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(email)) {
                 showMessage(newsletterMessage, 'Please enter a valid email address', 'error');
                 return;
             }
-            
+
             const originalBtnContent = newsletterForm.querySelector('.newsletter-btn').innerHTML;
             showLoading(newsletterForm.querySelector('.newsletter-btn'));
-            
+
             try {
                 const response = await fetch(`${SUPABASE_URL}/rest/v1/newsletter`, {
                     method: 'POST',
@@ -533,7 +525,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     },
                     body: JSON.stringify({ email })
                 });
-                
+
                 const success = await handleApiResponse(response, 'Thank you for subscribing! We\'ll keep you updated with our latest news.', newsletterMessage);
                 if (success) {
                     newsletterForm.reset();
@@ -556,7 +548,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 track.style.animationPlayState = 'paused';
             }
         });
-        
+
         card.addEventListener('mouseleave', () => {
             const track = document.querySelector('.testimonial-track');
             if (track) {
