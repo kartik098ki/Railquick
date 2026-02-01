@@ -1,6 +1,5 @@
 // Configuration
-const SUPABASE_URL = 'https://lviykwlunvdfjizxpgvd.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx2aXlrd2x1bnZkZmppenhwZ3ZkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI2NzUyOTYsImV4cCI6MjA3ODI1MTI5Nn0.ugD5GHsfYLKKRidFkvKL8fhQ0U_xXLxrT3lf18g0NW8';
+const SHEETDB_API_URL = 'https://sheetdb.io/api/v1/o9zpj4gue014w'; // TODO: User to replace this
 
 // Direct download link for the APK file
 const APK_URL = 'https://raw.githubusercontent.com/kartik098ki/Railquick/main/app-debug.apk';
@@ -184,26 +183,49 @@ document.addEventListener('DOMContentLoaded', function () {
      * @returns {boolean} - True if successful, false otherwise.
      */
     async function handleApiResponse(response, successMessage, messageElement) {
-        console.log('Response status:', response.status);
         if (response.ok) {
             showMessage(messageElement, successMessage, 'success');
             return true;
         } else {
+            console.error('API Error:', response.status, response.statusText);
             let errorMessage = 'Something went wrong. Please try again.';
-            try {
-                const errorData = await response.json();
-                console.error('API Error:', errorData);
-                if (response.status === 409) errorMessage = 'You have already submitted this information.';
-                else if (response.status === 400) errorMessage = 'Invalid data provided. Please check your inputs.';
-                else if (response.status === 401 || response.status === 403) errorMessage = 'Authentication error. Please refresh the page and try again.';
-                else if (response.status === 404) errorMessage = 'Database table not found. Please ensure tables are created in Supabase.';
-                else if (response.status >= 500) errorMessage = 'Server error. Please try again later.';
-            } catch (e) {
-                console.error('Error parsing error response:', e);
-            }
+            if (response.status === 400) errorMessage = 'Invalid data provided.';
+            else if (response.status === 404) errorMessage = 'Connection error: SheetDB API URL might be incorrect.';
             showMessage(messageElement, errorMessage, 'error');
             return false;
         }
+    }
+
+    /**
+     * Submits data to Google Sheets via SheetDB
+     * @param {Object} data - The data to submit
+     * @returns {Promise<Response>}
+     */
+    async function submitToGoogleSheet(data) {
+        // Map data to the user's requested Google Sheet Headers:
+        // Date, Form Type, Name, Email, Phone, LinkedIn, Reason, Journey, Inquiry
+
+        const payload = {
+            data: {
+                "Date": new Date().toLocaleString(),
+                "Form Type": data.type || 'New Submission',
+                "Name": data.name || '-',
+                "Email": data.email || '-',
+                "Phone": data.phone || '-',
+                "LinkedIn": data.linkedin || '-',
+                "Reason": data.reason || '-',
+                "Journey": data.journey || '-', // Added Journey field
+                "Inquiry": data.inquiry || '-'
+            }
+        };
+
+        return fetch(SHEETDB_API_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
     }
 
     // --- EVENT LISTENERS ---
@@ -265,25 +287,19 @@ document.addEventListener('DOMContentLoaded', function () {
             showLoading(tryNowNotifyBtn);
 
             try {
-                const response = await fetch(`${SUPABASE_URL}/rest/v1/notifications`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'apikey': SUPABASE_ANON_KEY,
-                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-                        'Prefer': 'return=minimal'
-                    },
-                    body: JSON.stringify({ email })
+                const response = await submitToGoogleSheet({
+                    email: email,
+                    type: 'Waitlist Join'
                 });
 
                 const success = await handleApiResponse(response, 'Thank you! We\'ll notify you when we launch.', tryNowEmailMessage);
                 if (success) {
                     tryNowEmailInput.value = '';
-                    setTimeout(() => closeTryNowModalFunc(), 2500); // Close modal after showing success message
+                    setTimeout(() => closeTryNowModalFunc(), 2500);
                 }
             } catch (error) {
                 console.error('Network error:', error);
-                showMessage(tryNowEmailMessage, 'Network error. Please check your connection and try again.', 'error');
+                showMessage(tryNowEmailMessage, 'Network error. Please check your connection.', 'error');
             } finally {
                 hideLoading(tryNowNotifyBtn, originalBtnContent);
             }
@@ -365,17 +381,16 @@ document.addEventListener('DOMContentLoaded', function () {
             showLoading(experienceNotifyBtn);
 
             try {
-                const response = await fetch(`${SUPABASE_URL}/rest/v1/notifications`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}`, 'Prefer': 'return=minimal' },
-                    body: JSON.stringify({ email })
+                const response = await submitToGoogleSheet({
+                    email: email,
+                    type: 'Waitlist (Experience)'
                 });
 
                 const success = await handleApiResponse(response, 'Thank you for joining our waitlist! We\'ll notify you when RailQuick launches.', experienceEmailMessage);
                 if (success) experienceEmailInput.value = '';
             } catch (error) {
                 console.error('Network error:', error);
-                showMessage(experienceEmailMessage, 'Network error. Please check your connection and try again.', 'error');
+                showMessage(experienceEmailMessage, 'Network error. Please check your connection.', 'error');
             } finally {
                 hideLoading(experienceNotifyBtn, originalBtnContent);
             }
@@ -400,17 +415,18 @@ document.addEventListener('DOMContentLoaded', function () {
             showLoading(submitButton);
 
             try {
-                const response = await fetch(`${SUPABASE_URL}/rest/v1/contacts`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}`, 'Prefer': 'return=minimal' },
-                    body: JSON.stringify({ name, email, inquiry })
+                const response = await submitToGoogleSheet({
+                    name: name,
+                    email: email,
+                    inquiry: inquiry,
+                    type: 'Contact Inquiry'
                 });
 
                 const success = await handleApiResponse(response, 'Thank you for your message! We\'ll get back to you soon.', contactMessageDiv);
                 if (success) contactForm.reset();
             } catch (error) {
                 console.error('Network error:', error);
-                showMessage(contactMessageDiv, 'Network error. Please check your connection and try again.', 'error');
+                showMessage(contactMessageDiv, 'Network error. Please check your connection.', 'error');
             } finally {
                 hideLoading(submitButton, originalBtnText);
             }
@@ -439,17 +455,21 @@ document.addEventListener('DOMContentLoaded', function () {
             showLoading(submitButton);
 
             try {
-                const response = await fetch(`${SUPABASE_URL}/rest/v1/applications`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}`, 'Prefer': 'return=minimal' },
-                    body: JSON.stringify({ name, email, phone, reason, linkedin, journey })
+                const response = await submitToGoogleSheet({
+                    name: name,
+                    email: email,
+                    phone: phone,
+                    reason: reason,
+                    linkedin: linkedin,
+                    journey: journey,
+                    type: 'Job Application'
                 });
 
                 const success = await handleApiResponse(response, 'Thank you for your application! We\'ll be in touch soon.', hiringMessageDiv);
                 if (success) hiringForm.reset();
             } catch (error) {
                 console.error('Network error:', error);
-                showMessage(hiringMessageDiv, 'Network error. Please check your connection and try again.', 'error');
+                showMessage(hiringMessageDiv, 'Network error. Please check your connection.', 'error');
             } finally {
                 hideLoading(submitButton, originalBtnText);
             }
@@ -515,24 +535,18 @@ document.addEventListener('DOMContentLoaded', function () {
             showLoading(newsletterForm.querySelector('.newsletter-btn'));
 
             try {
-                const response = await fetch(`${SUPABASE_URL}/rest/v1/newsletter`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'apikey': SUPABASE_ANON_KEY,
-                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-                        'Prefer': 'return=minimal'
-                    },
-                    body: JSON.stringify({ email })
+                const response = await submitToGoogleSheet({
+                    email: email,
+                    type: 'Newsletter'
                 });
 
-                const success = await handleApiResponse(response, 'Thank you for subscribing! We\'ll keep you updated with our latest news.', newsletterMessage);
+                const success = await handleApiResponse(response, 'Thank you for subscribing!', newsletterMessage);
                 if (success) {
                     newsletterForm.reset();
                 }
             } catch (error) {
                 console.error('Network error:', error);
-                showMessage(newsletterMessage, 'Network error. Please check your connection and try again.', 'error');
+                showMessage(newsletterMessage, 'Network error. Please check your connection.', 'error');
             } finally {
                 hideLoading(newsletterForm.querySelector('.newsletter-btn'), originalBtnContent);
             }
